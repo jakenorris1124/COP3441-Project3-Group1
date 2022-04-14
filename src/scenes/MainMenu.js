@@ -4,7 +4,7 @@ export default class MainMenu extends Phaser.Scene
 {
 	constructor()
 	{
-		super('main-menu');
+		super('mainMenu');
 	}
 
 	preload()
@@ -21,7 +21,8 @@ export default class MainMenu extends Phaser.Scene
         levelOneButton.setInteractive();
 
         levelOneButton.on('pointerdown', () => {
-            console.log('click!');
+            console.log("Click!");
+            this.scene.start("levelOne");
         });
     }
 }
