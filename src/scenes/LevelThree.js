@@ -1,11 +1,11 @@
 import Phaser from 'phaser'
 
-export default class LevelOne extends Phaser.Scene
+export default class LevelThree extends Phaser.Scene
 {
 
     constructor()
     {
-        super('levelOne');
+        super('levelThree');
     }
 
     preload()
@@ -16,7 +16,7 @@ export default class LevelOne extends Phaser.Scene
     create()
     {
         this.add.image(960, 540, 'background-levelone');
-        this.add.text(100, 100, 'Level 1', {fill: '#ffffff'});//Used to help identify the current level
+        this.add.text(100, 100, 'Level 3', {fill: '#ffffff'});//Used to help identify the current level
 
     }
 }
