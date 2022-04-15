@@ -1,21 +1,16 @@
 Adapted from [ourcade/phaser3-parcel-template](https://github.com/ourcade/phaser3-parcel-template)
 ## Prerequisites
 
-You'll need [Node.js](https://nodejs.org/en/), [npm](https://www.npmjs.com/), and [Parcel](https://parceljs.org/) installed.
-
-It is highly recommended to use [Node Version Manager](https://github.com/nvm-sh/nvm) (nvm) to install Node.js and npm.
-
-For Windows users there is [Node Version Manager for Windows](https://github.com/coreybutler/nvm-windows).
+Download and install ``nvm-setup.zip`` from the releases page from [Node Version Manager for Windows](https://github.com/coreybutler/nvm-windows).
 
 Install Node.js and `npm` with `nvm`:
 
 ```bash
-nvm install node
+nvm install latest
 
-nvm use node
+nvm use latest
 ```
 
-Replace 'node' with 'latest' for `nvm-windows`.
 
 Then install Parcel:
 
