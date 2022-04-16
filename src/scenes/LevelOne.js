@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Fans from '../puzzleObjects/Fans.js'
+import UI from "../UI"
 
 const BACKGROUND_LEVELONE_KEY = 'background-levelone'
 const FAN_KEY = 'fan'
@@ -16,7 +17,6 @@ export default class LevelOne extends Phaser.Scene
     {
         this.load.image(BACKGROUND_LEVELONE_KEY, 'images/leveloneplaceholder.png');
         this.load.image(FAN_KEY, 'images/fanPlaceholder.png');
-        this.scene.run("uiScene");
     }
 
     create()
@@ -27,6 +27,9 @@ export default class LevelOne extends Phaser.Scene
         this.fans = new Fans(this, FAN_KEY, WIND_KEY)
         const fanGroup = this.fans.group
         const windGroup = this.fans.windGroup
+
+        this.levelUI = new UI(this.scene.get("levelOne"));
+        this.levelUI.functionTest();
     }
 
     update()
