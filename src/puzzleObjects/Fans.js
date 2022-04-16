@@ -36,7 +36,7 @@ export default class Fans
     placeFan(x = 0, y = 0)
     {
         const fan = this.group.create(x, y, this.key)
-        const wind = this.windGroup.create(x, y, this.windKey)
+        const wind = this.windGroup.create(x, y, this.windKey) // Will need to adjust x and y values here later.
 
         wind.setVisible(false)
 
@@ -45,7 +45,7 @@ export default class Fans
 
     // Pushes the ball, assumed only to happen when the ball is in a wind current.
     /**
-     * @param {Phaser.GameObjects.GameObject} wind specific instance of wind from fan
+     * @param {Object} wind specific instance of wind from fan
      */
     pushBall(ball, wind)
     {
