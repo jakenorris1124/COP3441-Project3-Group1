@@ -1,7 +1,9 @@
+import Phaser from 'phaser'
+
 export default class Fans
 {
-    /*
-     * @param {Phaser.scene} scene
+    /**
+     * @param {Phaser.scene} scene the scene that is creating "Fans"
      */
     constructor(scene, fanKey = 'fan', windKey = 'wind')
     {
@@ -23,6 +25,8 @@ export default class Fans
         return this._windGroup
     }
 
+    // Will be implemented later to pick up a fan that has been placed. Not sure
+    // if fan will be grabbed from UI the same way.
     grabFan(fan)
     {
 
@@ -37,5 +41,18 @@ export default class Fans
         wind.setVisible(false)
 
         fan.setCollideWorldBounds(true)
+    }
+
+    // Pushes the ball, assumed only to happen when the ball is in a wind current.
+    /**
+     * @param {Phaser.GameObjects.GameObject} wind specific instance of wind from fan
+     */
+    pushBall(ball, wind)
+    {
+        // I am not sure how to get a vector that is in a direction relative to the wind sprite
+        // but that needs to be done here
+        let pushForce = new Phaser.Math.Vector2()
+
+        ball.applyForce(pushForce)
     }
 }
