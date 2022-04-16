@@ -20,6 +20,8 @@ export default class LevelTwo extends Phaser.Scene
     {
         this.add.image(960, 540, 'background-levelone');
 
-        this.levelUI = new UI(this, LEVEL_KEY);
+        let machines = ["light bridge", "fan", "light bridge", "pulley", "pulley"]; //Placeholder "machine" list for level 2 to test UI functionality
+
+        this.levelUI = new UI(this, LEVEL_KEY, machines);
     }
 }

@@ -21,6 +21,8 @@ export default class LevelThree extends Phaser.Scene
     {
         this.add.image(960, 540, 'background-levelone');
 
-        this.levelUI = new UI(this, LEVEL_KEY);
+        let machines = ["button", "fan", "pulley", "button", "pulley"]; //Placeholder "machine" list for level 3 to test UI functionality
+
+        this.levelUI = new UI(this, LEVEL_KEY, machines);
     }
 }

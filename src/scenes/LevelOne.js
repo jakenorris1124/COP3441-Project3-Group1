@@ -28,7 +28,9 @@ export default class LevelOne extends Phaser.Scene
         const fanGroup = this.fans.group
         const windGroup = this.fans.windGroup
 
-        this.levelUI = new UI(this, LEVEL_KEY);
+        const machines = ["fan", "fan", "light bridge", "button", "pulley"]; //Placeholder "machine" list for level 1 to test UI functionality
+
+        this.levelUI = new UI(this, LEVEL_KEY, machines);
     }
 
     update()
