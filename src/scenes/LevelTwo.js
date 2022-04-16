@@ -1,4 +1,7 @@
 import Phaser from 'phaser'
+import UI from "../UI";
+
+const LEVEL_KEY = "Level 2"
 
 export default class LevelTwo extends Phaser.Scene
 {
@@ -11,12 +14,12 @@ export default class LevelTwo extends Phaser.Scene
     preload()
     {
         this.load.image('background-levelone', 'images/leveloneplaceholder.png');
-        this.scene.run('ui-scene');
     }
 
     create()
     {
         this.add.image(960, 540, 'background-levelone');
-        this.add.text(100, 100, 'Level 2', {fill: '#ffffff'});//Used to help identify the current level
+
+        this.levelUI = new UI(this, LEVEL_KEY);
     }
 }

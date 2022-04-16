@@ -5,6 +5,7 @@ import UI from "../UI"
 const BACKGROUND_LEVELONE_KEY = 'background-levelone'
 const FAN_KEY = 'fan'
 const WIND_KEY = 'wind'
+const LEVEL_KEY = "Level 1"
 
 export default class LevelOne extends Phaser.Scene
 {
@@ -22,14 +23,12 @@ export default class LevelOne extends Phaser.Scene
     create()
     {
         this.add.image(960, 540, BACKGROUND_LEVELONE_KEY);
-        this.add.text(100, 100, 'Level 1', {fill: '#ffffff'});//Used to help identify the current level
 
         this.fans = new Fans(this, FAN_KEY, WIND_KEY)
         const fanGroup = this.fans.group
         const windGroup = this.fans.windGroup
 
-        this.levelUI = new UI(this.scene.get("levelOne"));
-        this.levelUI.functionTest();
+        this.levelUI = new UI(this, LEVEL_KEY);
     }
 
     update()
