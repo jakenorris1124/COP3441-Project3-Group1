@@ -11,6 +11,7 @@ export default class LevelTwo extends Phaser.Scene
     preload()
     {
         this.load.image('background-levelone', 'images/leveloneplaceholder.png');
+        this.scene.run('ui-scene');
     }
 
     create()

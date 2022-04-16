@@ -7,7 +7,6 @@ const WIND_KEY = 'wind'
 
 export default class LevelOne extends Phaser.Scene
 {
-
     constructor()
     {
         super('levelOne');
@@ -17,6 +16,7 @@ export default class LevelOne extends Phaser.Scene
     {
         this.load.image(BACKGROUND_LEVELONE_KEY, 'images/leveloneplaceholder.png');
         this.load.image(FAN_KEY, 'images/fanPlaceholder.png');
+        this.scene.run("uiScene");
     }
 
     create()
