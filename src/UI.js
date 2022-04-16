@@ -23,6 +23,25 @@ export default class UI
         {
             this.scene.add.text(1610, 30+ (i * 20), this.machines[i], {fill: '#ffffff'});
         }
+
+        const returnToMain = this.scene.add.text(1610, 1050, 'Back to Main Menu', {fill: '#ffffff'});
+        returnToMain.setInteractive();
+        returnToMain.on('pointerdown', () => {
+            this.scene.scene.stop(this.level);
+            this.scene.scene.start("mainMenu");
+        });
+
+        //Temporary button to test the win screen
+        const clickToWin = this.scene.add.text(1610, 1010, 'Click here to win', {fill: '#ffffff'});
+        clickToWin.setInteractive();
+        clickToWin.on('pointerdown', () => this.win());
+    }
+
+    win()
+    {
+        var winBox = this.scene.add.rectangle(840, 540, 250, 200, 0x666666);
+
+        this.scene.add.text(800, 450, "You Win!", {fill: '#ffffff'});
     }
 
 }

@@ -26,7 +26,6 @@ export default class LevelOne extends Phaser.Scene
     create()
     {
         this.add.image(960, 540, BACKGROUND_LEVELONE_KEY);
-        this.add.text(100, 100, 'Level 1', {fill: '#ffffff'});//Used to help identify the current level
 
         this.fans = new Fans(this, FAN_KEY, WIND_KEY)
         const fanGroup = this.fans.group
@@ -40,6 +39,7 @@ export default class LevelOne extends Phaser.Scene
         const machines = ["fan", "fan", "light bridge", "button", "pulley"]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, machines);
+
     }
 
     update()
