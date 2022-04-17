@@ -49,7 +49,7 @@ export default class LevelOne extends Phaser.Scene
         this.levelUI = new UI(this, LEVEL_KEY, machines, levelBall);
 
         goal = new Goal(this, 500, 800)
-        this.physics.add.collider(levelBall, goal.group, this.winWrapper, null, this)
+        this.physics.add.collider(levelBall, goal.goal, this.winWrapper, null, this)
     }
 
     update()

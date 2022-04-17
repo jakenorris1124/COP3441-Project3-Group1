@@ -12,14 +12,15 @@ export default class Goal
         this.x = x;
         this.y = y;
 
-        this._group = this.scene.add.rectangle(this.x, this.y, 200, 50, 0x00ff2f)
-        this.scene.physics.add.existing(this._group)
-        this._group.body.immovable = true;
-        this._group.body.allowGravity = false;
+        this._goal = this.scene.add.rectangle(this.x, this.y, 200, 50, 0x00ff2f)
+
+        this.scene.physics.add.existing(this._goal)
+        this._goal.body.immovable = true;
+        this._goal.body.allowGravity = false;
     }
 
-    get group()
+    get goal()
     {
-        return this._group
+        return this._goal
     }
 }
