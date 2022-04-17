@@ -1,6 +1,6 @@
 export default class Balls
 {
-    /*
+    /**
      * @param {Phaser.scene} scene
      */
     constructor(scene, ballKey)
@@ -31,9 +31,6 @@ export default class Balls
 
     inGoal(goal, ball, xMaxSpeed = 0, yMaxSpeed = 0)
     {
-        // Line needed here: if (check that ball is inside the goal)
-        return ball.speedX < xMaxSpeed && ball.speedY < yMaxSpeed;
-
-
+        return this.scene.collide(goal, ball) && ball.speedX < xMaxSpeed && ball.speedY < yMaxSpeed;
     }
 }

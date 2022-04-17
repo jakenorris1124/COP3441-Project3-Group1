@@ -53,18 +53,20 @@ export default class UI
             this.scene.scene.stop(this.level);
             this.scene.scene.start("mainMenu");
         });
-
-        //Temporary button to test the win screen
-        const clickToWin = this.scene.add.text(1610, 1010, 'Click here to win', {fill: '#ffffff'});
-        clickToWin.setInteractive();
-        clickToWin.on('pointerdown', () => this.win());
     }
 
     win()
     {
-        var winBox = this.scene.add.rectangle(840, 540, 250, 200, 0x666666);
-
+        this.scene.add.rectangle(840, 540, 250, 200, 0x666666);
         this.scene.add.text(800, 450, "You Win!", {fill: '#ffffff'});
+
+        let accept = this.scene.add.rectangle(840, 580, 100, 30, 0xa8a8a8)
+        this.scene.add.text(815, 573, "Accept", {fill: '#ffffff'})
+        accept.setInteractive()
+        accept.on('pointerdown', () => {
+            this.scene.scene.stop(this.level);
+            this.scene.scene.start("mainMenu");
+        });
     }
 
     /**
