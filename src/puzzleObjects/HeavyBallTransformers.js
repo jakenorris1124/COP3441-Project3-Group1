@@ -30,8 +30,26 @@ export default class HeavyBallTransformers
         heavyBallTransformer.setCollideWorldBounds(true)
     }
 
+    create(x = 0, y = 0)
+    {
+        const ball = this._group.create(x, y, this.key)
+
+        ball.gameObject.setData('active', false)
+    }
+
     /**
-     * @param {Object} ball ball who's mass will be amplified
+     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
+     */
+    activate(ball)
+    {
+        if (ball.gameObject.getData('active'))
+            this.resetMass(ball)
+        else
+            this.increaseMass(ball)
+    }
+
+    /**
+     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
     increaseMass(ball)
     {
@@ -39,7 +57,7 @@ export default class HeavyBallTransformers
     }
 
     /**
-     * @param {Object} ball ball who's mass will be amplified
+     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
     resetMass(ball)
     {

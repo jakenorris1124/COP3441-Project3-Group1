@@ -1,7 +1,7 @@
 export default class GravityInverters
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "Fans"
+     * @param {Phaser.scene} the scene that is creating "GravityInverters"
      */
     constructor(scene, gravityInverterKey = 'gravityInverter')
     {
@@ -21,6 +21,8 @@ export default class GravityInverters
         const gravityInverter = this.group.create(x, y, this.key)
 
         gravityInverter.setCollideWorldBounds(true)
+
+        return gravityInverter
     }
 
     // Inverts gravity from its current state.

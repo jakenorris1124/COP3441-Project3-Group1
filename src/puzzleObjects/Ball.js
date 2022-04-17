@@ -3,7 +3,7 @@ export default class Balls
     /**
      * @param {Phaser.scene} scene
      */
-    constructor(scene, ballKey)
+    constructor(scene, ballKey = 'ball')
     {
         this.scene = scene
         this.key = ballKey
@@ -23,8 +23,9 @@ export default class Balls
 
         // These values are not tested and will very likely need to be modified
         // as I have no idea what they're like yet.
-        ball.setBounce(1)
+        ball.setBounce(1, 1)
         ball.setMass(50)
+        ball.setFriction(.3, .3)
 
         return ball
     }

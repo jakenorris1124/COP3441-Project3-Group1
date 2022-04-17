@@ -1,5 +1,3 @@
-import Phaser from 'phaser'
-
 export default class Fans
 {
     /**
@@ -38,21 +36,27 @@ export default class Fans
         const fan = this.group.create(x, y, this.key)
         const wind = this.windGroup.create(x, y, this.windKey) // Will need to adjust x and y values here later.
 
+        fan.gameObject.setData('wind', wind)
+
         wind.setVisible(false)
 
         fan.setCollideWorldBounds(true)
+
+        return fan
     }
 
     // Pushes the ball, assumed only to happen when the ball is in a wind current.
     /**
-     * @param {Object} wind specific instance of wind from fan
+     * @param {Phaser.Physics.Arcade.Body} ball the ball being pushed by the fan
+     * @param {Phaser.Physics.Arcade.StaticBody} wind specific instance of wind from fan
      */
     pushBall(ball, wind)
     {
         // I am not sure how to get a vector that is in a direction relative to the wind sprite
         // but that needs to be done here
-        let pushForce = new Phaser.Math.Vector2()
+        let accelerationX = 5
+        let accelerationY = 0
 
-        ball.applyForce(pushForce)
+        ball.setAcceleration(accelerationX, accelerationY)
     }
 }
