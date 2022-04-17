@@ -9,12 +9,14 @@ export default class UI
      * @param {Phaser.Scene} scene The scene in which the UI should be drawn on
      * @param {string} level A string containing the name of the level
      * @param {Array} machines An array of the machines that are available in the level
+     * @param {Ball} ball The ball of the scene
      */
-    constructor(scene, level, machines)
+    constructor(scene, level, machines, ball)
     {
         this.scene = scene;
         this.level = level;
         this.machines = machines;
+        this.ball = ball;
 
         this.machineStatus = [];
         for (let i in this.machines)
@@ -29,6 +31,10 @@ export default class UI
     {
         var sidebar = this.scene.add.rectangle(1800, 540, 400, 1080, 0x666666); //Draws the sidebar for the UI
         this.scene.add.text(1610, 10, this.level, {fill: '#ffffff'}); //Used to help identify the current level
+
+        const start = this.scene.add.text(1750, 10, "Start", {fill: '#ffffff'});
+        start.setInteractive();
+        start.on('pointerdown', () => this.scene.play(start));
 
 
         //For loop that prints the names of all the objects available (later will show the objects themselves)
@@ -61,6 +67,11 @@ export default class UI
         this.scene.add.text(800, 450, "You Win!", {fill: '#ffffff'});
     }
 
+    /**
+     *
+     * @param {int} index
+     * @param {Phaser.GameObjects.Text} button
+     */
     place(index, button)
     {
         if (!this.machineStatus[index])
@@ -77,8 +88,6 @@ export default class UI
                 }
             }), 10
         });
-
-
     }
 
     inBounds(x, y)
@@ -87,6 +96,4 @@ export default class UI
             return true;
         return false;
     }
-
-
 }

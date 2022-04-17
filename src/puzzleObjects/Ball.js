@@ -19,7 +19,7 @@ export default class Balls
     // Creates a ball object with default settings
     createStandardBall(x = 500, y = 350)
     {
-        const ball = this._group.create(x, y, this.key)
+        const ball = this._group.create(x, y, this.key).setScale(0.2)
 
         // These values are not tested and will very likely need to be modified
         // as I have no idea what they're like yet.

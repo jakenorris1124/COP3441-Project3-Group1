@@ -9,6 +9,8 @@ const WIND_KEY = 'wind'
 const LEVEL_KEY = "Level 1"
 const BALL_KEY = 'ball'
 
+var levelBall;
+
 export default class LevelOne extends Phaser.Scene
 {
     constructor()
@@ -34,16 +36,28 @@ export default class LevelOne extends Phaser.Scene
         this.ball = new Ball(this, BALL_KEY)
         const ballGroup = this.ball.group
         ballGroup.collideWorldBounds = true
+        levelBall = this.ball.createStandardBall()
+        levelBall.setGravityY(-200)
 
-        this.levelUI = new UI(this, LEVEL_KEY);
         const machines = ["fan", "fan", "light bridge", "button", "pulley"]; //Placeholder "machine" list for level 1 to test UI functionality
 
-        this.levelUI = new UI(this, LEVEL_KEY, machines);
+        this.levelUI = new UI(this, LEVEL_KEY, machines, levelBall);
 
     }
 
     update()
     {
 
+    }
+
+    play(button)
+    {
+        button.setText("Stop")
+        levelBall.setGravityY(0)
+        setTimeout(() => {
+            button.on('pointerdown', () => {
+                this.scene.restart();
+            })
+        });
     }
 }
