@@ -32,9 +32,9 @@ export default class UI
         var sidebar = this.scene.add.rectangle(1800, 540, 400, 1080, 0x666666); //Draws the sidebar for the UI
         this.scene.add.text(1610, 10, this.level, {fill: '#ffffff'}); //Used to help identify the current level
 
-        const start = this.scene.add.text(1750, 10, "Start", {fill: '#ffffff'});
-        start.setInteractive();
-        start.on('pointerdown', () => this.scene.play(start));
+        this.start = this.scene.add.text(1750, 10, "Start", {fill: '#ffffff'});
+        this.start.setInteractive();
+        this.stop()
 
 
         //For loop that prints the names of all the objects available (later will show the objects themselves)
@@ -53,6 +53,13 @@ export default class UI
             this.scene.scene.stop(this.level);
             this.scene.scene.start("mainMenu");
         });
+    }
+
+    stop()
+    {
+        setTimeout(() => {
+            this.start.on('pointerdown', () => this.scene.play(this.start));
+        }), 10;
     }
 
     win()

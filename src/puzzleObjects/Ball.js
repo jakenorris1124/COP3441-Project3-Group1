@@ -32,6 +32,7 @@ export default class Balls
 
     inGoal(goal, ball, xMaxSpeed = 0, yMaxSpeed = 0)
     {
-        return this.scene.collide(goal, ball) && ball.speedX < xMaxSpeed && ball.speedY < yMaxSpeed;
+        // Line needed here: if (check that ball is inside the goal)
+        return ball.speedX < xMaxSpeed && ball.speedY < yMaxSpeed;
     }
 }

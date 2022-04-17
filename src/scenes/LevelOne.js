@@ -12,6 +12,7 @@ const BALL_KEY = 'ball'
 
 var levelBall;
 var goal;
+var isPaused;
 
 export default class LevelOne extends Phaser.Scene
 {
@@ -29,6 +30,7 @@ export default class LevelOne extends Phaser.Scene
 
     create()
     {
+        isPaused = true;
         this.add.image(960, 540, BACKGROUND_LEVELONE_KEY);
 
         this.fans = new Fans(this, FAN_KEY, WIND_KEY)
@@ -42,7 +44,7 @@ export default class LevelOne extends Phaser.Scene
 
         //Temporary solution to "pause" the level. Since the game's gravity is 200, setting ball's gravity
         //to -200 will make it so it doesn't move
-        levelBall.setGravityY(-200)
+        levelBall.body.enable = false;
 
         const machines = ["fan", "fan", "light bridge", "button", "pulley"]; //Placeholder "machine" list for level 1 to test UI functionality
 
@@ -60,11 +62,15 @@ export default class LevelOne extends Phaser.Scene
     play(button)
     {
         button.setText("Stop")
-        levelBall.setGravityY(0)
+        levelBall.body.enable = true;
         setTimeout(() => {
             button.on('pointerdown', () => {
-                this.scene.restart();
-            })
+                levelBall.setPosition(500, 350)
+                levelBall.body.stop()
+                levelBall.body.enable = false;
+                button.setText("Start")
+                this.levelUI.stop()
+            }), 10
         });
     }
 
