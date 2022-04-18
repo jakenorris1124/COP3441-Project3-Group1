@@ -11,7 +11,7 @@ export default class Springs
         this._group = this.scene.physics.add.group()
     }
 
-    placeSpring(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const spring = this.group.create(x, y, this.key)
 
