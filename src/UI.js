@@ -41,7 +41,7 @@ export default class UI
         var machineButtons = [];
         for (let i in this.machines)
         {
-            machineButtons.push(this.scene.add.text(1610, 30+ (i * 20), this.machines[i], {fill: '#ffffff'}));
+            machineButtons.push(this.scene.add.text(1610, 30+ (i * 20), this.machines[i].key, {fill: '#ffffff'}));
             machineButtons[i].setInteractive();
             machineButtons[i].on('pointerdown', () => this.place(i, machineButtons[i]));
         }
@@ -92,7 +92,9 @@ export default class UI
                 if(this.inBounds(pointer.x, pointer.y))
                 {
                     button.setColor("#ff0000");
-                    this.scene.add.text(pointer.x, pointer.y, this.machines[index], {fill: '#ffffff'})
+                    let placed = this.machines[index].place(pointer.x, pointer.y)
+                    placed.body.immovable = true;
+                    placed.body.gravity = true;
                     this.machineStatus[index] = false;
                 }
             }), 10
