@@ -31,7 +31,7 @@ export default class Fans
     }
 
     // These default values should probably be changed to where they are located in the UI.
-    placeFan(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const fan = this.group.create(x, y, this.key)
         const wind = this.windGroup.create(x, y, this.windKey) // Will need to adjust x and y values here later.
