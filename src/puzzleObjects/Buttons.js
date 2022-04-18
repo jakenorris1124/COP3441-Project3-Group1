@@ -12,7 +12,6 @@ export default class Buttons
     }
 
     /**
-     *
      * @param {Phaser.Physics.Arcade.StaticBody} piece Object that the button will be linked to.
      */
     place(x = 0, y = 0, piece)
