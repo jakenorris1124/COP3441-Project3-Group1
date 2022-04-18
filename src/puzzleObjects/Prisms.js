@@ -11,7 +11,7 @@ export default class Prisms
         this._group = this.scene.physics.add.group()
     }
 
-    placePrism(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const prism = this.group.create(x, y, this.key)
 
