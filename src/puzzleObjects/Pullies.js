@@ -12,7 +12,7 @@ export default class Pullies
     }
 
     //I don't know quite how the pulley works, so I'm not sure how else I should mess with this class.
-    placePulley(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const pulley = this.group.create(x, y, this.key)
 
