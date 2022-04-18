@@ -23,7 +23,7 @@ export default class LightBallTransformers
 
     }
 
-    placeLightBallTransformer(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const lightBallTransformer = this.group.create(x, y, this.key)
 

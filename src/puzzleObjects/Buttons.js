@@ -15,7 +15,7 @@ export default class Buttons
      *
      * @param {Phaser.Physics.Arcade.StaticBody} piece Object that the button will be linked to.
      */
-    placeButton(x = 0, y = 0, piece)
+    place(x = 0, y = 0, piece)
     {
         const button = this.group.create(x, y, this.key)
         button.gameObject.setData('link', piece)

@@ -23,7 +23,7 @@ export default class HeavyBallTransformers
 
     }
 
-    placeHeavyBallTransformer(x = 0, y = 0)
+    placer(x = 0, y = 0)
     {
         const heavyBallTransformer = this.group.create(x, y, this.key)
 

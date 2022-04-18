@@ -16,7 +16,7 @@ export default class GravityInverters
         return this._group
     }
 
-    placeGravityInverter(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const gravityInverter = this.group.create(x, y, this.key)
 

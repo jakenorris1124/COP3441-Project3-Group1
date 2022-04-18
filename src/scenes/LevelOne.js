@@ -1,12 +1,18 @@
 import Phaser from 'phaser'
 import Fans from '../puzzleObjects/Fans.js'
 import Ball from '../puzzleObjects/Ball.js'
+import LightBridges from "../puzzleObjects/LightBridges";
+import Buttons from "../puzzleObjects/Buttons";
+import Pullies from "../puzzleObjects/Pullies";
 import UI from "../UI"
 import Goal from "../puzzleObjects/Goal"
 
 const BACKGROUND_LEVELONE_KEY = 'background-levelone'
 const FAN_KEY = 'fan'
 const WIND_KEY = 'wind'
+const LIGHT_BRIDGE_KEY = 'light bridge'
+const BUTTON_KEY = 'button'
+const PULLEY_KEY = 'pulley'
 const LEVEL_KEY = "Level 1"
 const BALL_KEY = 'ball'
 
@@ -37,6 +43,15 @@ export default class LevelOne extends Phaser.Scene
         const fanGroup = this.fans.group
         const windGroup = this.fans.windGroup
 
+        this.lightBridge = new LightBridges(this, LIGHT_BRIDGE_KEY)
+        const lightBridgeGroup = this.lightBridge.group
+
+        this.button = new Buttons(this, BUTTON_KEY)
+        const buttonGroup = this.button.group
+
+        this.pulley = new Pullies(this, PULLEY_KEY)
+        const pulleyGroup = this.pulley.group
+
         this.ball = new Ball(this, BALL_KEY)
         const ballGroup = this.ball.group
         ballGroup.collideWorldBounds = true
@@ -46,7 +61,8 @@ export default class LevelOne extends Phaser.Scene
         //to -200 will make it so it doesn't move
         levelBall.body.enable = false;
 
-        const machines = ["fan", "fan", "light bridge", "button", "pulley"]; //Placeholder "machine" list for level 1 to test UI functionality
+
+        const machines = [this.fans, this.fans, this.lightBridge, this.button, this.pulley]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, machines, levelBall);
 
