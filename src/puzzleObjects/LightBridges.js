@@ -12,7 +12,7 @@ export default class LightBridges
     }
 
     // The actual bridge part I'm not sure how to implement yet.
-    placeLightBridges(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const lightBridge = this.group.create(x, y, this.key)
 
