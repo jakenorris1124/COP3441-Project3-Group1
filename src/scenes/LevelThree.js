@@ -51,7 +51,7 @@ export default class LevelThree extends Phaser.Scene
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        levelBall = this.ball.createStandardBall()
+        levelBall = this.balls.createStandardBall()
 
         let machines = ["button", "fan", "pulley", "button", "pulley"]; //Placeholder "machine" list for level 3 to test UI functionality
 
@@ -74,7 +74,7 @@ export default class LevelThree extends Phaser.Scene
         this.springs = new Springs(this, SPRING_KEY)
 
         this.anchorGroup = this.anchors.group
-        this.ballGroup = this.ball.group
+        this.ballGroup = this.balls.group
         this.buttonGroup = this.buttons.group
         this.directionalGateGroup = this.directionalGates.group
         this.fanGroup = this.fans.group

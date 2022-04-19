@@ -56,14 +56,14 @@ export default class LevelOne extends Phaser.Scene
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        levelBall = this.ball.createStandardBall()
+        levelBall = this.balls.createStandardBall()
 
         //Temporary solution to "pause" the level. Since the game's gravity is 200, setting ball's gravity
         //to -200 will make it so it doesn't move
         levelBall.body.enable = false;
 
 
-        const machines = [this.fans, this.fans, this.lightBridge, this.button, this.pulley]; //Placeholder "machine" list for level 1 to test UI functionality
+        const machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, machines, levelBall);
 
@@ -112,7 +112,7 @@ export default class LevelOne extends Phaser.Scene
         this.springs = new Springs(this, SPRING_KEY)
 
         this.anchorGroup = this.anchors.group
-        this.ballGroup = this.ball.group
+        this.ballGroup = this.balls.group
         this.buttonGroup = this.buttons.group
         this.directionalGateGroup = this.directionalGates.group
         this.fanGroup = this.fans.group
