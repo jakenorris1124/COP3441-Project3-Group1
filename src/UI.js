@@ -116,7 +116,7 @@ export default class UI
     rotate(placed, degree)
     {
         placed.once('pointerdown', (pointer) => {
-            if(this.scene.input.activePointer.middleButtonDown())
+            if(this.scene.input.activePointer.rightButtonDown())
             {
                 placed.setAngle( (90 * degree) % 360);
                 degree++;
