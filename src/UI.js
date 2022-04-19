@@ -99,6 +99,7 @@ export default class UI
                     placed.setInteractive();
 
                     this.rotate(placed, 1)
+                    this.scene.input.on('pointerdown', this.pick,this)
                 }
             }), 10
         });
@@ -113,27 +114,33 @@ export default class UI
                 degree++;
             }
             this.rotate(placed, degree)
-        }), 10
+        })
 
     }
 
     //drag and drop
     pick(pointer, targets)
     {
-        this.input.off('pointerdown',this.pick,this);
-        this.dragObj = targets[0];
-        this.input.on('pointermove',this.drag,this)
-        this.input.on('pointerup', this.put,this)
+        if(this.scene.input.activePointer.leftButtonDown())
+        {
+            this.scene.input.off('pointerdown',this.pick,this);
+            this.dragObj = targets[0];
+            this.scene.input.on('pointermove',this.drag,this)
+            this.scene.input.on('pointerup', this.put,this)
+        }
     }
     drag(pointer)
     {
-        this.dragObj.x = pointer.x
-        this.dragObj.y = pointer.y
+        if(this.inBounds(pointer.x, pointer.y))
+        {
+            this.dragObj.x = pointer.x
+            this.dragObj.y = pointer.y
+        }
     }
     put(){
-        this.input.on('pointerdown',this.pick,this);
-        this.input.off('pointermove',this.drag,this)
-        this.input.off('pointerup', this.put,this)
+        this.scene.input.on('pointerdown',this.pick,this);
+        this.scene.input.off('pointermove',this.drag,this)
+        this.scene.input.off('pointerup', this.put,this)
     }
 
     inBounds(x, y)
