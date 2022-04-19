@@ -59,8 +59,6 @@ export default class Fans
         fan.setData('wind', wind)
         fan.setActive(false)
 
-        wind.parentContainer.setVisible(false)
-
         return fan
     }
 
