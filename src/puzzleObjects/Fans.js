@@ -36,7 +36,7 @@ export default class Fans
      */
     toggle(ball, fan)
     {
-
+      
     }
 
     activate()
@@ -54,6 +54,7 @@ export default class Fans
     {
         const fan = this.group.create(x, y, this.key)
         const wind = this.windGroup.create(x, y, this.windKey) // Will need to adjust x and y values here later.
+        
 
         fan.gameObject.setData('wind', wind)
         fan.gameObject.setActive(false)
