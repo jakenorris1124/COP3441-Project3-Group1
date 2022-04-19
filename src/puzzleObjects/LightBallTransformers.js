@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 export default class LightBallTransformers
 {
     /**
@@ -9,11 +11,17 @@ export default class LightBallTransformers
         this.key = lightBallTransformerKey
 
         this._group = this.scene.physics.add.staticGroup()
+        this._boundaryGroup = this.scene.physics.add.staticGroup()
     }
 
     get group()
     {
         return this._group
+    }
+
+    get boundaryGroup()
+    {
+        return this._boundaryGroup
     }
 
     // Will be implemented later to pick up a lightBallTransformer that has been placed. Not sure
@@ -30,9 +38,23 @@ export default class LightBallTransformers
 
     create(x = 0, y = 0)
     {
-        const ball = this._group.create(x, y, this.key)
+        const lightBallTransformer = this._group.create(x, y, this.key)
+        const topCollisionBox = this._boundaryGroup.create()
+        const bottomCollisionBox = this._boundaryGroup.create()
 
-        ball.gameObject.setData('active', false)
+        let bounds = lightBallTransformer.getBounds()
+        let left = bounds.x
+        let top = bounds.y
+        let bottom = bounds.bottom
+        let width = lightBallTransformer.getWidth()
+        let height = 20
+
+        //Will need to adjust these collision boxes
+        topCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
+        bottomCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
+        lightBallTransformer.setHeight(lightBallTransformer.getHeight() - (2 * height))
+
+        lightBallTransformer.gameObject.setActive(false)
     }
 
     /**
@@ -40,7 +62,7 @@ export default class LightBallTransformers
      */
     toggle(ball)
     {
-        if (ball.gameObject.getData('active'))
+        if (ball.gameObject.active)
             this.resetMass(ball)
         else
             this.decreaseMass(ball)
