@@ -8,7 +8,7 @@ export default class Pullies
         this.scene = scene
         this.key = pulleyKey
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
     //I don't know quite how the pulley works, so I'm not sure how else I should mess with this class.

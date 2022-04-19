@@ -8,7 +8,7 @@ export default class Springs
         this.scene = scene
         this.key = springKey
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
     place(x = 0, y = 0)

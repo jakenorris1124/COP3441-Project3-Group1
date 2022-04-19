@@ -8,7 +8,7 @@ export default class Prisms
         this.scene = scene
         this.key = prismKey
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
     place(x = 0, y = 0)

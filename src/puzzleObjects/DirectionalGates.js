@@ -22,13 +22,14 @@ export default class DirectionalGates
 
     /**
      * @param {Phaser.GameObjects.GameObject} ball
-     * @param {Phaser.GameObject.GameObject} directionalGate
+     * @param {Phaser.GameObjects.GameObject} directionalGate
      */
     isWrongSide(ball, directionalGate)
     {
         let touchDirection = directionalGate.body.touching
 
-        switch (directionalGate.parentContainer.angle)
+        // This number should be the angle of rotation of the directionalGate but idk how to get it.
+        switch (0)
         {
             case 0:
                 return !touchDirection.right
