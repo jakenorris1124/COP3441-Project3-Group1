@@ -47,6 +47,7 @@ export default class LevelOne extends Phaser.Scene
         this.load.image(BALL_KEY, 'images/ballPlaceholder.png');
         this.load.image(BUTTON_KEY, 'images/But Up.png')
         this.load.image(LIGHT_BRIDGE_KEY, 'images/Light Bridge Off.png')
+        this.load.image(GRAVITY_INVERTER_KEY, 'images/Grav Inv On.png')
     }
 
     create()
@@ -56,16 +57,16 @@ export default class LevelOne extends Phaser.Scene
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        levelBall = this.balls.createStandardBall()
-        levelBall.body.enable = false;
+        this.levelBall = this.balls.createStandardBall()
+        this.levelBall.body.enable = false;
 
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters]; //Placeholder "machine" list for level 1 to test UI functionality
 
-        this.levelUI = new UI(this, LEVEL_KEY, this.machines, levelBall);
+        this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
         goal = new Goal(this, 500, 800)
-        this.physics.add.collider(levelBall, goal.goal, this.winWrapper, null, this)
+        this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
     }
 
     update()
@@ -76,12 +77,12 @@ export default class LevelOne extends Phaser.Scene
     play(button)
     {
         button.setText("Stop")
-        levelBall.body.enable = true;
+        this.levelBall.body.enable = true;
         setTimeout(() => {
             button.on('pointerdown', () => {
-                levelBall.setPosition(500, 350)
-                levelBall.body.stop()
-                levelBall.body.enable = false;
+                this.levelBall.setPosition(500, 350)
+                this.levelBall.body.stop()
+                this.levelBall.body.enable = false;
                 button.setText("Start")
                 this.levelUI.stop()
             }), 10
@@ -164,12 +165,12 @@ export default class LevelOne extends Phaser.Scene
             this.fans.pushBall, null, this)
     }
 
-    activateAllPieces()
+    activateAllPieces(ball)
     {
         for (let i in this.machines)
         {
             if (this.machines[i].key != BUTTON_KEY && !this.levelUI.machineStatus[i] && this.machines[i].togglable)
-                this.machines[i].toggle()
+                this.machines[i].toggle(ball, this.machines[i])
         }
     }
 }
