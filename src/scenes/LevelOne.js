@@ -32,7 +32,6 @@ const DIRECTIONAL_GATE_KEY = 'directional gate'
 
 var levelBall;
 var goal;
-var isPaused;
 
 export default class LevelOne extends Phaser.Scene
 {
@@ -50,7 +49,6 @@ export default class LevelOne extends Phaser.Scene
 
     create()
     {
-        isPaused = true;
         this.add.image(960, 540, BACKGROUND_LEVELONE_KEY);
 
         this.initializeGroups()
