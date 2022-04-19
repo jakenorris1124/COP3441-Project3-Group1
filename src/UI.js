@@ -96,16 +96,24 @@ export default class UI
                     placed.body.immovable = true;
                     placed.body.gravity = true;
                     this.machineStatus[index] = false;
-                    // this is what i have for the rotation.
-                    // placed.body.setOrigin(0, 0.5)
-                    // var angle = Math.RAD_TO_DEG * Math.Angle.Between(placed.body.x, placed.body.y, pointer.x, pointer.y);
-                    // placed.body.setAngle(angle);
+                    placed.setInteractive();
 
-                    //add this so we can move it around?
-                    placed.body.setInteractive();
+                    this.rotate(placed, 1)
                 }
             }), 10
         });
+    }
+
+    rotate(placed, degree)
+    {
+        placed.once('pointerdown', (pointer) => {
+            if(this.scene.input.activePointer.middleButtonDown())
+            {
+                placed.setAngle( (90 * degree) % 360);
+                degree++;
+            }
+            this.rotate(placed, degree)
+        }), 10
 
     }
 
