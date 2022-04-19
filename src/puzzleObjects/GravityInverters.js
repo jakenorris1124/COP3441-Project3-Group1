@@ -7,6 +7,7 @@ export default class GravityInverters
     {
         this.scene = scene
         this.key = gravityInverterKey
+        this.togglable = true
 
         this._group = this.scene.physics.add.staticGroup()
     }

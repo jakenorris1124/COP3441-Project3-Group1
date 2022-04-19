@@ -9,6 +9,7 @@ export default class HeavyBallTransformers
     {
         this.scene = scene
         this.key = heavyBallTransformerKey
+        this.togglable = true
 
         this._group = this.scene.physics.add.staticGroup()
         this._boundaryGroup = this.scene.physics.add.staticGroup()

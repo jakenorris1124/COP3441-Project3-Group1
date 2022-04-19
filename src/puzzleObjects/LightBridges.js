@@ -7,6 +7,7 @@ export default class LightBridges
     {
         this.scene = scene
         this.key = lightBridgeKey
+        this.togglable = true
 
         this._group = this.scene.physics.add.staticGroup()
     }
@@ -17,6 +18,11 @@ export default class LightBridges
         const lightBridge = this.group.create(x, y, this.key)
 
         return lightBridge
+    }
+
+    toggle()
+    {
+
     }
 
     get group()

@@ -7,6 +7,7 @@ export default class Pullies
     {
         this.scene = scene
         this.key = pulleyKey
+        this.togglable = true
 
         this._group = this.scene.physics.add.staticGroup()
     }

@@ -43,8 +43,10 @@ export default class LevelOne extends Phaser.Scene
     preload()
     {
         this.load.image(BACKGROUND_LEVELONE_KEY, 'images/leveloneplaceholder.png');
-        this.load.image(FAN_KEY, 'images/fanPlaceholder.png');
+        this.load.image(FAN_KEY, 'images/Fan Off.png');
         this.load.image(BALL_KEY, 'images/ballPlaceholder.png');
+        this.load.image(BUTTON_KEY, 'images/But Up.png')
+        this.load.image(LIGHT_BRIDGE_KEY, 'images/Light Bridge Off.png')
     }
 
     create()
@@ -55,15 +57,12 @@ export default class LevelOne extends Phaser.Scene
         this.setDefaultCollisions()
 
         levelBall = this.balls.createStandardBall()
-
-        //Temporary solution to "pause" the level. Since the game's gravity is 200, setting ball's gravity
-        //to -200 will make it so it doesn't move
         levelBall.body.enable = false;
 
 
-        const machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies]; //Placeholder "machine" list for level 1 to test UI functionality
 
-        this.levelUI = new UI(this, LEVEL_KEY, machines, levelBall);
+        this.levelUI = new UI(this, LEVEL_KEY, this.machines, levelBall);
 
         goal = new Goal(this, 500, 800)
         this.physics.add.collider(levelBall, goal.goal, this.winWrapper, null, this)
@@ -158,7 +157,7 @@ export default class LevelOne extends Phaser.Scene
         this.physics.add.collider(this.ballGroup, this.sprinGroup,
             this.springs.toggle, null, this)
 
-        this.physics.add.overlap(this.ballGroup, this.buttonGroup,
+        this.physics.add.collider(this.ballGroup, this.buttonGroup,
             this.activateAllPieces, null, this)
 
         this.physics.add.overlap(this.ballGroup, this.windGroup,
@@ -167,6 +166,10 @@ export default class LevelOne extends Phaser.Scene
 
     activateAllPieces()
     {
-
+        for (let i in this.machines)
+        {
+            if (this.machines[i].key != BUTTON_KEY && !this.levelUI.machineStatus[i] && this.machines[i].togglable)
+                this.machines[i].toggle()
+        }
     }
 }

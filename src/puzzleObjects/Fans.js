@@ -8,6 +8,7 @@ export default class Fans
         this.scene = scene
         this.key = fanKey
         this.windKey = windKey
+        this.togglable = true
 
         this._group = this.scene.physics.add.staticGroup()
         this._windGroup = this.scene.physics.add.staticGroup()
@@ -36,7 +37,7 @@ export default class Fans
      */
     toggle(ball, fan)
     {
-      
+
     }
 
     activate()

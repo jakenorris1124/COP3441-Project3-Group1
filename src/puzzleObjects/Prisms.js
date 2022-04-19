@@ -7,6 +7,7 @@ export default class Prisms
     {
         this.scene = scene
         this.key = prismKey
+        this.togglable = false
 
         this._group = this.scene.physics.add.staticGroup()
     }

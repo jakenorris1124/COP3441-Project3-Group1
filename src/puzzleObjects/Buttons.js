@@ -7,6 +7,7 @@ export default class Buttons
     {
         this.scene = scene
         this.key = buttonKey
+        this.togglable = false
 
         this._group = this.scene.physics.add.staticGroup()
     }

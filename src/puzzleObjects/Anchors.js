@@ -7,6 +7,7 @@ export default class Anchors
     {
         this.scene = scene
         this.key = anchorKey
+        this.togglable = false
 
         this._group = this.scene.physics.add.group()
     }

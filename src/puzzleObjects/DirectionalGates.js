@@ -7,6 +7,7 @@ export default class DirectionalGates
     {
         this.scene = scene
         this.key = directionalGateKey
+        this.togglable = false
 
         this._group = this.scene.physics.add.group()
     }
