@@ -17,6 +17,7 @@ export default class UI
         this.level = level;
         this.machines = machines;
         this.ball = ball;
+        this.isRunning = false;
 
         this.machineStatus = [];
         for (let i in this.machines)
@@ -43,7 +44,10 @@ export default class UI
         {
             machineButtons.push(this.scene.add.text(1610, 30+ (i * 20), this.machines[i].key, {fill: '#ffffff'}));
             machineButtons[i].setInteractive();
-            machineButtons[i].on('pointerdown', () => this.place(i, machineButtons[i]));
+            machineButtons[i].on('pointerdown', () => {
+                if (!this.isRunning)
+                    this.place(i, machineButtons[i])
+            });
         }
 
         //Button to return to main menu
@@ -57,8 +61,12 @@ export default class UI
 
     stop()
     {
+        this.isRunning = false;
         setTimeout(() => {
-            this.start.on('pointerdown', () => this.scene.play(this.start));
+            this.start.on('pointerdown', () => {
+                this.isRunning = true;
+                this.scene.play(this.start)
+            });
         }), 10;
     }
 
@@ -121,7 +129,7 @@ export default class UI
     //drag and drop
     pick(pointer, targets)
     {
-        if(this.scene.input.activePointer.leftButtonDown())
+        if(this.scene.input.activePointer.leftButtonDown() && !this.isRunning)
         {
             this.scene.input.off('pointerdown',this.pick,this);
             this.dragObj = targets[0];
