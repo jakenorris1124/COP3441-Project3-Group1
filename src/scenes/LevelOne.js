@@ -82,6 +82,8 @@ export default class LevelOne extends Phaser.Scene
             button.once('pointerdown', () => {
                 this.levelBall.setPosition(500, 350)
                 this.levelBall.body.stop()
+                this.levelBall.body.setGravityY(0)
+                this.gravityInverters.inverted = false
                 this.levelBall.body.enable = false;
                 button.setText("Start")
                 this.levelUI.stop()
