@@ -8,6 +8,7 @@ export default class GravityInverters
         this.scene = scene
         this.key = gravityInverterKey
         this.togglable = true
+        this.inverted = false;
 
         this._group = this.scene.physics.add.staticGroup()
     }
@@ -25,8 +26,17 @@ export default class GravityInverters
     }
 
     // Inverts gravity from its current state.
-    toggle()
+    toggle(ball)
     {
-        this.scene.setGravityY(-this.scene.gravityY)
+        if (this.inverted)
+        {
+            ball.setGravityY(200)
+            this.inverted = false;
+        }
+        else
+        {
+            ball.setGravityY(-200)
+            this.inverted = true;
+        }
     }
 }
