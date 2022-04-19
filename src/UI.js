@@ -100,9 +100,32 @@ export default class UI
                     // placed.body.setOrigin(0, 0.5)
                     // var angle = Math.RAD_TO_DEG * Math.Angle.Between(placed.body.x, placed.body.y, pointer.x, pointer.y);
                     // placed.body.setAngle(angle);
+
+                    //add this so we can move it around?
+                    placed.body.setInteractive();
                 }
             }), 10
         });
+
+    }
+
+    //drag and drop
+    pick(pointer, targets)
+    {
+        this.input.off('pointerdown',this.pick,this);
+        this.dragObj = targets[0];
+        this.input.on('pointermove',this.drag,this)
+        this.input.on('pointerup', this.put,this)
+    }
+    drag(pointer)
+    {
+        this.dragObj.x = pointer.x
+        this.dragObj.y = pointer.y
+    }
+    put(){
+        this.input.on('pointerdown',this.pick,this);
+        this.input.off('pointermove',this.drag,this)
+        this.input.off('pointerup', this.put,this)
     }
 
     inBounds(x, y)
