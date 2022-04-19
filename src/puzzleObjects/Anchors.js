@@ -12,12 +12,12 @@ export default class Anchors
     }
 
     /**
-     * @param {Phaser.Physics.Arcade.StaticBody} piece
+     * @param {Phaser.GameObjects.GameObject} piece
      */
     placeAnchor(x = 0, y = 0, piece)
     {
         const anchor = this.group.create(x, y, this.key)
-        anchor.gameObject.setData('link', piece)
+        anchor.setData('link', piece)
 
         return anchor
     }

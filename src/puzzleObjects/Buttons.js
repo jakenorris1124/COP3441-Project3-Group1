@@ -8,12 +8,9 @@ export default class Buttons
         this.scene = scene
         this.key = buttonKey
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
-    /**
-     * @param {Phaser.Physics.Arcade.StaticBody} piece Object that the button will be linked to.
-     */
     place(x = 0, y = 0)
     {
         const button = this.group.create(x, y, this.key)

@@ -8,7 +8,7 @@ export default class LightBridges
         this.scene = scene
         this.key = lightBridgeKey
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
     // The actual bridge part I'm not sure how to implement yet.
