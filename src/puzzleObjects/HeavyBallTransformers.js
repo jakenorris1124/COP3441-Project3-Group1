@@ -37,20 +37,20 @@ export default class HeavyBallTransformers
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 
-        let bounds = heavyBallTransformer.getBounds()
+        let bounds = heavyBallTransformer.body.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
-        let width = heavyBallTransformer.getWidth()
+        let width = heavyBallTransformer.body.getWidth()
         let height = 20
 
         //Will need to adjust these collision boxes
-        topCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
-        bottomCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
-        heavyBallTransformer.setHeight(heavyBallTransformer.getHeight() - (2 * height))
+        topCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
+        bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
+        heavyBallTransformer.body.setHeight(heavyBallTransformer.getHeight() - (2 * height))
 
 
-        heavyBallTransformer.gameObject.setActive(false)
+        heavyBallTransformer.setActive(false)
     }
 
     /**

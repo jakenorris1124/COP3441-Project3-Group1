@@ -15,7 +15,7 @@ export default class DirectionalGates
     {
         const directionalGate = this.group.create(x, y, this.key)
 
-        directionalGate.setCollideWorldBounds(true)
+        directionalGate.body.setCollideWorldBounds(true)
 
         return directionalGate
     }

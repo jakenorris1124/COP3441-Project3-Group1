@@ -42,19 +42,19 @@ export default class LightBallTransformers
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 
-        let bounds = lightBallTransformer.getBounds()
+        let bounds = lightBallTransformer.body.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
-        let width = lightBallTransformer.getWidth()
+        let width = lightBallTransformer.body.getWidth()
         let height = 20
 
         //Will need to adjust these collision boxes
-        topCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
-        bottomCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
-        lightBallTransformer.setHeight(lightBallTransformer.getHeight() - (2 * height))
+        topCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
+        bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
+        lightBallTransformer.body.setHeight(lightBallTransformer.getHeight() - (2 * height))
 
-        lightBallTransformer.gameObject.setActive(false)
+        lightBallTransformer.setActive(false)
     }
 
     /**

@@ -56,18 +56,18 @@ export default class Fans
         const wind = this.windGroup.create(x, y, this.windKey) // Will need to adjust x and y values here later.
         
 
-        fan.gameObject.setData('wind', wind)
-        fan.gameObject.setActive(false)
+        fan.setData('wind', wind)
+        fan.setActive(false)
 
-        wind.setVisible(false)
+        wind.parentContainer.setVisible(false)
 
         return fan
     }
 
     // Pushes the ball, assumed only to happen when the ball is in a wind current.
     /**
-     * @param {Phaser.Physics.Arcade.Body} ball the ball being pushed by the fan
-     * @param {Phaser.Physics.Arcade.StaticBody} wind specific instance of wind from fan
+     * @param {Phaser.GameObjects.GameObject} ball the ball being pushed by the fan
+     * @param {Phaser.GameObjects.GameObject} wind specific instance of wind from fan
      */
     pushBall(ball, wind)
     {
@@ -76,7 +76,7 @@ export default class Fans
         let accelerationX = 5
         let accelerationY = 0
 
-        ball.setAcceleration(accelerationX, accelerationY)
+        ball.body.setAcceleration(accelerationX, accelerationY)
     }
 
 
