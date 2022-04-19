@@ -1,3 +1,5 @@
+import Phaser from 'phaser'
+
 export default class HeavyBallTransformers
 {
     /**
@@ -9,11 +11,17 @@ export default class HeavyBallTransformers
         this.key = heavyBallTransformerKey
 
         this._group = this.scene.physics.add.staticGroup()
+        this._boundaryGroup = this.scene.physics.add.staticGroup()
     }
 
     get group()
     {
         return this._group
+    }
+
+    get boundaryGroup()
+    {
+        return this._boundaryGroup
     }
 
     // Will be implemented later to pick up a heavyBallTransformer that has been placed. Not sure
@@ -23,16 +31,26 @@ export default class HeavyBallTransformers
 
     }
 
-    placer(x = 0, y = 0)
-    {
-        const heavyBallTransformer = this.group.create(x, y, this.key)
-    }
-
     create(x = 0, y = 0)
     {
-        const ball = this._group.create(x, y, this.key)
+        const heavyBallTransformer = this._group.create(x, y, this.key)
+        const topCollisionBox = this._boundaryGroup.create()
+        const bottomCollisionBox = this._boundaryGroup.create()
 
-        ball.gameObject.setData('active', false)
+        let bounds = heavyBallTransformer.getBounds()
+        let left = bounds.x
+        let top = bounds.y
+        let bottom = bounds.bottom
+        let width = heavyBallTransformer.getWidth()
+        let height = 20
+
+        //Will need to adjust these collision boxes
+        topCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
+        bottomCollisionBox.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
+        heavyBallTransformer.setHeight(heavyBallTransformer.getHeight() - (2 * height))
+
+
+        heavyBallTransformer.gameObject.setActive(false)
     }
 
     /**
@@ -41,7 +59,7 @@ export default class HeavyBallTransformers
      */
     toggle(ball, heavyBallTransformer)
     {
-        if (ball.gameObject.getData('active'))
+        if (heavyBallTransformer.gameObject.active)
             this.resetMass(ball)
         else
             this.increaseMass(ball)

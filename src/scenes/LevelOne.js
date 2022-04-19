@@ -124,6 +124,8 @@ export default class LevelOne extends Phaser.Scene
         this.prismGroup = this.prisms.group
         this.pullyGroup = this.pullies.group
         this.sprinGroup = this.springs.group
+        this.HBTBoundaryGroup = this.heavyBallTransformers.boundaryGroup
+        this.LBTBoundaryGroup = this.lightBallTransformers.boundaryGroup
     }
 
     setDefaultCollisions()
@@ -132,7 +134,8 @@ export default class LevelOne extends Phaser.Scene
 
         this.physics.add.collider(
             this.ballGroup,
-            [this.ballGroup, this.lightBridgeGroup, this.prismGroup],
+            [this.ballGroup, this.lightBridgeGroup, this.prismGroup,
+                this.HBTBoundaryGroup, this.LBTBoundaryGroup],
             this
         )
 
@@ -145,10 +148,10 @@ export default class LevelOne extends Phaser.Scene
         this.physics.add.collider(this.ballGroup, this.gravityInverterGroup,
             this.gravityInverters.toggle, null, this)
 
-        this.physics.add.collider(this.ballGroup, this.heavyBallTransformerGroup,
+        this.physics.add.overlap(this.ballGroup, this.heavyBallTransformerGroup,
             this.heavyBallTransformers.toggle, null, this)
 
-        this.physics.add.collider(this.ballGroup, this.lightBallTransformerGroup,
+        this.physics.add.overlap(this.ballGroup, this.lightBallTransformerGroup,
             this.lightBallTransformers.toggle, null, this)
 
         this.physics.add.collider(this.ballGroup, this.pullyGroup,
