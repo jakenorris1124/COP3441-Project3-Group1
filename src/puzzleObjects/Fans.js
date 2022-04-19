@@ -76,4 +76,6 @@ export default class Fans
 
         ball.setAcceleration(accelerationX, accelerationY)
     }
+
+
 }

@@ -96,6 +96,10 @@ export default class UI
                     placed.body.immovable = true;
                     placed.body.gravity = true;
                     this.machineStatus[index] = false;
+                    // this is what i have for the rotation.
+                    // placed.body.setOrigin(0, 0.5)
+                    // var angle = Math.RAD_TO_DEG * Math.Angle.Between(placed.body.x, placed.body.y, pointer.x, pointer.y);
+                    // placed.body.setAngle(angle);
                 }
             }), 10
         });
