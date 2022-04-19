@@ -26,17 +26,16 @@ export default class GravityInverters
     }
 
     // Inverts gravity from its current state.
+    /**
+     * @param {Phaser.GameObjects.GameObject} ball
+     */
     toggle(ball)
     {
-        if (this.inverted)
-        {
-            ball.setGravityY(200)
-            this.inverted = false;
-        }
+        if(this.inverted)
+            ball.body.setGravityY(0)
         else
-        {
-            ball.setGravityY(-200)
-            this.inverted = true;
-        }
+            ball.body.setGravityY(-400)
+
+        this.inverted = !this.inverted
     }
 }
