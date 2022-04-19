@@ -79,7 +79,7 @@ export default class LevelOne extends Phaser.Scene
         button.setText("Stop")
         this.levelBall.body.enable = true;
         setTimeout(() => {
-            button.on('pointerdown', () => {
+            button.once('pointerdown', () => {
                 this.levelBall.setPosition(500, 350)
                 this.levelBall.body.stop()
                 this.levelBall.body.enable = false;

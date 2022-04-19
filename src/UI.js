@@ -63,7 +63,7 @@ export default class UI
     {
         this.isRunning = false;
         setTimeout(() => {
-            this.start.on('pointerdown', () => {
+            this.start.once('pointerdown', () => {
                 this.isRunning = true;
                 this.scene.play(this.start)
             });
