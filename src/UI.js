@@ -143,6 +143,7 @@ export default class UI
         {
             this.dragObj.x = pointer.x
             this.dragObj.y = pointer.y
+            this.dragObj.body.reset(pointer.x, pointer.y)
         }
     }
     put(){
