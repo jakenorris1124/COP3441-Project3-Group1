@@ -54,15 +54,15 @@ export default class HeavyBallTransformers
     }
 
     /**
-     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
-     * @param {Phaser.Physics.Arcade.StaticBody} heavyBallTransformer Heavy Ball Transformer that ball collided with.
+     * @param {Phaser.GameObjects.GameObject} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.GameObject} heavyBallTransformer Heavy Ball Transformer that ball collided with.
      */
     toggle(ball, heavyBallTransformer)
     {
-        if (heavyBallTransformer.gameObject.active)
-            this.resetMass(ball)
+        if (heavyBallTransformer.active)
+            this.resetMass(ball.body)
         else
-            this.increaseMass(ball)
+            this.increaseMass(ball.body)
     }
 
     /**

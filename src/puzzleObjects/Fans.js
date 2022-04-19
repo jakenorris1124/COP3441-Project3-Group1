@@ -31,8 +31,8 @@ export default class Fans
     }
 
     /**
-     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
-     * @param {Phaser.Physics.Arcade.StaticBody} fan Heavy Ball Transformer that ball collided with.
+     * @param {Phaser.GameObjects.GameObject} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.GameObject} fan Heavy Ball Transformer that ball collided with.
      */
     toggle(ball, fan)
     {

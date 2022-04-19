@@ -58,14 +58,15 @@ export default class LightBallTransformers
     }
 
     /**
-     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.GameObject} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.GameObject} lightBallTransformer
      */
-    toggle(ball)
+    toggle(ball, lightBallTransformer)
     {
-        if (ball.gameObject.active)
-            this.resetMass(ball)
+        if (lightBallTransformer.active)
+            this.resetMass(ball.body)
         else
-            this.decreaseMass(ball)
+            this.decreaseMass(ball.body)
     }
 
     /**
