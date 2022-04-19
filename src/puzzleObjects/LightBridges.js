@@ -1,9 +1,9 @@
 export default class LightBridges
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "LightBridges"
+     * @param {Phaser.Scene} the scene that is creating "LightBridges"
      */
-    constructor(scene, lightBridgeKey = 'lightBridge')
+    constructor(scene, lightBridgeKey = 'light bridge')
     {
         this.scene = scene
         this.key = lightBridgeKey
@@ -15,8 +15,6 @@ export default class LightBridges
     place(x = 0, y = 0)
     {
         const lightBridge = this.group.create(x, y, this.key)
-
-        lightBridge.setCollideWorldBounds(true)
 
         return lightBridge
     }

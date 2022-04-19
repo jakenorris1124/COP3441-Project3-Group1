@@ -1,9 +1,9 @@
 export default class LightBallTransformers
 {
     /**
-     * @param {Phaser.scene} scene the scene that is creating "LightBallTransformers"
+     * @param {Phaser.Scene} scene the scene that is creating "LightBallTransformers"
      */
-    constructor(scene, lightBallTransformerKey = 'lightBallTransformer')
+    constructor(scene, lightBallTransformerKey = 'light ball transformer')
     {
         this.scene = scene
         this.key = lightBallTransformerKey
@@ -26,8 +26,6 @@ export default class LightBallTransformers
     place(x = 0, y = 0)
     {
         const lightBallTransformer = this.group.create(x, y, this.key)
-
-        lightBallTransformer.setCollideWorldBounds(true)
     }
 
     create(x = 0, y = 0)
@@ -40,7 +38,7 @@ export default class LightBallTransformers
     /**
      * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
-    activate(ball)
+    toggle(ball)
     {
         if (ball.gameObject.getData('active'))
             this.resetMass(ball)

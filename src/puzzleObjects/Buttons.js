@@ -1,7 +1,7 @@
 export default class Buttons
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "Buttons"
+     * @param {Phaser.Scene} scene the scene that is creating "Buttons"
      */
     constructor(scene, buttonKey = 'button')
     {
@@ -14,12 +14,9 @@ export default class Buttons
     /**
      * @param {Phaser.Physics.Arcade.StaticBody} piece Object that the button will be linked to.
      */
-    place(x = 0, y = 0, piece)
+    place(x = 0, y = 0)
     {
         const button = this.group.create(x, y, this.key)
-        button.gameObject.setData('link', piece)
-
-        button.setCollideWorldBounds(true)
 
         return button
     }

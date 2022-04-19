@@ -1,7 +1,7 @@
 export default class Balls
 {
     /**
-     * @param {Phaser.scene} scene
+     * @param {Phaser.Scene} scene
      */
     constructor(scene, ballKey = 'ball')
     {

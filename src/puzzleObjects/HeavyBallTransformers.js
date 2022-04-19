@@ -1,9 +1,9 @@
 export default class HeavyBallTransformers
 {
     /**
-     * @param {Phaser.scene} scene the scene that is creating "HeavyBallTransformers"
+     * @param {Phaser.Scene} scene the scene that is creating "HeavyBallTransformers"
      */
-    constructor(scene, heavyBallTransformerKey = 'heavyBallTransformer')
+    constructor(scene, heavyBallTransformerKey = 'heavy ball transformer')
     {
         this.scene = scene
         this.key = heavyBallTransformerKey
@@ -26,8 +26,6 @@ export default class HeavyBallTransformers
     placer(x = 0, y = 0)
     {
         const heavyBallTransformer = this.group.create(x, y, this.key)
-
-        heavyBallTransformer.setCollideWorldBounds(true)
     }
 
     create(x = 0, y = 0)
@@ -39,8 +37,9 @@ export default class HeavyBallTransformers
 
     /**
      * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
+     * @param {Phaser.Physics.Arcade.StaticBody} heavyBallTransformer Heavy Ball Transformer that ball collided with.
      */
-    activate(ball)
+    toggle(ball, heavyBallTransformer)
     {
         if (ball.gameObject.getData('active'))
             this.resetMass(ball)

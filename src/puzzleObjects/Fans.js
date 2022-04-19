@@ -1,7 +1,7 @@
 export default class Fans
 {
     /**
-     * @param {Phaser.scene} scene the scene that is creating "Fans"
+     * @param {Phaser.Scene} scene the scene that is creating "Fans"
      */
     constructor(scene, fanKey = 'fan', windKey = 'wind')
     {
@@ -30,6 +30,25 @@ export default class Fans
 
     }
 
+    /**
+     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
+     * @param {Phaser.Physics.Arcade.StaticBody} fan Heavy Ball Transformer that ball collided with.
+     */
+    toggle(ball, fan)
+    {
+
+    }
+
+    activate()
+    {
+
+    }
+
+    deactivate()
+    {
+
+    }
+
     // These default values should probably be changed to where they are located in the UI.
     place(x = 0, y = 0)
     {
@@ -39,8 +58,6 @@ export default class Fans
         fan.gameObject.setData('wind', wind)
 
         wind.setVisible(false)
-
-        fan.setCollideWorldBounds(true)
 
         return fan
     }

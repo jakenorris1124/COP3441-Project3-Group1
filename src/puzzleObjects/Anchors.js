@@ -1,7 +1,7 @@
 export default class Anchors
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "Anchors"
+     * @param {Phaser.Scene} the scene that is creating "Anchors"
      */
     constructor(scene, anchorKey = 'anchor')
     {
@@ -18,8 +18,6 @@ export default class Anchors
     {
         const anchor = this.group.create(x, y, this.key)
         anchor.gameObject.setData('link', piece)
-
-        anchor.setCollideWorldBounds(true)
 
         return anchor
     }

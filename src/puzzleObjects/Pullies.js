@@ -1,7 +1,7 @@
 export default class Pullies
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "Pullies"
+     * @param {Phaser.Scene} scene the scene that is creating "Pullies"
      */
     constructor(scene, pulleyKey = 'pulley')
     {
@@ -16,9 +16,25 @@ export default class Pullies
     {
         const pulley = this.group.create(x, y, this.key)
 
-        pulley.setCollideWorldBounds(true)
-
         return pulley
+    }
+
+    /**
+     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
+     * @param {Phaser.Physics.Arcade.StaticBody} pulley Heavy Ball Transformer that ball collided with.
+     */
+    toggle(ball, pulley)
+    {
+
+    }
+
+    /**
+     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
+     * @param {Phaser.Physics.Arcade.StaticBody} pulley Heavy Ball Transformer that ball collided with.
+     */
+    isActive(ball, pulley)
+    {
+        return true // will change later, just absolving errors for now
     }
 
     get group()

@@ -1,7 +1,7 @@
 export default class Prisms
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "Prisms"
+     * @param {Phaser.Scene} the scene that is creating "Prisms"
      */
     constructor(scene, prismKey = 'prism')
     {
@@ -14,8 +14,6 @@ export default class Prisms
     place(x = 0, y = 0)
     {
         const prism = this.group.create(x, y, this.key)
-
-        prism.setCollideWorldBounds(true)
 
         return prism
     }

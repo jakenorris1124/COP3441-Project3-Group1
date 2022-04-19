@@ -1,9 +1,9 @@
 export default class DirectionalGates
 {
     /**
-     * @param {Phaser.scene} the scene that is creating "DirectionalGates"
+     * @param {Phaser.Scene} scene the scene that is creating "DirectionalGates"
      */
-    constructor(scene, directionalGateKey = 'directionalGate')
+    constructor(scene, directionalGateKey = 'directional gate')
     {
         this.scene = scene
         this.key = directionalGateKey
@@ -20,6 +20,15 @@ export default class DirectionalGates
         directionalGate.setCollideWorldBounds(true)
 
         return directionalGate
+    }
+
+    /**
+     * @param ball {Phaser.Physics.Arcade.Body}
+     * @param {Phaser.Physics.Arcade.StaticBody} directionalGate
+     */
+    isCorrectSide(ball, directionalGate)
+    {
+
     }
 
     get group()
