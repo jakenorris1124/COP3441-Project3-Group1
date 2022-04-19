@@ -14,7 +14,6 @@ export default class DirectionalGates
     placeDirectionalGate(x = 0, y = 0)
     {
         const directionalGate = this.group.create(x, y, this.key)
-        directionalGate.gameObject.setData('entrance', 'right')
 
         directionalGate.setCollideWorldBounds(true)
 
@@ -22,12 +21,29 @@ export default class DirectionalGates
     }
 
     /**
-     * @param ball {Phaser.Physics.Arcade.Body}
-     * @param {Phaser.Physics.Arcade.StaticBody} directionalGate
+     * @param {Phaser.GameObjects.GameObject} ball
+     * @param {Phaser.GameObject.GameObject} directionalGate
      */
-    isCorrectSide(ball, directionalGate)
+    isWrongSide(ball, directionalGate)
     {
+        let touchDirection = directionalGate.body.touching
 
+        switch (directionalGate.parentContainer.angle)
+        {
+            case 0:
+                return !touchDirection.right
+            case 90:
+                return !touchDirection.down
+            case 180:
+                return !touchDirection.left
+            case -180:
+                return !touchDirection.left
+            case -90:
+                return !touchDirection.left
+            default:
+                console.log("Rotation angle somehow not a multiple of 90.")
+                return true
+        }
     }
 
     get group()
