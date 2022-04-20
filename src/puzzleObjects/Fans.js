@@ -55,7 +55,7 @@ export default class Fans
     {
         const fan = this.scene.add.sprite(x, y, this.key)
         this._group.add(fan)
-        const wind = this.windGroup.create(x, y - fan.body.height, this.windKey) // Will need to adjust x and y values here later.
+        const wind = this.windGroup.create(x, y - fan.body.height - 150, this.windKey) // Will need to adjust x and y values here later.
         fan.setName('fan')
 
         wind.body.setSize(fan.body.width, 300)
@@ -97,22 +97,22 @@ export default class Fans
         {
             case 0:
                 wind.x = fan.x
-                wind.y = fan.y - fan.body.height
+                wind.y = fan.y - fan.body.height - 150
                 break
             case 90:
-                wind.x = fan.x + fan.body.width
+                wind.x = fan.x + fan.body.width + 150
                 wind.y = fan.y
                 break
             case 180:
                 wind.x = fan.x
-                wind.y = fan.y + fan.body.height
+                wind.y = fan.y + fan.body.height + 150
                 break
             case -180:
                 wind.x = fan.x
-                wind.y = fan.y + fan.body.height
+                wind.y = fan.y + fan.body.height + 150
                 break
             case -90:
-                wind.x = fan.x - fan.body.width
+                wind.x = fan.x - fan.body.width - 150
                 wind.y = fan.y
                 break
         }
@@ -132,22 +132,22 @@ export default class Fans
         {
             case 0:
                 wind.x = fan.x
-                wind.y = fan.y - fan.body.height
+                wind.y = fan.y - fan.body.height - 150
                 break
             case 90:
-                wind.x = fan.x + fan.body.width
+                wind.x = fan.x + fan.body.width + 150
                 wind.y = fan.y
                 break
             case 180:
                 wind.x = fan.x
-                wind.y = fan.y + fan.body.height
+                wind.y = fan.y + fan.body.height + 150
                 break
             case -180:
                 wind.x = fan.x
-                wind.y = fan.y + fan.body.height
+                wind.y = fan.y + fan.body.height + 150
                 break
             case -90:
-                wind.x = fan.x - fan.body.width
+                wind.x = fan.x - fan.body.width - 150
                 wind.y = fan.y
                 break
         }
