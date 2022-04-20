@@ -21,9 +21,13 @@ export default class Balls
     {
         const ball = this._group.create(x, y, this.key).setScale(0.2)
 
+        let radius = ball.body.height / 2
+        ball.body.setCircle(radius)
+
         // These values are not tested and will very likely need to be modified
         // as I have no idea what they're like yet.
-        ball.body.setBounce(1, 1)
+        ball.body.setCollideWorldBounds(true)
+        ball.body.setBounce(.5, .5)
         ball.body.setMass(50)
         ball.body.setFriction(.3, .3)
 
