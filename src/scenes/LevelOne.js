@@ -176,12 +176,18 @@ export default class LevelOne extends Phaser.Scene
 
     activateAllPieces(ball)
     {
+        let alreadyToggled = new Set()
         for (let i in this.machines)
         {
-            if (this.machines[i].key != BUTTON_KEY && !this.levelUI.machineStatus[i] && this.machines[i].togglable)
+            if (this.machines[i].key != BUTTON_KEY && !this.levelUI.machineStatus[i]
+                && this.machines[i].togglable && !alreadyToggled.has(this.machines[i]))
+            {
                 this.machines[i].group.children.iterate((child) => {
                     this.machines[i].toggle(ball, child)
                 })
+
+                alreadyToggled.add(this.machines[i])
+            }
         }
     }
 }
