@@ -61,7 +61,7 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.enable = false;
 
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters];
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
@@ -86,6 +86,7 @@ export default class LevelOne extends Phaser.Scene
                 this.gravityInverters.inverted = false
                 this.levelBall.body.enable = false;
                 button.setText("Start")
+                this.defaultAllPieces(this.levelBall)
                 this.levelUI.stop()
             }), 10
         });
@@ -161,18 +162,31 @@ export default class LevelOne extends Phaser.Scene
             this.springs.toggle, null, this)
 
         this.physics.add.collider(this.ballGroup, this.buttonGroup,
-            this.activateAllPieces, null, this)
+            this.toggleAllPieces, null, this)
 
         this.physics.add.overlap(this.ballGroup, this.windGroup,
             this.fans.pushBall, null, this)
     }
 
-    activateAllPieces(ball)
+    toggleAllPieces(ball)
     {
         for (let i in this.machines)
         {
-            if (this.machines[i].key != BUTTON_KEY && !this.levelUI.machineStatus[i] && this.machines[i].togglable)
+            if (!this.levelUI.machineStatus[i] && this.machines[i].togglable)
                 this.machines[i].toggle(ball, this.machines[i])
+        }
+    }
+
+    defaultAllPieces(ball)
+    {
+        for (let i in this.machines)
+        {
+            if (!this.levelUI.machineStatus[i] && this.machines[i].togglable)
+                if (this.machines[i].defaultState != this.machines[i].isOn)
+                {
+                    console.log("Defaulted")
+                    this.machines[i].toggle(ball, this.machines[i])
+                }
         }
     }
 }
