@@ -30,6 +30,9 @@ const PRISM_KEY = 'prism'
 const SPRING_KEY = 'spring'
 const DIRECTIONAL_GATE_KEY = 'directional gate'
 
+const ON = 1
+const OFF = 0
+
 var levelBall;
 var goal;
 
@@ -70,7 +73,10 @@ export default class LevelOne extends Phaser.Scene
 
     update()
     {
-
+        // Resets ball acceleration when it no longer collides with any forces.
+        this.levelBall.body.setAcceleration(0, 0)
+        this.physics.overlap(this.ballGroup, this.windGroup,
+            this.fans.pushBall, this.fans.isActive, this)
     }
 
     play(button)
@@ -79,14 +85,22 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.enable = true;
         setTimeout(() => {
             button.once('pointerdown', () => {
-                this.levelBall.setPosition(500, 350)
-                this.levelBall.body.stop()
-                this.levelBall.body.setGravityY(0)
-                this.levelBall.body.enable = false;
+                this.reset()
                 button.setText("Start")
                 this.levelUI.stop()
             }), 10
         });
+    }
+
+    reset()
+    {
+        this.levelBall.setPosition(500, 350)
+        this.levelBall.body.stop()
+        this.levelBall.body.setGravityY(0)
+        this.levelBall.body.enable = false;
+        this.windGroup.children.iterate((wind) => {
+            wind.setState(OFF)
+        })
     }
 
     winWrapper()
@@ -136,7 +150,7 @@ export default class LevelOne extends Phaser.Scene
         )
 
         this.physics.add.collider(this.ballGroup, this.fanGroup,
-            this.fans.activate, null, this)
+            this.fans.toggle, null, this)
 
         this.physics.add.collider(this.ballGroup, this.directionalGateGroup,
             null, this.directionalGates.isWrongSide, this)
@@ -158,9 +172,6 @@ export default class LevelOne extends Phaser.Scene
 
         this.physics.add.collider(this.ballGroup, this.buttonGroup,
             this.activateAllPieces, null, this)
-
-        this.physics.add.overlap(this.ballGroup, this.windGroup,
-            this.fans.pushBall, null, this)
     }
 
     activateAllPieces(ball)

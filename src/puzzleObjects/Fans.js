@@ -1,3 +1,6 @@
+const ON = 1
+const OFF = 0
+
 export default class Fans
 {
     /**
@@ -24,30 +27,30 @@ export default class Fans
         return this._windGroup
     }
 
-    // Will be implemented later to pick up a fan that has been placed. Not sure
-    // if fan will be grabbed from UI the same way.
-    grabFan(fan)
-    {
-
-    }
-
     /**
      * @param {Phaser.GameObjects.GameObject} ball ball who's mass will be amplified
-     * @param {Phaser.GameObjects.GameObject} fan Heavy Ball Transformer that ball collided with.
+     * @param {Phaser.GameObjects.GameObject} fan Fan that ball collided with.
      */
     toggle(ball, fan)
     {
+        const wind = fan.getData('wind')
 
+        if (wind.state == ON)
+            wind.setState(OFF)
+        else
+            wind.setState(ON)
     }
 
-    activate()
+    /**
+     * @param {Phaser.GameObjects.Sprite} ball
+     * @param {Phaser.GameObjects.Sprite} wind
+     */
+    isActive(ball, wind)
     {
-
-    }
-
-    deactivate()
-    {
-
+        if (wind.state == ON)
+            return true
+        else
+            return false
     }
 
     // These default values should probably be changed to where they are located in the UI.
@@ -59,24 +62,41 @@ export default class Fans
         fan.setName('fan')
 
         wind.body.setSize(fan.body.width, 300)
+        wind.setState(OFF)
 
         fan.setData('wind', wind)
-        fan.setActive(false)
 
         return fan
     }
 
     // Pushes the ball, assumed only to happen when the ball is in a wind current.
     /**
-     * @param {Phaser.GameObjects.GameObject} ball the ball being pushed by the fan
-     * @param {Phaser.GameObjects.GameObject} wind specific instance of wind from fan
+     * @param {Phaser.GameObjects.Sprite} ball the ball being pushed by the fan
+     * @param {Phaser.GameObjects.Sprite} wind specific instance of wind from fan
      */
     pushBall(ball, wind)
     {
-        // I am not sure how to get a vector that is in a direction relative to the wind sprite
-        // but that needs to be done here
-        let accelerationX = 5
-        let accelerationY = 0
+        let accelerationX = ball.body.acceleration.x
+        let accelerationY = ball.body.acceleration.y
+
+        switch (wind.angle)
+        {
+            case 0:
+                accelerationY = -300
+                break
+            case 90:
+                accelerationX = 300
+                break
+            case 180:
+                accelerationY = 300
+                break
+            case -180:
+                accelerationY = 300
+                break
+            case -90:
+                accelerationX = -300
+                break
+        }
 
         ball.body.setAcceleration(accelerationX, accelerationY)
     }
