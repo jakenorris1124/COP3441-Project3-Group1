@@ -2,6 +2,7 @@ export default class Anchors
 {
     /**
      * @param {Phaser.Scene} the scene that is creating "Anchors"
+     * @param {string} anchorKey
      */
     constructor(scene, anchorKey = 'anchor')
     {
@@ -9,11 +10,14 @@ export default class Anchors
         this.key = anchorKey
         this.togglable = false
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
     /**
-     * @param {Phaser.GameObjects.GameObject} piece
+     * @param {number} x
+     * @param {number} y
+     * @param {Phaser.GameObjects.Sprite} piece
+     * @return {Phaser.GameObjects.Sprite}
      */
     placeAnchor(x = 0, y = 0, piece)
     {
@@ -24,6 +28,9 @@ export default class Anchors
         return anchor
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get group()
     {
         return this._group

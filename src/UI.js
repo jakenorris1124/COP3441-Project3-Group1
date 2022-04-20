@@ -11,7 +11,7 @@ export default class UI
      * @param {Phaser.Scene} scene The scene in which the UI should be drawn on
      * @param {string} level A string containing the name of the level
      * @param {Object[]} machines An array of the machines that are available in the level
-     * @param {Phaser.GameObjects.GameObject} ball The ball of the scene
+     * @param {Phaser.GameObjects.Sprite} ball The ball of the scene
      */
     constructor(scene, level, machines, ball)
     {
@@ -87,7 +87,6 @@ export default class UI
     }
 
     /**
-     *
      * @param {int} index
      * @param {Phaser.GameObjects.Text} button
      */
@@ -169,6 +168,11 @@ export default class UI
         this.scene.input.off('pointerup', this.put,this)
     }
 
+    /**
+     * @param {number} x
+     * @param {number} y
+     * @returns {boolean}
+     */
     inBounds(x, y)
     {
         if(x >= MIN_X && x<= MAX_X && y >= MIN_Y && y<= MAX_Y)

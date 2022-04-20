@@ -5,6 +5,8 @@ export default class Fans
 {
     /**
      * @param {Phaser.Scene} scene the scene that is creating "Fans"
+     * @param {string} fanKey
+     * @param {string} windKey
      */
     constructor(scene, fanKey = 'fan', windKey = 'wind')
     {
@@ -17,19 +19,25 @@ export default class Fans
         this._windGroup = this.scene.physics.add.staticGroup()
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get group()
     {
         return this._group
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get windGroup()
     {
         return this._windGroup
     }
 
     /**
-     * @param {Phaser.GameObjects.GameObject} ball ball who's mass will be amplified
-     * @param {Phaser.GameObjects.GameObject} fan Fan that ball collided with.
+     * @param {Phaser.GameObjects.Sprite} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.Sprite} fan Fan that ball collided with.
      */
     toggle(ball, fan)
     {
@@ -44,6 +52,7 @@ export default class Fans
     /**
      * @param {Phaser.GameObjects.Sprite} ball
      * @param {Phaser.GameObjects.Sprite} wind
+     * @return {boolean}
      */
     isActive(ball, wind)
     {
@@ -53,7 +62,12 @@ export default class Fans
             return false
     }
 
-    // These default values should probably be changed to where they are located in the UI.
+    /**
+     * These default values should probably be changed to where they are located in the UI.
+     * @param x
+     * @param y
+     * @returns {Phaser.GameObjects.Sprite}
+     */
     place(x = 0, y = 0)
     {
         const fan = this.scene.add.sprite(x, y, this.key)

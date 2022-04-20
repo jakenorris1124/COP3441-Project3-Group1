@@ -2,6 +2,7 @@ export default class DirectionalGates
 {
     /**
      * @param {Phaser.Scene} scene the scene that is creating "DirectionalGates"
+     * @param {string} directionalGateKey
      */
     constructor(scene, directionalGateKey = 'directional gate')
     {
@@ -9,9 +10,14 @@ export default class DirectionalGates
         this.key = directionalGateKey
         this.togglable = false
 
-        this._group = this.scene.physics.add.group()
+        this._group = this.scene.physics.add.staticGroup()
     }
 
+    /**
+     * @param x
+     * @param y
+     * @returns {Phaser.GameObjects.Sprite}
+     */
     placeDirectionalGate(x = 0, y = 0)
     {
         const directionalGate = this.scene.add.sprite(x, y, this.key)
@@ -23,8 +29,8 @@ export default class DirectionalGates
     }
 
     /**
-     * @param {Phaser.GameObjects.GameObject} ball
-     * @param {Phaser.GameObjects.GameObject} directionalGate
+     * @param {Phaser.GameObjects.Sprite} ball
+     * @param {Phaser.GameObjects.Sprite} directionalGate
      */
     isWrongSide(ball, directionalGate)
     {
@@ -49,6 +55,9 @@ export default class DirectionalGates
         }
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get group()
     {
         return this._group

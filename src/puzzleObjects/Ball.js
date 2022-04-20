@@ -2,6 +2,7 @@ export default class Balls
 {
     /**
      * @param {Phaser.Scene} scene
+     * @param {string} ballKey
      */
     constructor(scene, ballKey = 'ball')
     {
@@ -11,12 +12,20 @@ export default class Balls
         this._group = this.scene.physics.add.group()
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.Group}
+     */
     get group()
     {
         return this._group
     }
 
-    // Creates a ball object with default settings
+    /**
+     * Creates a ball object with default settings
+     * @param {number} x
+     * @param {number} y
+     * @return {Phaser.GameObjects.Sprite}
+     */
     createStandardBall(x = 500, y = 350)
     {
         const ball = this.scene.add.sprite(x, y, this.key).setScale(0.2)

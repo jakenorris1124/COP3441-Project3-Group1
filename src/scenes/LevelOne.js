@@ -79,6 +79,9 @@ export default class LevelOne extends Phaser.Scene
             this.fans.pushBall, this.fans.isActive, this)
     }
 
+    /**
+     * @param {Phaser.GameObjects.Text} button
+     */
     play(button)
     {
         button.setText("Stop")
@@ -174,6 +177,9 @@ export default class LevelOne extends Phaser.Scene
             this.activateAllPieces, null, this)
     }
 
+    /**
+     * @param {Phaser.GameObjects.Sprite} ball
+     */
     activateAllPieces(ball)
     {
         let alreadyToggled = new Set()

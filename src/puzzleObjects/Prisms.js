@@ -1,7 +1,8 @@
 export default class Prisms
 {
     /**
-     * @param {Phaser.Scene} the scene that is creating "Prisms"
+     * @param {Phaser.Scene} scene the scene that is creating "Prisms"
+     * @param {string} prismKey
      */
     constructor(scene, prismKey = 'prism')
     {
@@ -12,6 +13,11 @@ export default class Prisms
         this._group = this.scene.physics.add.staticGroup()
     }
 
+    /**
+     * @param {number} x
+     * @param {number} y
+     * @returns {Phaser.GameObjects.Sprite}
+     */
     place(x = 0, y = 0)
     {
         const prism = this.scene.add.sprite(x, y, this.key)
@@ -20,6 +26,9 @@ export default class Prisms
         return prism
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get group()
     {
         return this._group

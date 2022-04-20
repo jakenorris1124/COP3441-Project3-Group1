@@ -2,6 +2,7 @@ export default class Pullies
 {
     /**
      * @param {Phaser.Scene} scene the scene that is creating "Pullies"
+     * @param {string} pulleyKey
      */
     constructor(scene, pulleyKey = 'pulley')
     {
@@ -12,7 +13,11 @@ export default class Pullies
         this._group = this.scene.physics.add.staticGroup()
     }
 
-    //I don't know quite how the pulley works, so I'm not sure how else I should mess with this class.
+    /**
+     * @param {number} x
+     * @param {number} y
+     * @returns {Phaser.GameObjects.Sprite}
+     */
     place(x = 0, y = 0)
     {
         const pulley = this.scene.add.sprite(x, y, this.key)
@@ -22,8 +27,8 @@ export default class Pullies
     }
 
     /**
-     * @param {Phaser.GameObjects.GameObject} ball ball who's mass will be amplified
-     * @param {Phaser.GameObjects.GameObject} pulley Heavy Ball Transformer that ball collided with.
+     * @param {Phaser.GameObjects.Sprite} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.Sprite} pulley Heavy Ball Transformer that ball collided with.
      */
     toggle(ball, pulley)
     {
@@ -31,14 +36,17 @@ export default class Pullies
     }
 
     /**
-     * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
-     * @param {Phaser.Physics.Arcade.StaticBody} pulley Heavy Ball Transformer that ball collided with.
+     * @param {Phaser.GameObjects.Sprite} ball ball who's mass will be amplified
+     * @param {Phaser.GameObjects.Sprite} pulley Heavy Ball Transformer that ball collided with.
      */
     isActive(ball, pulley)
     {
         return true // will change later, just absolving errors for now
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get group()
     {
         return this._group
