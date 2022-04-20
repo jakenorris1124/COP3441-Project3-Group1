@@ -1,3 +1,6 @@
+const ON = 1
+const OFF = 0
+
 export default class GravityInverters
 {
     /**
@@ -31,18 +34,27 @@ export default class GravityInverters
         const gravityInverter = this.scene.add.sprite(x, y, this.key)
         this._group.add(gravityInverter)
 
+        gravityInverter.setState(OFF)
+
         return gravityInverter
     }
 
     // Inverts gravity from its current state.
     /**
      * @param {Phaser.GameObjects.Sprite} ball
+     * @param {Phaser.GameObjects.Sprite} gravityInverter
      */
-    toggle(ball)
+    toggle(ball, gravityInverter)
     {
-        if(ball.body.gravity.y == 0)
+        if(gravityInverter.state == OFF)
+        {
             ball.body.setGravityY(-400)
+            gravityInverter.setState(ON)
+        }
         else
+        {
             ball.body.setGravityY(0)
+            gravityInverter.setState(OFF)
+        }
     }
 }

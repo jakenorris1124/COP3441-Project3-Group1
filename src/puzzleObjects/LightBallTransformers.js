@@ -1,5 +1,8 @@
 import Phaser from "phaser";
 
+const ON = 1
+const OFF = 0
+
 export default class LightBallTransformers
 {
     /**
@@ -55,7 +58,7 @@ export default class LightBallTransformers
         bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
         lightBallTransformer.body.sourceHeight -= 2 * height
 
-        lightBallTransformer.setActive(false)
+        lightBallTransformer.setState(OFF)
     }
 
     /**
@@ -64,10 +67,16 @@ export default class LightBallTransformers
      */
     toggle(ball, lightBallTransformer)
     {
-        if (lightBallTransformer.active)
+        if (lightBallTransformer.state == ON)
+        {
             this.resetMass(ball.body)
+            lightBallTransformer.setState(OFF)
+        }
         else
+        {
             this.decreaseMass(ball.body)
+            lightBallTransformer.setState(ON)
+        }
     }
 
     /**

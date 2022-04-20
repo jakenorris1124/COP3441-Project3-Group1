@@ -8,7 +8,7 @@ export default class Springs
     {
         this.scene = scene
         this.key = springKey
-        this.togglable = true
+        this.togglable = false
 
         this._group = this.scene.physics.add.staticGroup()
     }

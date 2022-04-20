@@ -100,10 +100,21 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.setPosition(500, 350)
         this.levelBall.body.stop()
         this.levelBall.body.setGravityY(0)
-        this.levelBall.body.enable = false;
-        this.windGroup.children.iterate((wind) => {
-            wind.setState(OFF)
-        })
+        this.levelBall.body.enable = false
+
+        let alreadyToggled = new Set()
+        for (let i in this.machines)
+        {
+            if (!this.levelUI.machineStatus[i] && this.machines[i].togglable
+                && !alreadyToggled.has(this.machines[i]))
+            {
+                this.machines[i].group.children.iterate((child) => {
+                    this.machines[i].setState(OFF)
+                })
+
+                alreadyToggled.add(this.machines[i])
+            }
+        }
 
         this.lightBridgeGroup.children.iterate((bridge) => {
             this.lightBridges.toggle()
@@ -189,8 +200,8 @@ export default class LevelOne extends Phaser.Scene
         let alreadyToggled = new Set()
         for (let i in this.machines)
         {
-            if (this.machines[i].key != BUTTON_KEY && !this.levelUI.machineStatus[i]
-                && this.machines[i].togglable && !alreadyToggled.has(this.machines[i]))
+            if (!this.levelUI.machineStatus[i] && this.machines[i].togglable
+                && !alreadyToggled.has(this.machines[i]))
             {
                 this.machines[i].group.children.iterate((child) => {
                     this.machines[i].toggle(ball, child)

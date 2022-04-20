@@ -1,5 +1,8 @@
 import Phaser from 'phaser'
 
+const ON = 1
+const OFF = 0
+
 export default class HeavyBallTransformers
 {
     /**
@@ -56,7 +59,7 @@ export default class HeavyBallTransformers
         heavyBallTransformer.body.sourceHeight -= 2 * height
 
 
-        heavyBallTransformer.setActive(false)
+        heavyBallTransformer.setState(OFF)
     }
 
     /**
@@ -65,10 +68,16 @@ export default class HeavyBallTransformers
      */
     toggle(ball, heavyBallTransformer)
     {
-        if (heavyBallTransformer.active)
+        if (heavyBallTransformer.state == ON)
+        {
             this.resetMass(ball.body)
+            heavyBallTransformer.setState(OFF)
+        }
         else
+        {
             this.increaseMass(ball.body)
+            heavyBallTransformer.setState(ON)
+        }
     }
 
     /**

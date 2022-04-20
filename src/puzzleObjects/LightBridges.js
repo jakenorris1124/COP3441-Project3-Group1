@@ -1,3 +1,6 @@
+const ON = 1
+const OFF = 0
+
 export default class LightBridges
 {
     /**
@@ -24,6 +27,8 @@ export default class LightBridges
     {
         const lightBridge = this.scene.add.sprite(x, y, this.key)
         this._group.add(lightBridge )
+
+        lightBridge.setState(OFF)
 
         return lightBridge
     }
