@@ -104,6 +104,10 @@ export default class LevelOne extends Phaser.Scene
         this.windGroup.children.iterate((wind) => {
             wind.setState(OFF)
         })
+
+        this.lightBridgeGroup.children.iterate((bridge) => {
+            this.lightBridges.toggle()
+        })
     }
 
     winWrapper()
@@ -149,7 +153,7 @@ export default class LevelOne extends Phaser.Scene
             this.ballGroup,
             [this.ballGroup, this.lightBridgeGroup, this.prismGroup,
                 this.HBTBoundaryGroup, this.LBTBoundaryGroup],
-            this
+            null, null, this
         )
 
         this.physics.add.collider(this.ballGroup, this.fanGroup,
