@@ -39,7 +39,8 @@ export default class LightBallTransformers
 
     create(x = 0, y = 0)
     {
-        const lightBallTransformer = this._group.create(x, y, this.key)
+        const lightBallTransformer = this.scene.add.sprite(x, y, this.key)
+        this._group.add(lightBallTransformer)
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 

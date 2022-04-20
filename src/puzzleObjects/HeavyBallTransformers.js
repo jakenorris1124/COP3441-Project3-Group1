@@ -34,7 +34,8 @@ export default class HeavyBallTransformers
 
     create(x = 0, y = 0)
     {
-        const heavyBallTransformer = this._group.create(x, y, this.key)
+        const heavyBallTransformer = this.scene.add.sprite(x, y, this.key)
+        this._group.add(heavyBallTransformer)
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 

@@ -17,7 +17,8 @@ export default class Anchors
      */
     placeAnchor(x = 0, y = 0, piece)
     {
-        const anchor = this.group.create(x, y, this.key)
+        const anchor = this.scene.add.sprite(x, y, this.key)
+        this._group.add(anchor)
         anchor.setData('link', piece)
 
         return anchor

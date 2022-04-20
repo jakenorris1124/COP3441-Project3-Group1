@@ -15,7 +15,8 @@ export default class Pullies
     //I don't know quite how the pulley works, so I'm not sure how else I should mess with this class.
     place(x = 0, y = 0)
     {
-        const pulley = this.group.create(x, y, this.key)
+        const pulley = this.scene.add.sprite(x, y, this.key)
+        this._group.add(pulley)
 
         return pulley
     }

@@ -53,9 +53,12 @@ export default class Fans
     // These default values should probably be changed to where they are located in the UI.
     place(x = 0, y = 0)
     {
-        const fan = this.group.create(x, y, this.key)
-        const wind = this.windGroup.create(x, y, this.windKey) // Will need to adjust x and y values here later.
-        
+        const fan = this.scene.add.sprite(x, y, this.key)
+        this._group.add(fan)
+        const wind = this.windGroup.create(x, y - fan.body.height, this.windKey) // Will need to adjust x and y values here later.
+        fan.setName('fan')
+
+        wind.body.setSize(fan.body.width, 300)
 
         fan.setData('wind', wind)
         fan.setActive(false)
@@ -78,5 +81,78 @@ export default class Fans
         ball.body.setAcceleration(accelerationX, accelerationY)
     }
 
+    /**
+     * @param {Phaser.GameObjects.Sprite} fan
+     */
+    static rotateWind(fan)
+    {
+        const wind = fan.getData('wind')
+        wind.setAngle(fan.angle)
 
+        let newHeight = wind.body.width
+        let newWidth = wind.body.height
+        wind.body.setSize(newWidth, newHeight)
+
+        switch (wind.angle)
+        {
+            case 0:
+                wind.x = fan.x
+                wind.y = fan.y - fan.body.height
+                break
+            case 90:
+                wind.x = fan.x + fan.body.width
+                wind.y = fan.y
+                break
+            case 180:
+                wind.x = fan.x
+                wind.y = fan.y + fan.body.height
+                break
+            case -180:
+                wind.x = fan.x
+                wind.y = fan.y + fan.body.height
+                break
+            case -90:
+                wind.x = fan.x - fan.body.width
+                wind.y = fan.y
+                break
+        }
+
+        wind.body.x = wind.x - wind.body.width / 2
+        wind.body.y = wind.y - wind.body.height / 2
+    }
+
+    /**
+     * @param {Phaser.GameObjects.Sprite} fan
+     */
+    static dragWind(fan)
+    {
+        const wind = fan.getData('wind')
+
+        switch (wind.angle)
+        {
+            case 0:
+                wind.x = fan.x
+                wind.y = fan.y - fan.body.height
+                break
+            case 90:
+                wind.x = fan.x + fan.body.width
+                wind.y = fan.y
+                break
+            case 180:
+                wind.x = fan.x
+                wind.y = fan.y + fan.body.height
+                break
+            case -180:
+                wind.x = fan.x
+                wind.y = fan.y + fan.body.height
+                break
+            case -90:
+                wind.x = fan.x - fan.body.width
+                wind.y = fan.y
+                break
+        }
+
+        wind.body.x = wind.x - wind.body.width / 2
+        wind.body.y = wind.y - wind.body.height / 2
+    }
 }

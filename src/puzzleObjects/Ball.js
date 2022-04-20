@@ -19,9 +19,10 @@ export default class Balls
     // Creates a ball object with default settings
     createStandardBall(x = 500, y = 350)
     {
-        const ball = this._group.create(x, y, this.key).setScale(0.2)
+        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.2)
+        this._group.add(ball)
 
-        let radius = ball.body.height / 2
+        let radius = ball.body.sourceHeight / 2
         ball.body.setCircle(radius)
 
         // These values are not tested and will very likely need to be modified
@@ -29,7 +30,7 @@ export default class Balls
         ball.body.setCollideWorldBounds(true)
         ball.body.setBounce(.5, .5)
         ball.body.setMass(50)
-        ball.body.setFriction(.3, .3)
+        ball.body.setFriction(.1, .1)
 
         return ball
     }

@@ -15,7 +15,8 @@ export default class LightBridges
     // The actual bridge part I'm not sure how to implement yet.
     place(x = 0, y = 0)
     {
-        const lightBridge = this.group.create(x, y, this.key)
+        const lightBridge = this.scene.add.sprite(x, y, this.key)
+        this._group.add(lightBridge )
 
         return lightBridge
     }

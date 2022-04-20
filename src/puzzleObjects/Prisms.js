@@ -14,7 +14,8 @@ export default class Prisms
 
     place(x = 0, y = 0)
     {
-        const prism = this.group.create(x, y, this.key)
+        const prism = this.scene.add.sprite(x, y, this.key)
+        this._group.add(prism)
 
         return prism
     }

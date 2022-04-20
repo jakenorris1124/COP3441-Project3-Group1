@@ -14,7 +14,8 @@ export default class DirectionalGates
 
     placeDirectionalGate(x = 0, y = 0)
     {
-        const directionalGate = this.group.create(x, y, this.key)
+        const directionalGate = this.scene.add.sprite(x, y, this.key)
+        this._group.add(directionalGate)
 
         directionalGate.body.setCollideWorldBounds(true)
 

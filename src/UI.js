@@ -1,3 +1,5 @@
+import Fans from './puzzleObjects/Fans.js'
+
 const MIN_X = 0
 const MAX_X = 1600
 const MIN_Y = 0
@@ -8,8 +10,8 @@ export default class UI
     /**
      * @param {Phaser.Scene} scene The scene in which the UI should be drawn on
      * @param {string} level A string containing the name of the level
-     * @param {Array} machines An array of the machines that are available in the level
-     * @param {Ball} ball The ball of the scene
+     * @param {Object[]} machines An array of the machines that are available in the level
+     * @param {Phaser.GameObjects.GameObject} ball The ball of the scene
      */
     constructor(scene, level, machines, ball)
     {
@@ -113,6 +115,10 @@ export default class UI
         });
     }
 
+    /**
+     * @param {Phaser.GameObjects.Sprite} placed
+     * @param {number} degree
+     */
     rotate(placed, degree)
     {
         placed.once('pointerdown', (pointer) => {
@@ -120,6 +126,13 @@ export default class UI
             {
                 placed.setAngle( (90 * degree) % 360);
                 degree++;
+
+                let newHeight = placed.body.width
+                let newWidth = placed.body.height
+                placed.body.setSize(newWidth, newHeight)
+
+                if (placed.name == 'fan')
+                    Fans.rotateWind(placed)
             }
             this.rotate(placed, degree)
         })
@@ -143,7 +156,11 @@ export default class UI
         {
             this.dragObj.x = pointer.x
             this.dragObj.y = pointer.y
-            this.dragObj.body.reset(pointer.x, pointer.y)
+            this.dragObj.body.x = pointer.x - this.dragObj.body.width / 2
+            this.dragObj.body.y = pointer.y - this.dragObj.body.height / 2
+
+            if (this.dragObj.name == 'fan')
+                Fans.dragWind(this.dragObj)
         }
     }
     put(){

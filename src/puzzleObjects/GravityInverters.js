@@ -19,7 +19,8 @@ export default class GravityInverters
 
     place(x = 0, y = 0)
     {
-        const gravityInverter = this.group.create(x, y, this.key)
+        const gravityInverter = this.scene.add.sprite(x, y, this.key)
+        this._group.add(gravityInverter)
 
         return gravityInverter
     }
