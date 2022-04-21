@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import GravityInverters from "./GravityInverters";
 
 const ON = 1
 const OFF = 0
@@ -84,12 +85,12 @@ export default class LightBallTransformers
     {
         if (lightBallTransformer.state == ON)
         {
-            this.resetMass(ball.body)
+            LightBallTransformers.resetMass(ball.body)
             lightBallTransformer.setState(OFF)
         }
         else
         {
-            this.decreaseMass(ball.body)
+            LightBallTransformers.decreaseMass(ball.body)
             lightBallTransformer.setState(ON)
         }
     }
@@ -97,16 +98,32 @@ export default class LightBallTransformers
     /**
      * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
-    decreaseMass(ball)
+    static decreaseMass(ball)
     {
+        if (ball.gravity.y > -200)
+            ball.setGravityY(ball.gravity.y - 50)
+        else if (ball.gravity.y < -200)
+            ball.setGravityY(ball.gravity.y + 50)
         ball.setMass(ball.mass / 2)
     }
 
     /**
      * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
-    resetMass(ball)
+    static resetMass(ball)
     {
+        if (ball.gravity.y > -200)
+            ball.setGravityY(ball.gravity.y +50)
+        else if (ball.gravity.y < -200)
+            ball.setGravityY(ball.gravity.y - 50)
+        else
+        {
+            if (GravityInverters.inverted == false)
+                ball.setGravityY(50)
+            else
+                ball.setGravityY(-50)
+        }
+
         ball.setMass(ball.mass * 2)
     }
 
