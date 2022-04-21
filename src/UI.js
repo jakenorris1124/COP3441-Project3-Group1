@@ -97,6 +97,8 @@ export default class UI
             return;
         button.setColor("#31ff00");
 
+        this.scene.input.off('pointerdown',this.pick,this)
+
         setTimeout(() => {
             this.scene.input.once('pointerdown', (pointer) => {
                 if(this.inBounds(pointer.x, pointer.y))
@@ -115,7 +117,10 @@ export default class UI
                     this.scene.input.on('pointerdown', this.pick, this)
                 }
                 else
+                {
+                    this.scene.input.on('pointerdown',this.pick,this)
                     button.setColor('#ffffff')
+                }
             }), 10
         });
     }

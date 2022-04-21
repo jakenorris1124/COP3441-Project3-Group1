@@ -22,7 +22,7 @@ export default class Buttons
     {
         const button = this.scene.add.sprite(x, y, this.key)
         this._group.add(button)
-
+        
         return button
     }
 
