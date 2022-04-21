@@ -1,4 +1,5 @@
 import Fans from './puzzleObjects/Fans.js'
+import Phaser from 'phaser'
 
 const MIN_X = 0
 const MAX_X = 1600
@@ -107,9 +108,14 @@ export default class UI
                     this.machineStatus[index] = false;
                     placed.setInteractive();
 
+                    placed.setData('statusIndex', index)
+                    placed.setData('textButton', button)
+
                     this.rotate(placed, 1)
-                    this.scene.input.on('pointerdown', this.pick,this)
+                    this.scene.input.on('pointerdown', this.pick, this)
                 }
+                else
+                    button.setColor('#ffffff')
             }), 10
         });
     }
@@ -143,10 +149,12 @@ export default class UI
     {
         if(this.scene.input.activePointer.leftButtonDown() && !this.isRunning)
         {
+            if (!(targets[0] instanceof Phaser.GameObjects.Sprite))
+                return
             this.scene.input.off('pointerdown',this.pick,this);
             this.dragObj = targets[0];
             this.scene.input.on('pointermove',this.drag,this)
-            this.scene.input.on('pointerup', this.put,this)
+            this.scene.input.on('pointerup', this.put, this)
         }
     }
     drag(pointer)
@@ -162,7 +170,14 @@ export default class UI
                 Fans.dragWind(this.dragObj)
         }
     }
-    put(){
+    put(pointer)
+    {
+        if (this.inUI(pointer.x, pointer.y))
+        {
+            this.machineStatus[this.dragObj.getData('statusIndex')] = true
+            this.dragObj.getData('textButton').setColor('#ffffff')
+            this.dragObj.destroy()
+        }
         this.scene.input.on('pointerdown',this.pick,this);
         this.scene.input.off('pointermove',this.drag,this)
         this.scene.input.off('pointerup', this.put,this)
@@ -178,5 +193,18 @@ export default class UI
         if(x >= MIN_X && x<= MAX_X && y >= MIN_Y && y<= MAX_Y)
             return true;
         return false;
+    }
+
+    /**
+     * @param {number} x
+     * @param {number} y
+     * @return {boolean}
+     */
+    inUI(x, y)
+    {
+        if (x <= this.scene.physics.world.bounds.right && x > MAX_X
+            && y <= MAX_Y && y >= MIN_Y)
+            return true
+        return false
     }
 }

@@ -16,14 +16,15 @@ export default class Anchors
     /**
      * @param {number} x
      * @param {number} y
-     * @param {Phaser.GameObjects.Sprite} piece
      * @return {Phaser.GameObjects.Sprite}
      */
-    placeAnchor(x = 0, y = 0, piece)
+    place(x = 0, y = 0)
     {
         const anchor = this.scene.add.sprite(x, y, this.key)
         this._group.add(anchor)
-        anchor.setData('link', piece)
+
+        //We will add colliders to debris if time permits.
+       // this.scene.physics.add.collider(anchor, )
 
         return anchor
     }

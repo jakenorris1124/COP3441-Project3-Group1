@@ -46,6 +46,9 @@ export default class HeavyBallTransformers
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 
+        heavyBallTransformer.setData('topCollisionBox', topCollisionBox)
+        heavyBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
+
         let bounds = heavyBallTransformer.body.getBounds()
         let left = bounds.x
         let top = bounds.y
