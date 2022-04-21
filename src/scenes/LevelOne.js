@@ -33,7 +33,6 @@ const DIRECTIONAL_GATE_KEY = 'directional gate'
 const ON = 1
 const OFF = 0
 
-var levelBall;
 var goal;
 
 export default class LevelOne extends Phaser.Scene
@@ -53,6 +52,9 @@ export default class LevelOne extends Phaser.Scene
         this.load.image(GRAVITY_INVERTER_KEY, 'images/Grav Inv On.png')
         this.load.image(SPRING_KEY, 'images/Spring.png')
         this.load.image(DIRECTIONAL_GATE_KEY, 'images/Dir Gate On.png')
+        this.load.image(PULLEY_KEY, 'images/Lift Open.png')
+        this.load.image(LIGHT_BALL_TRANSFORMER_KEY, 'images/Light Trans Off.png')
+        this.load.image(HEAVY_BALL_TRANSFORMER_KEY, 'images/Heavy Trans Off.png')
     }
 
     create()
@@ -65,7 +67,8 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall = this.balls.createStandardBall()
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
+        this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
@@ -107,6 +110,16 @@ export default class LevelOne extends Phaser.Scene
         this.lightBridgeGroup.children.iterate((emitter) => {
             if (emitter.state == ON)
                 this.lightBridges.toggle(this.levelBall, emitter)
+        })
+
+        this.pulleyGroup.children.iterate((pulley) => {
+            pulley.body.setVelocityX(0)
+            pulley.body.setVelocityY(0)
+            pulley.setX(pulley.getData('initialX'))
+            pulley.setY(pulley.getData('initialY'))
+
+            if (pulley.getData('timeEvent') != undefined)
+                this.time.removeEvent(pulley.getData('timeEvent'))
         })
 
         let alreadyToggled = new Set()
@@ -155,7 +168,7 @@ export default class LevelOne extends Phaser.Scene
         this.lightBallTransformerGroup = this.lightBallTransformers.group
         this.lightBridgeGroup = this.lightBridges.group
         this.prismGroup = this.prisms.group
-        this.pullyGroup = this.pullies.group
+        this.pulleyGroup = this.pullies.group
         this.sprinGroup = this.springs.group
         this.HBTBoundaryGroup = this.heavyBallTransformers.boundaryGroup
         this.LBTBoundaryGroup = this.lightBallTransformers.boundaryGroup
@@ -166,7 +179,7 @@ export default class LevelOne extends Phaser.Scene
         this.physics.add.collider(
             this.ballGroup,
             [this.ballGroup, this.lightBridgeGroup, this.prismGroup,
-                this.HBTBoundaryGroup, this.LBTBoundaryGroup],
+                this.HBTBoundaryGroup, this.LBTBoundaryGroup, this.pulleyGroup],
             null, null, this
         )
 
@@ -184,9 +197,6 @@ export default class LevelOne extends Phaser.Scene
 
         this.physics.add.overlap(this.ballGroup, this.lightBallTransformerGroup,
             this.lightBallTransformers.toggle, null, this)
-
-        this.physics.add.collider(this.ballGroup, this.pullyGroup,
-            this.pullies.toggle, this.pullies.isActive, this)
 
         this.physics.add.collider(this.ballGroup, this.sprinGroup,
             this.springs.toggle, null, this)

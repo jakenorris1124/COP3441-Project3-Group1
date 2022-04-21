@@ -109,7 +109,8 @@ export default class UI
                     button.setColor("#ff0000");
                     let placed = this.machines[index].place(pointer.x, pointer.y)
                     placed.body.immovable = true;
-                    placed.body.gravity = true;
+                    if (placed.body instanceof Phaser.Physics.Arcade.Body)
+                        placed.body.setAllowGravity(false)
                     this.machineStatus[index] = false;
                     placed.setInteractive();
 
@@ -202,6 +203,13 @@ export default class UI
             }
             this.dragObj.destroy()
         }
+
+        if (this.dragObj.name == 'pulley')
+        {
+            this.dragObj.setData('initialX', pointer.x)
+            this.dragObj.setData('initialY', pointer.y)
+        }
+
         this.scene.input.on('pointerdown',this.pick,this);
         this.scene.input.off('pointermove',this.drag,this)
         this.scene.input.off('pointerup', this.put,this)

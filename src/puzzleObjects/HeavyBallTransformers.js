@@ -50,7 +50,7 @@ export default class HeavyBallTransformers
         heavyBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
         heavyBallTransformer.setName('heavyBallTransformer')
 
-        let bounds = heavyBallTransformer.body.getBounds()
+        let bounds = heavyBallTransformer.getBounds()
         let top = bounds.y
         let bottom = bounds.bottom
         let width = heavyBallTransformer.body.sourceWidth
@@ -114,7 +114,7 @@ export default class HeavyBallTransformers
         topBound.body.setSize(newWidth, newHeight)
         bottomBound.body.setSize(newWidth, newHeight)
 
-        let bounds = heavyBallTransformer.body.getBounds()
+        let bounds = heavyBallTransformer.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
@@ -172,7 +172,7 @@ export default class HeavyBallTransformers
         const topBound = heavyBallTransformer.getData('topCollisionBox')
         const bottomBound = heavyBallTransformer.getData('bottomCollisionBox')
 
-        let bounds = heavyBallTransformer.body.getBounds()
+        let bounds = heavyBallTransformer.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom

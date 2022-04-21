@@ -1,3 +1,6 @@
+const ON = 1
+const OFF = 0
+
 export default class Pullies
 {
     /**
@@ -10,7 +13,7 @@ export default class Pullies
         this.key = pulleyKey
         this.togglable = true
 
-        this._group = this.scene.physics.add.staticGroup()
+        this._group = this.scene.physics.add.group()
     }
 
     /**
@@ -23,29 +26,64 @@ export default class Pullies
         const pulley = this.scene.add.sprite(x, y, this.key)
         this._group.add(pulley)
 
+        pulley.setState(OFF)
+        pulley.setName('pulley')
+        pulley.setData('moving', false)
+        pulley.setData('initialX', x)
+        pulley.setData('initialY', y)
+        pulley.setData('timeEvent', undefined)
+
         return pulley
     }
 
+    // The pulley will be very difficult to implement unless we can find a way to make it have a non static body.
     /**
      * @param {Phaser.GameObjects.Sprite} ball ball who's mass will be amplified
      * @param {Phaser.GameObjects.Sprite} pulley Heavy Ball Transformer that ball collided with.
      */
     toggle(ball, pulley)
     {
+        if (pulley.state == ON)
+        {
+            this.goDown(pulley)
+            pulley.setState(OFF)
+        }
+        else
+        {
+            this.goUp(pulley)
+            pulley.setState(ON)
+        }
 
+        pulley.setData('moving', true)
+
+        pulley.setData('timeEvent', this.scene.time.addEvent({
+            delay: 5000,
+            callback: () => {
+                pulley.body.setVelocityY(0)
+                pulley.setData('moving', false)
+            },
+            callbackScope: this
+        }))
     }
 
     /**
-     * @param {Phaser.GameObjects.Sprite} ball ball who's mass will be amplified
-     * @param {Phaser.GameObjects.Sprite} pulley Heavy Ball Transformer that ball collided with.
+     * @param {Phaser.GameObjects.Sprite} pulley
      */
-    isActive(ball, pulley)
+    goUp(pulley)
     {
-        return true // will change later, just absolving errors for now
+        pulley.body.setVelocityY(-50)
     }
 
     /**
-     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     * @param {Phaser.GameObjects.Sprite} pulley
+     */
+    goDown(pulley)
+    {
+        pulley.body.setVelocityY(50)
+    }
+
+    /**
+     * @returns {Phaser.Physics.Arcade.Group}
      */
     get group()
     {

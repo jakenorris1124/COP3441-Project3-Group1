@@ -50,7 +50,7 @@ export default class LightBallTransformers
         lightBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
         lightBallTransformer.setName('lightBallTransformer')
 
-        let bounds = lightBallTransformer.body.getBounds()
+        let bounds = lightBallTransformer.getBounds()
         let top = bounds.y
         let bottom = bounds.bottom
         let width = lightBallTransformer.body.sourceWidth
@@ -114,7 +114,7 @@ export default class LightBallTransformers
         topBound.body.setSize(newWidth, newHeight)
         bottomBound.body.setSize(newWidth, newHeight)
 
-        let bounds = lightBallTransformer.body.getBounds()
+        let bounds = lightBallTransformer.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
@@ -172,7 +172,7 @@ export default class LightBallTransformers
         const topBound = lightBallTransformer.getData('topCollisionBox')
         const bottomBound = lightBallTransformer.getData('bottomCollisionBox')
 
-        let bounds = lightBallTransformer.body.getBounds()
+        let bounds = lightBallTransformer.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
