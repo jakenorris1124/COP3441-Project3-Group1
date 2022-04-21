@@ -20,7 +20,7 @@ export default class Springs
      */
     place(x = 0, y = 0)
     {
-        const spring = this.scene.add.sprite(x, y, this.key)
+        const spring = this.scene.add.sprite(x, y, this.key).setScale(0.7)
         this._group.add(spring)
 
         return spring

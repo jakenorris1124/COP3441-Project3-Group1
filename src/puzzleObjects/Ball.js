@@ -28,7 +28,7 @@ export default class Balls
      */
     createStandardBall(x = 500, y = 350)
     {
-        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.2)
+        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.165)
         this._group.add(ball)
 
         let radius = ball.body.sourceHeight / 2
