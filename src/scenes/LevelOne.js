@@ -63,7 +63,7 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall = this.balls.createStandardBall()
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.lightBridges]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.lightBridges, this.lightBridges, this.buttons, this.pullies, this.gravityInverters]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
@@ -102,6 +102,11 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.setGravityY(0)
         this.levelBall.body.enable = false
 
+        this.lightBridgeGroup.children.iterate((emitter) => {
+            if (emitter.state == ON)
+                this.lightBridges.toggle(this.levelBall, emitter)
+        })
+
         let alreadyToggled = new Set()
         for (let i in this.machines)
         {
@@ -109,16 +114,12 @@ export default class LevelOne extends Phaser.Scene
                 && !alreadyToggled.has(this.machines[i]))
             {
                 this.machines[i].group.children.iterate((child) => {
-                    this.machines[i].setState(OFF)
+                    child.setState(OFF)
                 })
 
                 alreadyToggled.add(this.machines[i])
             }
         }
-
-        this.lightBridgeGroup.children.iterate((bridge) => {
-            this.lightBridges.toggle()
-        })
     }
 
     winWrapper()

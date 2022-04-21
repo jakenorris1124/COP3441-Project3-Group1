@@ -12,7 +12,6 @@ export default class LightBridges
         this.scene = scene
         this.key = lightBridgeKey
         this.togglable = true
-        this.bridge = null;
 
         this._group = this.scene.physics.add.staticGroup()
     }
@@ -29,6 +28,7 @@ export default class LightBridges
         this._group.add(lightBridge )
 
         lightBridge.setState(OFF)
+        lightBridge.setData('bridge', null)
 
         return lightBridge
     }
@@ -36,10 +36,11 @@ export default class LightBridges
     toggle(ball, emitter)
     {
         //If the bridge is already active, destroy the bridge part of it
-        if (this.bridge != null)
+        if (emitter.state == ON)
         {
-            this.bridge.destroy()
-            this.bridge = null;
+            emitter.getData('bridge').destroy()
+            emitter.setData('bridge', null)
+            emitter.setState(OFF)
             return;
         }
 
@@ -66,14 +67,16 @@ export default class LightBridges
                 beam.destroy()
 
                 //Create bridge then add physical properties to it
-                this.bridge = this.scene.add.rectangle(emitter.body.position.x+ (length/2) +125, emitter.body.position.y+55, length, 35, 0xf700ff)
+                emitter.setData('bridge', this.scene.add.rectangle(emitter.body.position.x+ (length/2) +125, emitter.body.position.y+55, length, 35, 0xf700ff))
 
-                this.scene.physics.add.existing(this.bridge)
-                this.bridge.body.immovable = true;
-                this.bridge.body.allowGravity = false;
-                this.scene.physics.add.collider(this.scene.ballGroup, this.bridge)
+                this.scene.physics.add.existing(emitter.getData('bridge'))
+                emitter.getData('bridge').body.immovable = true;
+                emitter.getData('bridge').body.allowGravity = false;
+                this.scene.physics.add.collider(this.scene.ballGroup, emitter.getData('bridge'))
 
         }, null, this)
+
+        emitter.setState(ON)
     }
 
     get group()
