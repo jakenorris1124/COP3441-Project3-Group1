@@ -1,41 +1,60 @@
+const ON = 1
+const OFF = 0
+
 export default class GravityInverters
 {
     /**
-     * @param {Phaser.Scene} the scene that is creating "GravityInverters"
+     * @param {Phaser.Scene} scene the scene that is creating "GravityInverters"
+     * @param {string} gravityInverterKey
      */
     constructor(scene, gravityInverterKey = 'gravity inverter')
     {
         this.scene = scene
         this.key = gravityInverterKey
         this.togglable = true
-        this.inverted = false;
 
         this._group = this.scene.physics.add.staticGroup()
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.StaticGroup}
+     */
     get group()
     {
         return this._group
     }
 
+    /**
+     * @param {number}x
+     * @param {number} y
+     * @returns {Phaser.GameObjects.Sprite}
+     */
     place(x = 0, y = 0)
     {
-        const gravityInverter = this.group.create(x, y, this.key)
+        const gravityInverter = this.scene.add.sprite(x, y, this.key)
+        this._group.add(gravityInverter)
+
+        gravityInverter.setState(OFF)
 
         return gravityInverter
     }
 
     // Inverts gravity from its current state.
     /**
-     * @param {Phaser.GameObjects.GameObject} ball
+     * @param {Phaser.GameObjects.Sprite} ball
+     * @param {Phaser.GameObjects.Sprite} gravityInverter
      */
-    toggle(ball)
+    toggle(ball, gravityInverter)
     {
-        if(this.inverted)
-            ball.body.setGravityY(0)
-        else
+        if(gravityInverter.state == OFF)
+        {
             ball.body.setGravityY(-400)
-
-        this.inverted = !this.inverted
+            gravityInverter.setState(ON)
+        }
+        else
+        {
+            ball.body.setGravityY(0)
+            gravityInverter.setState(OFF)
+        }
     }
 }

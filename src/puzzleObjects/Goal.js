@@ -19,6 +19,9 @@ export default class Goal
         this._goal.body.allowGravity = false;
     }
 
+    /**
+     * @returns {Phaser.GameObjects.Rectangle}
+     */
     get goal()
     {
         return this._goal

@@ -1,3 +1,9 @@
+import Fans from './puzzleObjects/Fans.js'
+import LightBallTransformers from "./puzzleObjects/LightBallTransformers.js";
+import HeavyBallTransformers from "./puzzleObjects/HeavyBallTransformers.js";
+
+import Phaser from 'phaser'
+
 const MIN_X = 0
 const MAX_X = 1600
 const MIN_Y = 0
@@ -8,8 +14,8 @@ export default class UI
     /**
      * @param {Phaser.Scene} scene The scene in which the UI should be drawn on
      * @param {string} level A string containing the name of the level
-     * @param {Array} machines An array of the machines that are available in the level
-     * @param {Ball} ball The ball of the scene
+     * @param {Object[]} machines An array of the machines that are available in the level
+     * @param {Phaser.GameObjects.Sprite} ball The ball of the scene
      */
     constructor(scene, level, machines, ball)
     {
@@ -85,7 +91,6 @@ export default class UI
     }
 
     /**
-     *
      * @param {int} index
      * @param {Phaser.GameObjects.Text} button
      */
@@ -95,6 +100,8 @@ export default class UI
             return;
         button.setColor("#31ff00");
 
+        this.scene.input.off('pointerdown',this.pick,this)
+
         setTimeout(() => {
             this.scene.input.once('pointerdown', (pointer) => {
                 if(this.inBounds(pointer.x, pointer.y))
@@ -102,17 +109,30 @@ export default class UI
                     button.setColor("#ff0000");
                     let placed = this.machines[index].place(pointer.x, pointer.y)
                     placed.body.immovable = true;
-                    placed.body.gravity = true;
+                    if (placed.body instanceof Phaser.Physics.Arcade.Body)
+                        placed.body.setAllowGravity(false)
                     this.machineStatus[index] = false;
                     placed.setInteractive();
 
+                    placed.setData('statusIndex', index)
+                    placed.setData('textButton', button)
+
                     this.rotate(placed, 1)
-                    this.scene.input.on('pointerdown', this.pick,this)
+                    this.scene.input.on('pointerdown', this.pick, this)
+                }
+                else
+                {
+                    this.scene.input.on('pointerdown',this.pick,this)
+                    button.setColor('#ffffff')
                 }
             }), 10
         });
     }
 
+    /**
+     * @param {Phaser.GameObjects.Sprite} placed
+     * @param {number} degree
+     */
     rotate(placed, degree)
     {
         placed.once('pointerdown', (pointer) => {
@@ -120,6 +140,17 @@ export default class UI
             {
                 placed.setAngle( (90 * degree) % 360);
                 degree++;
+
+                let newHeight = placed.body.width
+                let newWidth = placed.body.height
+                placed.body.setSize(newWidth, newHeight)
+
+                if (placed.name == 'fan')
+                    Fans.rotateWind(placed)
+                else if (placed.name == 'lightBallTransformer')
+                    LightBallTransformers.rotateBoundaries(placed)
+                else if (placed.name == 'heavyBallTransformer')
+                    HeavyBallTransformers.rotateBoundaries(placed)
             }
             this.rotate(placed, degree)
         })
@@ -131,10 +162,12 @@ export default class UI
     {
         if(this.scene.input.activePointer.leftButtonDown() && !this.isRunning)
         {
+            if (!(targets[0] instanceof Phaser.GameObjects.Sprite))
+                return
             this.scene.input.off('pointerdown',this.pick,this);
             this.dragObj = targets[0];
             this.scene.input.on('pointermove',this.drag,this)
-            this.scene.input.on('pointerup', this.put,this)
+            this.scene.input.on('pointerup', this.put, this)
         }
     }
     drag(pointer)
@@ -143,19 +176,67 @@ export default class UI
         {
             this.dragObj.x = pointer.x
             this.dragObj.y = pointer.y
-            this.dragObj.body.reset(pointer.x, pointer.y)
+            this.dragObj.body.x = pointer.x - this.dragObj.body.width / 2
+            this.dragObj.body.y = pointer.y - this.dragObj.body.height / 2
+
+            if (this.dragObj.name == 'fan')
+                Fans.dragWind(this.dragObj)
+            else if (this.dragObj.name == 'lightBallTransformer')
+                LightBallTransformers.dragBoundaries(this.dragObj)
+            else if (this.dragObj.name == "heavyBallTransformer")
+                HeavyBallTransformers.dragBoundaries(this.dragObj)
         }
     }
-    put(){
+    put(pointer)
+    {
+        if (this.inUI(pointer.x, pointer.y))
+        {
+            this.machineStatus[this.dragObj.getData('statusIndex')] = true
+            this.dragObj.getData('textButton').setColor('#ffffff')
+
+            if (this.dragObj.name == 'fan')
+                this.dragObj.getData('wind').destroy()
+            else if (this.dragObj.name == 'lightBallTransformer' || this.dragObj.name == 'heavyBallTransformer')
+            {
+                this.dragObj.getData('topCollisionBox').destroy()
+                this.dragObj.getData('bottomCollisionBox').destroy()
+            }
+            this.dragObj.destroy()
+        }
+
+        if (this.dragObj.name == 'pulley')
+        {
+            this.dragObj.setData('initialX', pointer.x)
+            this.dragObj.setData('initialY', pointer.y)
+        }
+
         this.scene.input.on('pointerdown',this.pick,this);
         this.scene.input.off('pointermove',this.drag,this)
         this.scene.input.off('pointerup', this.put,this)
     }
 
+    /**
+     * @param {number} x
+     * @param {number} y
+     * @returns {boolean}
+     */
     inBounds(x, y)
     {
         if(x >= MIN_X && x<= MAX_X && y >= MIN_Y && y<= MAX_Y)
             return true;
         return false;
+    }
+
+    /**
+     * @param {number} x
+     * @param {number} y
+     * @return {boolean}
+     */
+    inUI(x, y)
+    {
+        if (x <= this.scene.physics.world.bounds.right && x > MAX_X
+            && y <= MAX_Y && y >= MIN_Y)
+            return true
+        return false
     }
 }

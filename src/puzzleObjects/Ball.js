@@ -2,6 +2,7 @@ export default class Balls
 {
     /**
      * @param {Phaser.Scene} scene
+     * @param {string} ballKey
      */
     constructor(scene, ballKey = 'ball')
     {
@@ -11,21 +12,34 @@ export default class Balls
         this._group = this.scene.physics.add.group()
     }
 
+    /**
+     * @returns {Phaser.Physics.Arcade.Group}
+     */
     get group()
     {
         return this._group
     }
 
-    // Creates a ball object with default settings
+    /**
+     * Creates a ball object with default settings
+     * @param {number} x
+     * @param {number} y
+     * @return {Phaser.GameObjects.Sprite}
+     */
     createStandardBall(x = 500, y = 350)
     {
-        const ball = this._group.create(x, y, this.key).setScale(0.2)
+        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.2)
+        this._group.add(ball)
+
+        let radius = ball.body.sourceHeight / 2
+        ball.body.setCircle(radius)
 
         // These values are not tested and will very likely need to be modified
         // as I have no idea what they're like yet.
-        ball.body.setBounce(1, 1)
+        ball.body.setCollideWorldBounds(true)
+        ball.body.setBounce(.5, .5)
         ball.body.setMass(50)
-        ball.body.setFriction(.3, .3)
+        ball.body.setFriction(.1, .1)
 
         return ball
     }
