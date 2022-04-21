@@ -43,14 +43,44 @@ export default class Pullies
      */
     toggle(ball, pulley)
     {
+        if (pulley.getData('timeEvent') != null)
+            this.scene.time.removeEvent(pulley.getData('timeEvent'))
+
+        let velocityXUp = 0
+        let velocityYUp = 0
+
+        switch (pulley.angle)
+        {
+            case 0:
+                velocityXUp = 0
+                velocityYUp = -50
+                break
+            case 90:
+                velocityXUp = 50
+                velocityYUp = 0
+                break
+            case 180:
+                velocityXUp = 0
+                velocityYUp = 50
+                break
+            case -180:
+                velocityXUp = 0
+                velocityYUp = 50
+                break
+            case -90:
+                velocityXUp = -50
+                velocityYUp = 0
+                break
+        }
+
         if (pulley.state == ON)
         {
-            this.goDown(pulley)
+            this.goDown(pulley, -velocityXUp, -velocityYUp)
             pulley.setState(OFF)
         }
         else
         {
-            this.goUp(pulley)
+            this.goUp(pulley, velocityXUp, velocityYUp)
             pulley.setState(ON)
         }
 
@@ -59,6 +89,7 @@ export default class Pullies
         pulley.setData('timeEvent', this.scene.time.addEvent({
             delay: 5000,
             callback: () => {
+                pulley.body.setVelocityX(0)
                 pulley.body.setVelocityY(0)
                 pulley.setData('moving', false)
             },
@@ -68,18 +99,24 @@ export default class Pullies
 
     /**
      * @param {Phaser.GameObjects.Sprite} pulley
+     * @param {number} velocityXUp
+     * @param {number} velocityYUp
      */
-    goUp(pulley)
+    goUp(pulley, velocityXUp, velocityYUp)
     {
-        pulley.body.setVelocityY(-50)
+        pulley.body.setVelocityX(velocityXUp)
+        pulley.body.setVelocityY(velocityYUp)
     }
 
     /**
      * @param {Phaser.GameObjects.Sprite} pulley
+     * @param {number} velocityXDown
+     * @param {number} velocityYDown
      */
-    goDown(pulley)
+    goDown(pulley, velocityXDown, velocityYDown)
     {
-        pulley.body.setVelocityY(50)
+        pulley.body.setVelocityX(velocityXDown)
+        pulley.body.setVelocityY(velocityYDown)
     }
 
     /**
