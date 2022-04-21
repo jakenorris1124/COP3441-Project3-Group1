@@ -51,6 +51,8 @@ export default class LevelOne extends Phaser.Scene
         this.load.image(BUTTON_KEY, 'images/But Up.png')
         this.load.image(LIGHT_BRIDGE_KEY, 'images/Light Bridge Off.png')
         this.load.image(GRAVITY_INVERTER_KEY, 'images/Grav Inv On.png')
+        this.load.image(SPRING_KEY, 'images/Spring.png')
+        this.load.image(DIRECTIONAL_GATE_KEY, 'images/Dir Gate On.png')
     }
 
     create()
@@ -63,7 +65,7 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall = this.balls.createStandardBall()
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.lightBridges, this.buttons, this.pullies, this.gravityInverters]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 

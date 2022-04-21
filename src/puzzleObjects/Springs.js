@@ -32,7 +32,35 @@ export default class Springs
      */
     toggle(ball, spring)
     {
+        let velocityX = ball.body.velocity.x
+        let velocityY = ball.body.velocity.y
 
+
+        switch (spring.angle)
+        {
+            case 0:
+                if (spring.body.touching.up && !spring.body.touching.left && !spring.body.touching.right)
+                    velocityY = -1000
+                break
+            case 90:
+                if (!spring.body.touching.up && spring.body.touching.right)
+                    velocityX = 1000
+                break
+            case 180:
+                if (spring.body.touching.down && !spring.body.touching.left && !spring.body.touching.right)
+                    velocityY = 1000
+                break
+            case -180:
+                if (spring.body.touching.down && !spring.body.touching.left && !spring.body.touching.right)
+                    velocityY = 1000
+                break
+            case -90:
+                if (!spring.body.touching.top && spring.body.touching.left)
+                    velocityX = -1000
+                break
+            }
+
+        ball.body.setVelocity(velocityX, velocityY)
     }
 
     /**

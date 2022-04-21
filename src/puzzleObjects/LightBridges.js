@@ -126,9 +126,6 @@ export default class LightBridges
             this.scene.fanGroup, this.scene.gravityInverterGroup, this.scene.heavyBallTransformerGroup, this.scene.lightBallTransformerGroup, this.scene.pullyGroup,
             this.scene.sprinGroup, this.scene.HBTBoundaryGroup, this.scene.LBTBoundaryGroup], () => {
                 //Calculate length then destroy beams
-
-
-
                 //Create bridge then add physical properties to it
                 switch (angle)
                 {
@@ -156,6 +153,10 @@ export default class LightBridges
                 emitter.getData('bridge').body.immovable = true;
                 emitter.getData('bridge').body.allowGravity = false;
                 this.scene.physics.add.collider(this.scene.ballGroup, emitter.getData('bridge'))
+
+        }, null, this)
+
+        this.scene.physics.add.collider(beam, this.scene.prismGroup,(beam, prism) => {
 
         }, null, this)
 
