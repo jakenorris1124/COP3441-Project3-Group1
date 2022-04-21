@@ -48,19 +48,18 @@ export default class HeavyBallTransformers
 
         heavyBallTransformer.setData('topCollisionBox', topCollisionBox)
         heavyBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
+        heavyBallTransformer.setName('heavyBallTransformer')
 
         let bounds = heavyBallTransformer.body.getBounds()
-        let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
         let width = heavyBallTransformer.body.sourceWidth
         let height = 20
 
         //Will need to adjust these collision boxes
-        topCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, top, width, height))
-        bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(left, bottom - height, width, height))
+        topCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(heavyBallTransformer.body.position.x, top + (1/2 * height), width, height))
+        bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(heavyBallTransformer.body.position.x, bottom - (1/2 * height) , width, height))
         heavyBallTransformer.body.sourceHeight -= 2 * height
-
 
         heavyBallTransformer.setState(OFF)
     }
@@ -97,5 +96,130 @@ export default class HeavyBallTransformers
     resetMass(ball)
     {
         ball.setMass(ball.mass / 2)
+    }
+
+    /**
+     * @param {Phaser.GameObjects.Sprite} heavyBallTransformer
+     */
+    static rotateBoundaries(heavyBallTransformer)
+    {
+        const topBound = heavyBallTransformer.getData('topCollisionBox')
+        const bottomBound = heavyBallTransformer.getData('bottomCollisionBox')
+
+        topBound.setAngle(heavyBallTransformer.angle)
+        bottomBound.setAngle(heavyBallTransformer.angle)
+
+        let newHeight = topBound.body.width
+        let newWidth = topBound.body.height
+        topBound.body.setSize(newWidth, newHeight)
+        bottomBound.body.setSize(newWidth, newHeight)
+
+        let bounds = heavyBallTransformer.body.getBounds()
+        let left = bounds.x
+        let top = bounds.y
+        let bottom = bounds.bottom
+        let right = bounds.right
+        let height = 20
+
+        let topX
+        let topY
+        let botX
+        let botY
+
+        switch (heavyBallTransformer.angle)
+        {
+            case 0:
+                topX = heavyBallTransformer.body.position.x
+                topY = top + (1/2 * height)
+                botX = heavyBallTransformer.body.position.x
+                botY = bottom - (1/2 * height)
+                break
+            case 90:
+                topX = right - (1/2 * height)
+                topY = heavyBallTransformer.body.position.y
+                botX = left + (1/2 * height)
+                botY = heavyBallTransformer.body.position.y
+                break
+            case 180:
+                topX = heavyBallTransformer.body.position.x
+                topY = bottom - (1/2 * height)
+                botX = heavyBallTransformer.body.position.x
+                botY = top + (1/2 * height)
+                break
+            case -180:
+                topX = heavyBallTransformer.body.position.x
+                topY = bottom - (1/2 * height)
+                botX = heavyBallTransformer.body.position.x
+                botY = top + (1/2 * height)
+                break
+            case -90:
+                topX = left + (1/2 * height)
+                topY = heavyBallTransformer.body.position.y
+                botX = right - (1/2 * height)
+                botY = heavyBallTransformer.body.position.y
+                break
+        }
+
+        topBound.body.position.set(topX, topY)
+        bottomBound.body.position.set(botX, botY)
+    }
+
+    /**
+     * @param {Phaser.GameObjects.Sprite} heavyBallTransformer
+     */
+    static dragBoundaries(heavyBallTransformer)
+    {
+        const topBound = heavyBallTransformer.getData('topCollisionBox')
+        const bottomBound = heavyBallTransformer.getData('bottomCollisionBox')
+
+        let bounds = heavyBallTransformer.body.getBounds()
+        let left = bounds.x
+        let top = bounds.y
+        let bottom = bounds.bottom
+        let right = bounds.right
+        let height = 20
+
+        let topX
+        let topY
+        let botX
+        let botY
+
+
+        switch (heavyBallTransformer.angle)
+        {
+            case 0:
+                topX = heavyBallTransformer.body.position.x
+                topY = top + (1/2 * height)
+                botX = heavyBallTransformer.body.position.x
+                botY = bottom - (1/2 * height)
+                break
+            case 90:
+                topX = right - (1/2 * height)
+                topY = heavyBallTransformer.body.position.y
+                botX = left + (1/2 * height)
+                botY = heavyBallTransformer.body.position.y
+                break
+            case 180:
+                topX = heavyBallTransformer.body.position.x
+                topY = bottom - (1/2 * height)
+                botX = heavyBallTransformer.body.position.x
+                botY = top + (1/2 * height)
+                break
+            case -180:
+                topX = heavyBallTransformer.body.position.x
+                topY = bottom - (1/2 * height)
+                botX = heavyBallTransformer.body.position.x
+                botY = top + (1/2 * height)
+                break
+            case -90:
+                topX = left + (1/2 * height)
+                topY = heavyBallTransformer.body.position.y
+                botX = right - (1/2 * height)
+                botY = heavyBallTransformer.body.position.y
+                break
+        }
+
+        topBound.body.position.set(topX, topY)
+        bottomBound.body.position.set(botX, botY)
     }
 }

@@ -1,4 +1,7 @@
 import Fans from './puzzleObjects/Fans.js'
+import LightBallTransformers from "./puzzleObjects/LightBallTransformers.js";
+import HeavyBallTransformers from "./puzzleObjects/HeavyBallTransformers.js";
+
 import Phaser from 'phaser'
 
 const MIN_X = 0
@@ -143,6 +146,10 @@ export default class UI
 
                 if (placed.name == 'fan')
                     Fans.rotateWind(placed)
+                else if (placed.name == 'lightBallTransformer')
+                    LightBallTransformers.rotateBoundaries(placed)
+                else if (placed.name == 'heavyBallTransformer')
+                    HeavyBallTransformers.rotateBoundaries(placed)
             }
             this.rotate(placed, degree)
         })
@@ -173,6 +180,10 @@ export default class UI
 
             if (this.dragObj.name == 'fan')
                 Fans.dragWind(this.dragObj)
+            else if (this.dragObj.name == 'lightBallTransformer')
+                LightBallTransformers.dragBoundaries(this.dragObj)
+            else if (this.dragObj.name == "heavyBallTransformer")
+                HeavyBallTransformers.dragBoundaries(this.dragObj)
         }
     }
     put(pointer)
