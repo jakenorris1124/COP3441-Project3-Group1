@@ -29,6 +29,7 @@ export default class LightBridges
 
         lightBridge.setState(OFF)
         lightBridge.setData('bridge', null)
+        lightBridge.setData('beam', null)
 
         return lightBridge
     }
@@ -38,8 +39,18 @@ export default class LightBridges
         //If the bridge is already active, destroy the bridge part of it
         if (emitter.state == ON)
         {
-            emitter.getData('bridge').destroy()
-            emitter.setData('bridge', null)
+            if (emitter.getData('bridge') != null)
+            {
+                emitter.getData('bridge').destroy()
+                emitter.setData('bridge', null)
+            }
+
+            if (emitter.getData('beam') != null)
+            {
+                emitter.getData('beam').destroy()
+                emitter.setData('beam', null)
+            }
+
             emitter.setState(OFF)
             return;
         }
@@ -118,8 +129,9 @@ export default class LightBridges
                 break
         }
 
+        emitter.setData('beam', beam)
 
-        let length;
+        let length
 
         //Check for collision on beam
         this.scene.physics.add.collider(beam, [this.scene.anchorGroup, this.scene.ballGroup, this.scene.buttonGroup, this.scene.directionalGateGroup,
