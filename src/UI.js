@@ -192,6 +192,14 @@ export default class UI
         {
             this.machineStatus[this.dragObj.getData('statusIndex')] = true
             this.dragObj.getData('textButton').setColor('#ffffff')
+
+            if (this.dragObj.name == 'fan')
+                this.dragObj.getData('wind').destroy()
+            else if (this.dragObj.name == 'lightBallTransformer' || this.dragObj.name == 'heavyBallTransformer')
+            {
+                this.dragObj.getData('topCollisionBox').destroy()
+                this.dragObj.getData('bottomCollisionBox').destroy()
+            }
             this.dragObj.destroy()
         }
         this.scene.input.on('pointerdown',this.pick,this);
