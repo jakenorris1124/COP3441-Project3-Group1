@@ -51,17 +51,29 @@ export default class HeavyBallTransformers
         heavyBallTransformer.setName('heavyBallTransformer')
 
         let bounds = heavyBallTransformer.getBounds()
+        let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
-        let width = heavyBallTransformer.body.sourceWidth
+        let width = heavyBallTransformer.body.width
         let height = 20
 
         //Will need to adjust these collision boxes
-        topCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(heavyBallTransformer.body.position.x, top + (1/2 * height), width, height))
-        bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(heavyBallTransformer.body.position.x, bottom - (1/2 * height) , width, height))
-        heavyBallTransformer.body.sourceHeight -= 2 * height
+        topCollisionBox.body.x = left
+        topCollisionBox.body.y = top
+        topCollisionBox.body.width = width
+        topCollisionBox.body.height = height
+
+        bottomCollisionBox.body.x = left
+        bottomCollisionBox.body.y = bottom - height
+        bottomCollisionBox.body.width = width
+        bottomCollisionBox.body.height = height
+
+        heavyBallTransformer.body.height -= 2 * height
+        heavyBallTransformer.body.y += height
 
         heavyBallTransformer.setState(OFF)
+
+        return heavyBallTransformer
     }
 
     /**
@@ -119,7 +131,9 @@ export default class HeavyBallTransformers
         let top = bounds.y
         let bottom = bounds.bottom
         let right = bounds.right
-        let height = 20
+        let height = 40
+
+        heavyBallTransformer.body.y = top
 
         let topX
         let topY
@@ -130,30 +144,33 @@ export default class HeavyBallTransformers
         {
             case 0:
                 topX = heavyBallTransformer.body.position.x
-                topY = top + (1/2 * height)
+                topY = top
                 botX = heavyBallTransformer.body.position.x
                 botY = bottom - (1/2 * height)
+                heavyBallTransformer.body.y = top + (1/2 * height)
                 break
             case 90:
-                topX = right - (1/2 * height)
+                topX = right -  (1/2 * height)
                 topY = heavyBallTransformer.body.position.y
-                botX = left + (1/2 * height)
+                botX = left
                 botY = heavyBallTransformer.body.position.y
                 break
             case 180:
                 topX = heavyBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = heavyBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
+                heavyBallTransformer.body.y = top + (1/2 * height)
                 break
             case -180:
                 topX = heavyBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = heavyBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
+                heavyBallTransformer.body.y = top + (1/2 * height)
                 break
             case -90:
-                topX = left + (1/2 * height)
+                topX = left
                 topY = heavyBallTransformer.body.position.y
                 botX = right - (1/2 * height)
                 botY = heavyBallTransformer.body.position.y
@@ -177,42 +194,41 @@ export default class HeavyBallTransformers
         let top = bounds.y
         let bottom = bounds.bottom
         let right = bounds.right
-        let height = 20
+        let height = 40
 
         let topX
         let topY
         let botX
         let botY
 
-
         switch (heavyBallTransformer.angle)
         {
             case 0:
                 topX = heavyBallTransformer.body.position.x
-                topY = top + (1/2 * height)
+                topY = top
                 botX = heavyBallTransformer.body.position.x
                 botY = bottom - (1/2 * height)
                 break
             case 90:
                 topX = right - (1/2 * height)
                 topY = heavyBallTransformer.body.position.y
-                botX = left + (1/2 * height)
+                botX = left
                 botY = heavyBallTransformer.body.position.y
                 break
             case 180:
                 topX = heavyBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = heavyBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
                 break
             case -180:
                 topX = heavyBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = heavyBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
                 break
             case -90:
-                topX = left + (1/2 * height)
+                topX = left
                 topY = heavyBallTransformer.body.position.y
                 botX = right - (1/2 * height)
                 botY = heavyBallTransformer.body.position.y
