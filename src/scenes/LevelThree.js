@@ -203,7 +203,7 @@ export default class LevelThree extends Phaser.Scene
         this.physics.add.collider(
             this.ballGroup,
             [this.ballGroup, this.lightBridgeGroup,
-                this.HBTBoundaryGroup, this.LBTBoundaryGroup, this.pulleyGroup, this.platformsGroup],
+                this.HBTBoundaryGroup, this.LBTBoundaryGroup, this.pulleyGroup, this.platformGroup],
             null, null, this
         )
 
