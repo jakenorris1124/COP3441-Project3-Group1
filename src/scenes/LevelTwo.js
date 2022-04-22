@@ -62,7 +62,7 @@ export default class LevelTwo extends Phaser.Scene
 
         this.platformGroup = this.physics.add.staticGroup()
         this.platformGroup.add(this.add.rectangle(200, 640, 400, 50, 0xff0000), true)
-        this.platformGroup.add(this.add.rectangle(920, 640, 500, 50, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(870, 640, 600, 50, 0xff0000), true)
         this.platformGroup.add(this.add.rectangle(1450, 640, 300, 50, 0xff0000), true)
         this.platformGroup.add(this.add.rectangle(730, 75, 50, 150, 0xff0000), true)
 
@@ -137,16 +137,6 @@ export default class LevelTwo extends Phaser.Scene
             anchor.y = this.levelBall.y
         })
 
-        this.pulleyGroup.children.iterate((pulley) => {
-            pulley.body.setVelocityX(0)
-            pulley.body.setVelocityY(0)
-            pulley.setX(pulley.getData('initialX'))
-            pulley.setY(pulley.getData('initialY'))
-
-            if (pulley.getData('timeEvent') != undefined)
-                this.time.removeEvent(pulley.getData('timeEvent'))
-        })
-
         let alreadyToggled = new Set()
         for (let i in this.placedMachines)
         {
@@ -160,6 +150,16 @@ export default class LevelTwo extends Phaser.Scene
                 alreadyToggled.add(this.placedMachines[i])
             }
         }
+
+        this.pulleyGroup.children.iterate((pulley) => {
+            pulley.body.setVelocityX(0)
+            pulley.body.setVelocityY(0)
+            pulley.setX(pulley.getData('initialX'))
+            pulley.setY(pulley.getData('initialY'))
+
+            if (pulley.getData('timeEvent') != undefined)
+                this.time.removeEvent(pulley.getData('timeEvent'))
+        })
     }
 
     winWrapper()
