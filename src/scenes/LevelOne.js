@@ -14,13 +14,12 @@ import Springs from "../puzzleObjects/Springs";
 import UI from "../UI"
 import Goal from "../puzzleObjects/Goal"
 
-const BACKGROUND_LEVELONE_KEY = 'background-levelone'
+const LEVEL_KEY = 'level 1'
 const FAN_KEY = 'fan'
 const WIND_KEY = 'wind'
 const LIGHT_BRIDGE_KEY = 'light bridge'
 const BUTTON_KEY = 'button'
 const PULLEY_KEY = 'pulley'
-const LEVEL_KEY = "Level 1"
 const BALL_KEY = 'ball'
 const ANCHOR_KEY = 'anchor'
 const GRAVITY_INVERTER_KEY = 'gravity inverter'
@@ -44,7 +43,7 @@ export default class LevelOne extends Phaser.Scene
 
     preload()
     {
-        this.load.image(BACKGROUND_LEVELONE_KEY, 'images/leveloneplaceholder.png');
+        this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
         this.load.image(FAN_KEY, 'images/Fan Off.png');
         this.load.image(BALL_KEY, 'images/ballPlaceholder.png');
         this.load.image(BUTTON_KEY, 'images/But Up.png')
@@ -59,7 +58,7 @@ export default class LevelOne extends Phaser.Scene
 
     create()
     {
-        this.add.image(960, 540, BACKGROUND_LEVELONE_KEY);
+        this.add.image(960, 540, LEVEL_KEY);
 
         this.initializeGroups()
         this.setDefaultCollisions()
