@@ -54,7 +54,7 @@ export default class Balls
      */
     createStandardBall(x = 500, y = 350)
     {
-        this.ball = this.scene.add.sprite(x, y, this.key).setScale(1)
+        this.ball = this.scene.add.sprite(x, y, this.key).setScale(0.85)
         this.createSprite()
         this.ball.play('Reg')
         this._group.add(this.ball)
