@@ -44,6 +44,8 @@ export default class DirectionalGates
         this.directionalGate.play('Off')
         this._group.add(this.directionalGate)
 
+        this.directionalGate.setName('directionalGate')
+
         return this.directionalGate
     }
 
@@ -51,23 +53,24 @@ export default class DirectionalGates
      * @param {Phaser.GameObjects.Sprite} ball
      * @param {Phaser.GameObjects.Sprite} directionalGate
      */
-    isWrongSide(ball, directionalGate)
+    static rotate(directionalGate)
     {
-        let touchDirection = directionalGate.body.touching
+        directionalGate.body.checkCollision.up = true
+        directionalGate.body.checkCollision.down = true
+        directionalGate.body.checkCollision.left = true
+        directionalGate.body.checkCollision.right = true
 
-        // This number should be the angle of rotation of the directionalGate but idk how to get it.
-        switch (0)
+        switch (directionalGate.angle)
         {
             case 0:
-                return !touchDirection.right
+                return directionalGate.body.checkCollision.down = false
             case 90:
-                return !touchDirection.down
+                return directionalGate.body.checkCollision.left = false
             case 180:
-                return !touchDirection.left
             case -180:
-                return !touchDirection.left
+                return directionalGate.body.checkCollision.up = false
             case -90:
-                return !touchDirection.left
+                return directionalGate.body.checkCollision.right = false
             default:
                 console.log("Rotation angle somehow not a multiple of 90.")
                 return true
