@@ -63,16 +63,22 @@ export default class LevelOne extends Phaser.Scene
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        this.levelBall = this.balls.createStandardBall()
+        this.levelBall = this.balls.createStandardBall(100, 300)
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
-        this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.buttons, this.fans, this.gravityInverters, this.springs, this.pullies, this.lightBridges]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
-        goal = new Goal(this, 500, 800)
+        goal = new Goal(this, 1285, 1000)
         this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
+
+        this.platformGroup = this.physics.add.staticGroup()
+        this.platformGroup.add(this.add.rectangle(840, 200, 1200, 50, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(225, 525, 50, 700, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(1425, 675, 50, 1000, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(650, 800, 50, 700, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(1150, 800, 50, 700, 0xff0000), true)
     }
 
     update()
@@ -191,7 +197,7 @@ export default class LevelOne extends Phaser.Scene
         this.physics.add.collider(
             this.ballGroup,
             [this.ballGroup, this.lightBridgeGroup,
-                this.HBTBoundaryGroup, this.LBTBoundaryGroup, this.pulleyGroup],
+                this.HBTBoundaryGroup, this.LBTBoundaryGroup, this.pulleyGroup, this.platformGroup],
             null, null, this
         )
 
