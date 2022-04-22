@@ -87,6 +87,15 @@ export default class UI
         this.scene.add.rectangle(840, 540, 250, 200, 0x666666);
         this.scene.add.text(800, 450, "You Win!", {fill: '#ffffff'});
 
+        let score = 0;
+        for (let i in this.machineStatus)
+        {
+            if (this.machineStatus[i])
+                score+=500
+        }
+
+        this.scene.add.text(800, 500, "Score: " + score , {fill: '#ffffff'});
+
         let accept = this.scene.add.rectangle(840, 580, 100, 30, 0xa8a8a8)
         this.scene.add.text(815, 573, "Accept", {fill: '#ffffff'})
         accept.setInteractive()
