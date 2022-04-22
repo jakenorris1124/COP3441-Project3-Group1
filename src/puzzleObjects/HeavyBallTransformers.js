@@ -103,15 +103,15 @@ export default class HeavyBallTransformers
     static increaseMass(ball)
     {
         if (ball.gravity.y > -200)
-            ball.setGravityY(ball.gravity.y +50)
+            ball.setGravityY(ball.gravity.y + 100)
         else if (ball.gravity.y < -200)
-            ball.setGravityY(ball.gravity.y - 50)
+            ball.setGravityY(ball.gravity.y - 100)
         else
         {
             if (GravityInverters.inverted == false)
-                ball.setGravityY(50)
+                ball.setGravityY(100)
             else
-                ball.setGravityY(-50)
+                ball.setGravityY(-100)
         }
 
         ball.setMass(ball.mass * 2)
@@ -123,9 +123,9 @@ export default class HeavyBallTransformers
     static resetMass(ball)
     {
         if (ball.gravity.y > -200)
-            ball.setGravityY(ball.gravity.y - 50)
+            ball.setGravityY(ball.gravity.y - 100)
         else if (ball.gravity.y < -200)
-            ball.setGravityY(ball.gravity.y + 50)
+            ball.setGravityY(ball.gravity.y + 100)
 
         ball.setMass(ball.mass / 2)
     }

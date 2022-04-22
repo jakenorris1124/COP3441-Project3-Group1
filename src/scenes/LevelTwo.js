@@ -59,6 +59,9 @@ export default class LevelTwo extends Phaser.Scene
     {
         this.add.image(960, 540, LEVEL_KEY);
 
+        this.platformGroup = this.physics.add.staticGroup()
+        this.platformGroup.add(this.add.rectangle(840, 200, 1200, 50, 0xff0000), true)
+
         this.initializeGroups()
         this.setDefaultCollisions()
 
