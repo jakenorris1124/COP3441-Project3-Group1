@@ -62,7 +62,9 @@ export default class LevelTwo extends Phaser.Scene
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        this.levelBall = this.balls.createStandardBall()
+        this.ballX = 500
+        this.ballY = 500
+        this.levelBall = this.balls.createStandardBall(this.ballX, this.ballY)
         this.levelBall.body.enable = false;
 
         this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
@@ -108,7 +110,7 @@ export default class LevelTwo extends Phaser.Scene
 
     reset()
     {
-        this.levelBall.setPosition(500, 350)
+        this.levelBall.setPosition(this.ballX, this.ballY)
         this.levelBall.body.stop()
         this.levelBall.body.setGravityY(0)
         this.levelBall.body.setMass(50)
