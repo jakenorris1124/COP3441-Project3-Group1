@@ -145,7 +145,8 @@ export default class LevelOne extends Phaser.Scene
                 && !alreadyToggled.has(this.machines[i]))
             {
                 this.machines[i].group.children.iterate((child) => {
-                    child.setState(OFF)
+                    if (child.state == ON)
+                        this.machines[i].toggle(this.levelBall, child)
                 })
 
                 alreadyToggled.add(this.machines[i])
