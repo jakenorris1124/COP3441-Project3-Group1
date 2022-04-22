@@ -101,12 +101,28 @@ export default class LevelOne extends Phaser.Scene
             })
         }
 
+        // Ball face direction
         if(this.levelBall.body.velocity.x > 0) {
             this.levelBall.setFlipX(true)
         }
         else if (this.levelBall.body.velocity.x < 0){
             this.levelBall.resetFlip()
         }
+
+        // Ball Heavy, Reg, Light
+        if(this.levelBall.body.mass >= 100){
+            this.levelBall.play('Heavy')
+        }
+
+        else if(25 < this.levelBall.body.mass && this.levelBall.body.mass < 100){
+            this.levelBall.play('Reg')
+        }
+
+        else{
+            this.levelBall.play('Light')
+        }
+
+
     }
 
     /**

@@ -18,7 +18,7 @@ export default class Springs
         this.spring.anims.create({
             key: 'Bounce',
             frames: this.spring.anims.generateFrameNames(this.key, {start: 0, end: 13, zeroPad: 4, prefix: "", suffix: ".png"}),
-            frameRate: 20,
+            frameRate: 15,
             repeat: 0              // set to (-1) to repeat forever
         }); // end of create 'Bounce' animation
     }
@@ -46,7 +46,7 @@ export default class Springs
     {
         let velocityX = ball.body.velocity.x
         let velocityY = ball.body.velocity.y
-
+        spring.play('Bounce')
 
         switch (spring.angle)
         {
