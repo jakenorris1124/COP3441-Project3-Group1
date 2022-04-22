@@ -27,7 +27,7 @@ export default class Fans
         this.scene.anims.create({
             key: 'On',
             frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 7, zeroPad: 4, prefix: "", suffix: ".png"}),
-            frameRate: 8,
+            frameRate: 30,
             repeat: -1              // set to (-1) to repeat forever
         }); // end of create 'On' animation
 
