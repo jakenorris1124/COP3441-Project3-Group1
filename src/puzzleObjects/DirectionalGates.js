@@ -45,6 +45,7 @@ export default class DirectionalGates
         this._group.add(this.directionalGate)
 
         this.directionalGate.setName('directionalGate')
+        this.directionalGate.body.checkCollision.down = false
 
         return this.directionalGate
     }

@@ -137,16 +137,6 @@ export default class LevelThree extends Phaser.Scene
             anchor.y = this.levelBall.y
         })
 
-        this.pulleyGroup.children.iterate((pulley) => {
-            pulley.body.setVelocityX(0)
-            pulley.body.setVelocityY(0)
-            pulley.setX(pulley.getData('initialX'))
-            pulley.setY(pulley.getData('initialY'))
-
-            if (pulley.getData('timeEvent') != undefined)
-                this.time.removeEvent(pulley.getData('timeEvent'))
-        })
-
         let alreadyToggled = new Set()
         for (let i in this.machines)
         {
@@ -161,6 +151,16 @@ export default class LevelThree extends Phaser.Scene
                 alreadyToggled.add(this.machines[i])
             }
         }
+
+        this.pulleyGroup.children.iterate((pulley) => {
+            pulley.body.setVelocityX(0)
+            pulley.body.setVelocityY(0)
+            pulley.setX(pulley.getData('initialX'))
+            pulley.setY(pulley.getData('initialY'))
+
+            if (pulley.getData('timeEvent') != undefined)
+                this.time.removeEvent(pulley.getData('timeEvent'))
+        })
     }
 
     winWrapper()
@@ -212,6 +212,9 @@ export default class LevelThree extends Phaser.Scene
 
         this.physics.add.collider(this.ballGroup, this.gravityInverterGroup,
             this.gravityInverters.toggle, null, this)
+
+        this.physics.add.collider(this.ballGroup, this.directionalGateGroup,
+            null, null, this)
 
         this.physics.add.overlap(this.ballGroup, this.heavyBallTransformerGroup,
             this.heavyBallTransformers.toggle, null, this)

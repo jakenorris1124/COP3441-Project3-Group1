@@ -212,6 +212,9 @@ export default class LevelTwo extends Phaser.Scene
         this.physics.add.collider(this.ballGroup, this.gravityInverterGroup,
             this.gravityInverters.toggle, null, this)
 
+        this.physics.add.collider(this.ballGroup, this.directionalGateGroup,
+            null, null, this)
+
         this.physics.add.overlap(this.ballGroup, this.heavyBallTransformerGroup,
             this.heavyBallTransformers.toggle, null, this)
 

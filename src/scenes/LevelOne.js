@@ -133,17 +133,8 @@ export default class LevelOne extends Phaser.Scene
             anchor.y = this.levelBall.y
         })
 
-        this.pulleyGroup.children.iterate((pulley) => {
-            pulley.body.setVelocityX(0)
-            pulley.body.setVelocityY(0)
-            pulley.setX(pulley.getData('initialX'))
-            pulley.setY(pulley.getData('initialY'))
-
-            if (pulley.getData('timeEvent') != undefined)
-                this.time.removeEvent(pulley.getData('timeEvent'))
-        })
-
         let alreadyToggled = new Set()
+
         for (let i in this.machines)
         {
             if (!this.levelUI.machineStatus[i] && this.machines[i].togglable
@@ -157,6 +148,16 @@ export default class LevelOne extends Phaser.Scene
                 alreadyToggled.add(this.machines[i])
             }
         }
+
+        this.pulleyGroup.children.iterate((pulley) => {
+            pulley.body.setVelocityX(0)
+            pulley.body.setVelocityY(0)
+            pulley.setX(pulley.getData('initialX'))
+            pulley.setY(pulley.getData('initialY'))
+
+            if (pulley.getData('timeEvent') != undefined)
+                this.time.removeEvent(pulley.getData('timeEvent'))
+        })
     }
 
     winWrapper()
