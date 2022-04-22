@@ -4,7 +4,7 @@ export default class DirectionalGates
      * @param {Phaser.Scene} scene the scene that is creating "DirectionalGates"
      * @param {string} directionalGateKey
      */
-    constructor(scene, directionalGateKey = 'directional gate')
+    constructor(scene, directionalGateKey)
     {
         this.scene = scene
         this.key = directionalGateKey

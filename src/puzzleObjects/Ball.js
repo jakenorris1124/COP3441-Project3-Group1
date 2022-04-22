@@ -4,12 +4,38 @@ export default class Balls
      * @param {Phaser.Scene} scene
      * @param {string} ballKey
      */
-    constructor(scene, ballKey = 'ball')
+    constructor(scene, ballKey)
     {
         this.scene = scene
         this.key = ballKey
 
         this._group = this.scene.physics.add.group()
+    }
+
+    createSprite(){
+        // Create 'Heavy' animation
+        this.ball.anims.create({
+            key: 'Heavy',
+            frames: this.ball.anims.generateFrameNames(this.key, {start: 0, end: 11, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 8,
+            repeat: -1              // set to (-1) to repeat forever
+        }); // end of create 'Heavy' animation
+
+        // Create 'Light' animation
+        this.scene.anims.create({
+            key: 'Light',
+            frames: this.ball.anims.generateFrameNames(this.key, {start: 12, end: 23, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 2,
+            repeat: -1              // set to (-1) to repeat forever
+        }); // end of create 'Light' animation
+
+        // Create 'Reg' animation
+        this.scene.anims.create({
+            key: 'Reg',
+            frames: this.ball.anims.generateFrameNames(this.key, {start: 24, end: 35, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 2,
+            repeat: -1              // set to (-1) to repeat forever
+        }); // end of create 'Reg' animation
     }
 
     /**
@@ -28,7 +54,9 @@ export default class Balls
      */
     createStandardBall(x = 500, y = 350)
     {
-        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.7)
+        const ball = this.scene.add.sprite(x, y, this.key).setScale(2)
+        this.createSprite()
+        ball.playReverse('Reg')
         this._group.add(ball)
 
         ball.setData('lock', false)
