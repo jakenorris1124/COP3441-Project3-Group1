@@ -66,7 +66,7 @@ export default class Fans
     toggle(ball, fan)
     {
         if (fan.state == ON) {
-            fan.play('Off')
+            fan.playAfterRepeat('Off', 1)
             fan.setState(OFF)
         }
         else {

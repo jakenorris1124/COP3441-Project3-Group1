@@ -79,4 +79,5 @@ export default class Balls
         // Line needed here: if (check that ball is inside the goal)
         return ball.speedX < xMaxSpeed && ball.speedY < yMaxSpeed;
     }
+
 }

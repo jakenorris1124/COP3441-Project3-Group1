@@ -16,6 +16,71 @@ export default class Pullies
         this._group = this.scene.physics.add.group()
     }
 
+    createSprite(){
+        // Create 'Close' animation
+        this.pulley.anims.create({
+            key: 'Close',
+            frames: this.pulley.anims.generateFrameNames(this.key, {start: 0, end: 11, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 20,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Close' animation
+
+        // Create 'Done' animation
+        this.pulley.anims.create({
+            key: 'Done',
+            frames: this.pulley.anims.generateFrameNames(this.key, {start: 10, end: 11, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 20,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Done' animation
+
+        // Create 'Open' animation
+        this.pulley.anims.create({
+            key: 'Open',
+            frames: [
+                {
+                key: this.key,
+                frame: '0011.png'
+            }, {
+                key: this.key,
+                frame: '0010.png'
+            }, {
+                key: this.key,
+                frame: '0009.png'
+            }, {
+                key: this.key,
+                frame: '0008.png'
+            }, {
+                key: this.key,
+                frame: '0007.png'
+            }, {
+                key: this.key,
+                frame: '0006.png'
+            }, {
+                key: this.key,
+                frame: '0005.png'
+            }, {
+                key: this.key,
+                frame: '0004.png'
+            }, {
+                key: this.key,
+                frame: '0003.png'
+            }, {
+                key: this.key,
+                frame: '0002.png'
+            }, {
+                key: this.key,
+                frame: '0001.png'
+            }, {
+                key: this.key,
+                frame: '0000.png'
+            }],
+            frameRate: 20,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Open' animation
+    }
+
+
+
     /**
      * @param {number} x
      * @param {number} y
@@ -23,20 +88,22 @@ export default class Pullies
      */
     place(x = 0, y = 0)
     {
-        const pulley = this.scene.add.sprite(x, y, this.key)
-        this._group.add(pulley)
+        this.pulley = this.scene.add.sprite(x, y, this.key)
+        this.createSprite()
+        this.pulley.play('Done')
+        this._group.add(this.pulley)
 
-        pulley.body.setSize(pulley.body.width, pulley.body.height / 3, true)
-        pulley.body.setOffset(0, pulley.body.height * 2)
+        this.pulley.body.setSize(this.pulley.body.width, this.pulley.body.height / 13, true)
+        this.pulley.body.setOffset(0, this.pulley.body.height * 12)
 
-        pulley.setState(OFF)
-        pulley.setName('pulley')
-        pulley.setData('moving', false)
-        pulley.setData('initialX', x)
-        pulley.setData('initialY', y)
-        pulley.setData('timeEvent', undefined)
+        this.pulley.setState(OFF)
+        this.pulley.setName('pulley')
+        this.pulley.setData('moving', false)
+        this.pulley.setData('initialX', x)
+        this.pulley.setData('initialY', y)
+        this.pulley.setData('timeEvent', undefined)
 
-        return pulley
+        return this.pulley
     }
 
     // The pulley will be very difficult to implement unless we can find a way to make it have a non static body.
@@ -76,6 +143,7 @@ export default class Pullies
                 break
         }
 
+        this.pulley.play('Close')
         if (pulley.state == ON)
         {
             this.goDown(pulley, -velocityXUp, -velocityYUp)
@@ -98,6 +166,8 @@ export default class Pullies
             },
             callbackScope: this
         }))
+
+        this.pulley.play('Open')
     }
 
     /**

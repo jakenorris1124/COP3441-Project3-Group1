@@ -27,6 +27,7 @@ const HEAVY_BALL_TRANSFORMER_KEY = 'heavy ball transformer'
 const LIGHT_BALL_TRANSFORMER_KEY = 'light ball transformer'
 const SPRING_KEY = 'spring'
 const DIRECTIONAL_GATE_KEY = 'directional gate'
+const GOAL_KEY = 'goal'
 
 const ON = 1
 const OFF = 0
@@ -44,12 +45,13 @@ export default class LevelOne extends Phaser.Scene
     {
         this.load.atlas(ANCHOR_KEY,"images/Anchor.png","images/Anchor.json");
         this.load.atlas(FAN_KEY,"images/Fan.png","images/Fan.json");
+        this.load.atlas(GOAL_KEY,"images/Goal.png","images/Goal.json");
         this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
         this.load.atlas(BALL_KEY,"images/Ball.png","images/Ball.json");
         this.load.atlas(BUTTON_KEY, "images/Button.png","images/Button.json")
         this.load.atlas(LIGHT_BRIDGE_KEY, 'images/Light Bridge.png', 'images/Light Bridge.json')
         this.load.atlas(GRAVITY_INVERTER_KEY, 'images/Grav Inv.png', 'images/Grav Inv.json')
-        this.load.atlas(SPRING_KEY, 'images/Spring.png','images/Spring.png')
+        this.load.atlas(SPRING_KEY, 'images/Spring Bounce.png','images/Spring Bounce.json')
         this.load.atlas(DIRECTIONAL_GATE_KEY, 'images/Dir Gate.png','images/Dir Gate.json')
         this.load.atlas(PULLEY_KEY, 'images/Lift.png', 'images/Lift.json')
         this.load.atlas(LIGHT_BALL_TRANSFORMER_KEY, 'images/Light Trans.png','images/Light Trans.json')
@@ -79,8 +81,9 @@ export default class LevelOne extends Phaser.Scene
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
-        goal = new Goal(this, 1285, 1000)
+        goal = new Goal(this, 1285, 1000, GOAL_KEY, 90)
         this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
+
     }
 
     update()
@@ -96,6 +99,13 @@ export default class LevelOne extends Phaser.Scene
                 anchor.x = this.levelBall.x
                 anchor.y = this.levelBall.y
             })
+        }
+
+        if(this.levelBall.body.velocity.x > 0) {
+            this.levelBall.setFlipX(true)
+        }
+        else if (this.levelBall.body.velocity.x < 0){
+            this.levelBall.resetFlip()
         }
     }
 

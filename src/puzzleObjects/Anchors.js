@@ -20,14 +20,14 @@ export default class Anchors
      */
     place(x = 0, y = 0)
     {
-        const anchor = this.scene.add.sprite(this.scene.levelBall.x, this.scene.levelBall.y, this.key)
-        this._group.add(anchor)
+        this.anchor = this.scene.add.sprite(this.scene.levelBall.x, this.scene.levelBall.y, this.key).setScale(0.75)
+        this._group.add(this.anchor)
 
-        anchor.setName('anchor')
+        this.anchor.setName('anchor')
 
         this.scene.levelBall.setData('lock', true)
 
-        return anchor
+        return this.anchor
     }
 
     /**

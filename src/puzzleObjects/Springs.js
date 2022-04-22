@@ -13,6 +13,16 @@ export default class Springs
         this._group = this.scene.physics.add.staticGroup()
     }
 
+    createSprite(){
+        // Create 'Bounce' animation
+        this.spring.anims.create({
+            key: 'Bounce',
+            frames: this.spring.anims.generateFrameNames(this.key, {start: 0, end: 13, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 20,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Bounce' animation
+    }
+
     /**
      * @param {number} x
      * @param {number} y
@@ -20,10 +30,12 @@ export default class Springs
      */
     place(x = 0, y = 0)
     {
-        const spring = this.scene.add.sprite(x, y, this.key).setScale(0.7)
-        this._group.add(spring)
+        this.spring = this.scene.add.sprite(x, y, this.key).setScale(0.7)
+        this.createSprite()
+        this.spring.play('Idle')
+        this._group.add(this.spring)
 
-        return spring
+        return this.spring
     }
 
     /**
