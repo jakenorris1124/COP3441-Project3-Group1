@@ -199,7 +199,7 @@ export default class LevelOne extends Phaser.Scene
             this.fans.toggle, null, this)
 
         this.physics.add.collider(this.ballGroup, this.directionalGateGroup,
-            null, this.directionalGates.isWrongSide, this)
+            null, null, this)
 
         this.physics.add.collider(this.ballGroup, this.gravityInverterGroup,
             this.gravityInverters.toggle, null, this)

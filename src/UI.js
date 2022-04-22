@@ -1,6 +1,7 @@
 import Fans from './puzzleObjects/Fans.js'
 import LightBallTransformers from "./puzzleObjects/LightBallTransformers.js";
 import HeavyBallTransformers from "./puzzleObjects/HeavyBallTransformers.js";
+import DirectionalGates from "./puzzleObjects/DirectionalGates";
 
 import Phaser from 'phaser'
 
@@ -156,6 +157,8 @@ export default class UI
                     LightBallTransformers.rotateBoundaries(placed)
                 else if (placed.name == 'heavyBallTransformer')
                     HeavyBallTransformers.rotateBoundaries(placed)
+                else if (placed.name == 'directionalGate')
+                    DirectionalGates.rotate(placed)
             }
             this.rotate(placed, degree)
         })
