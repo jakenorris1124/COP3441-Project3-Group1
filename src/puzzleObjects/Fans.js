@@ -22,23 +22,19 @@ export default class Fans
     }
 
 
-    preload(){
-        this.scene.load.atlas(this.key,"images/Fan.png","images/Fan.json");
-        this.createSprite();
-    }
 
     create(){
-        this.Monk = this.scene.add.sprite(200, 200, this.key);
+        this.Sprite = this.scene.add.sprite(-1,-1,this.key)
+        this.createSprite();
 
     }
 
-    // Creates sprite for the fan
     createSprite(){
         // Create 'On' animation
         this.scene.anims.create({
-            key: 'On',
-            frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 7, zeroPad: 4, prefix: null, suffix: '.png'}),
-            frameRate: 2,
+            key: "On",
+            frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 8, zeroPad: 4, prefix: null, suffix: '.png'}),
+            frameRate: 8,
             repeat: -1              // set to (-1) to repeat forever
         }); // end of create 'On' animation
 
@@ -50,8 +46,9 @@ export default class Fans
             repeat: -1              // set to (-1) to repeat forever
 
         }); // end of create 'Off' animation
-        
     }
+
+
 
     /**
      * @returns {Phaser.Physics.Arcade.StaticGroup}
@@ -108,7 +105,7 @@ export default class Fans
      */
     place(x = 0, y = 0)
     {
-        let fan = this.scene.add.sprite(x, y, this.key);
+        let fan = this.scene.add.sprite(x,y,this.key)
         fan.play('On')
         this._group.add(fan)
         const wind = this.windGroup.create(x, y - fan.body.height - 150, this.windKey)

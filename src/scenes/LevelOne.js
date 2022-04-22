@@ -14,6 +14,7 @@ import Springs from "../puzzleObjects/Springs";
 import UI from "../UI"
 import Goal from "../puzzleObjects/Goal"
 
+
 const LEVEL_KEY = 'level 1'
 const FAN_KEY = 'fan'
 const WIND_KEY = 'wind'
@@ -43,8 +44,8 @@ export default class LevelOne extends Phaser.Scene
 
     preload()
     {
-        this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
-        this.load.image(FAN_KEY, 'images/Fan Off.png');
+        this.load.atlas('fan',"images/Fan.png","images/Fan.json");
+        this.load.image(FAN_KEY, 'images/Fan.png');
         this.load.image(BALL_KEY, 'images/ballPlaceholder.png');
         this.load.image(BUTTON_KEY, 'images/But Up.png')
         this.load.image(LIGHT_BRIDGE_KEY, 'images/Light Bridge Off.png')
