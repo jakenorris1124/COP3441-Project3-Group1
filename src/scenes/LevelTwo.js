@@ -77,7 +77,7 @@ export default class LevelTwo extends Phaser.Scene
         this.levelBall = this.balls.createStandardBall(this.ballX, this.ballY)
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.buttons, this.buttons, this.buttons, this.buttons, this.pullies, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.buttons, this.buttons, this.buttons, this.buttons, this.pullies, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.placedMachines = this.placedMachines.concat(this.machines)
 
@@ -234,7 +234,7 @@ export default class LevelTwo extends Phaser.Scene
 
         for (let i in this.placedMachines)
         {
-            if (this.placedMachines[i].togglable && !alreadyToggled.has(this.machines[i]))
+            if (this.placedMachines[i].togglable && !alreadyToggled.has(this.placedMachines[i]))
             {
                 this.placedMachines[i].group.children.iterate((child) => {
                     this.placedMachines[i].toggle(ball, child)
