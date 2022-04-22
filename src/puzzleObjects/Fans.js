@@ -72,7 +72,9 @@ export default class Fans
     {
         const fan = this.scene.add.sprite(x, y, this.key)
         this._group.add(fan)
-        const wind = this.windGroup.create(x, y - fan.body.height - 150, this.windKey) // Will need to adjust x and y values here later.
+        const wind = this.windGroup.create(x, y - fan.body.height - 150, this.windKey)
+        wind.visible = false
+
         fan.setName('fan')
 
         wind.body.setSize(fan.body.width, 300)

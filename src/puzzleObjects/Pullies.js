@@ -7,7 +7,7 @@ export default class Pullies
      * @param {Phaser.Scene} scene the scene that is creating "Pullies"
      * @param {string} pulleyKey
      */
-    constructor(scene, pulleyKey = 'pulley')
+    constructor(scene, pulleyKey = 'lift')
     {
         this.scene = scene
         this.key = pulleyKey
@@ -25,6 +25,9 @@ export default class Pullies
     {
         const pulley = this.scene.add.sprite(x, y, this.key)
         this._group.add(pulley)
+
+        pulley.body.setSize(pulley.body.width, pulley.body.height / 3, true)
+        pulley.body.setOffset(0, pulley.body.height * 2)
 
         pulley.setState(OFF)
         pulley.setName('pulley')

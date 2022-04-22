@@ -201,6 +201,8 @@ export default class UI
                 this.dragObj.getData('topCollisionBox').destroy()
                 this.dragObj.getData('bottomCollisionBox').destroy()
             }
+            else if (this.dragObj.name == 'anchor')
+                this.scene.levelBall.lock = false
             this.dragObj.destroy()
         }
 

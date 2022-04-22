@@ -14,13 +14,12 @@ import Springs from "../puzzleObjects/Springs";
 import UI from "../UI"
 import Goal from "../puzzleObjects/Goal"
 
-const BACKGROUND_LEVELONE_KEY = 'background-levelone'
+const LEVEL_KEY = 'level 1'
 const FAN_KEY = 'fan'
 const WIND_KEY = 'wind'
 const LIGHT_BRIDGE_KEY = 'light bridge'
 const BUTTON_KEY = 'button'
-const PULLEY_KEY = 'pulley'
-const LEVEL_KEY = "Level 1"
+const PULLEY_KEY = 'lift'
 const BALL_KEY = 'ball'
 const ANCHOR_KEY = 'anchor'
 const GRAVITY_INVERTER_KEY = 'gravity inverter'
@@ -44,7 +43,7 @@ export default class LevelOne extends Phaser.Scene
 
     preload()
     {
-        this.load.image(BACKGROUND_LEVELONE_KEY, 'images/leveloneplaceholder.png');
+        this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
         this.load.image(FAN_KEY, 'images/Fan Off.png');
         this.load.image(BALL_KEY, 'images/ballPlaceholder.png');
         this.load.image(BUTTON_KEY, 'images/But Up.png')
@@ -59,7 +58,7 @@ export default class LevelOne extends Phaser.Scene
 
     create()
     {
-        this.add.image(960, 540, BACKGROUND_LEVELONE_KEY);
+        this.add.image(960, 540, LEVEL_KEY);
 
         this.initializeGroups()
         this.setDefaultCollisions()
@@ -68,7 +67,7 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.enable = false;
 
         this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
-        this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
@@ -82,6 +81,14 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.setAcceleration(0, 0)
         this.physics.overlap(this.ballGroup, this.windGroup,
             this.fans.pushBall, this.fans.isActive, this)
+
+        if (this.levelBall.lock && this.levelBall.body.enable)
+        {
+            this.anchorGroup.children.iterate((anchor) => {
+                anchor.x = this.levelBall.x
+                anchor.y = this.levelBall.y
+            })
+        }
     }
 
     /**
@@ -105,11 +112,17 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.setPosition(500, 350)
         this.levelBall.body.stop()
         this.levelBall.body.setGravityY(0)
+        this.levelBall.body.setMass(50)
         this.levelBall.body.enable = false
 
         this.lightBridgeGroup.children.iterate((emitter) => {
             if (emitter.state == ON)
                 this.lightBridges.toggle(this.levelBall, emitter)
+        })
+
+        this.anchorGroup.children.iterate((anchor) => {
+            anchor.x = this.levelBall.x
+            anchor.y = this.levelBall.y
         })
 
         this.pulleyGroup.children.iterate((pulley) => {

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import GravityInverters from "./GravityInverters";
 
 const ON = 1
 const OFF = 0
@@ -51,17 +52,29 @@ export default class LightBallTransformers
         lightBallTransformer.setName('lightBallTransformer')
 
         let bounds = lightBallTransformer.getBounds()
+        let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
-        let width = lightBallTransformer.body.sourceWidth
+        let width = lightBallTransformer.body.width
         let height = 20
 
         //Will need to adjust these collision boxes
-        topCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(lightBallTransformer.body.position.x, top + (1/2 * height), width, height))
-        bottomCollisionBox.body.setBoundsRectangle(new Phaser.geom.rectangle(lightBallTransformer.body.position.x, bottom - (1/2 * height), width, height))
-        lightBallTransformer.body.sourceHeight -= 2 * height
+        topCollisionBox.body.x = left
+        topCollisionBox.body.y = top
+        topCollisionBox.body.width = width
+        topCollisionBox.body.height = height
+
+        bottomCollisionBox.body.x = left
+        bottomCollisionBox.body.y = bottom - height
+        bottomCollisionBox.body.width = width
+        bottomCollisionBox.body.height = height
+
+        lightBallTransformer.body.height -= 2 * height
+        lightBallTransformer.body.y += height
 
         lightBallTransformer.setState(OFF)
+
+        return lightBallTransformer
     }
 
     /**
@@ -70,14 +83,17 @@ export default class LightBallTransformers
      */
     toggle(ball, lightBallTransformer)
     {
+        if (this.scene.levelBall.lock)
+            return
+
         if (lightBallTransformer.state == ON)
         {
-            this.resetMass(ball.body)
+            LightBallTransformers.resetMass(ball.body)
             lightBallTransformer.setState(OFF)
         }
         else
         {
-            this.decreaseMass(ball.body)
+            LightBallTransformers.decreaseMass(ball.body)
             lightBallTransformer.setState(ON)
         }
     }
@@ -85,16 +101,32 @@ export default class LightBallTransformers
     /**
      * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
-    decreaseMass(ball)
+    static decreaseMass(ball)
     {
+        if (ball.gravity.y > -200)
+            ball.setGravityY(ball.gravity.y - 50)
+        else if (ball.gravity.y < -200)
+            ball.setGravityY(ball.gravity.y + 50)
         ball.setMass(ball.mass / 2)
     }
 
     /**
      * @param {Phaser.Physics.Arcade.Body} ball ball who's mass will be amplified
      */
-    resetMass(ball)
+    static resetMass(ball)
     {
+        if (ball.gravity.y > -200)
+            ball.setGravityY(ball.gravity.y +50)
+        else if (ball.gravity.y < -200)
+            ball.setGravityY(ball.gravity.y - 50)
+        else
+        {
+            if (GravityInverters.inverted == false)
+                ball.setGravityY(50)
+            else
+                ball.setGravityY(-50)
+        }
+
         ball.setMass(ball.mass * 2)
     }
 
@@ -119,7 +151,9 @@ export default class LightBallTransformers
         let top = bounds.y
         let bottom = bounds.bottom
         let right = bounds.right
-        let height = 20
+        let height = 40
+
+        lightBallTransformer.body.y = top
 
         let topX
         let topY
@@ -130,30 +164,33 @@ export default class LightBallTransformers
         {
             case 0:
                 topX = lightBallTransformer.body.position.x
-                topY = top + (1/2 * height)
+                topY = top
                 botX = lightBallTransformer.body.position.x
                 botY = bottom - (1/2 * height)
+                lightBallTransformer.body.y = top + (1/2 * height)
                 break
             case 90:
-                topX = right - (1/2 * height)
+                topX = right -  (1/2 * height)
                 topY = lightBallTransformer.body.position.y
-                botX = left + (1/2 * height)
+                botX = left
                 botY = lightBallTransformer.body.position.y
                 break
             case 180:
                 topX = lightBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = lightBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
+                lightBallTransformer.body.y = top + (1/2 * height)
                 break
             case -180:
                 topX = lightBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = lightBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
+                lightBallTransformer.body.y = top + (1/2 * height)
                 break
             case -90:
-                topX = left + (1/2 * height)
+                topX = left
                 topY = lightBallTransformer.body.position.y
                 botX = right - (1/2 * height)
                 botY = lightBallTransformer.body.position.y
@@ -177,7 +214,7 @@ export default class LightBallTransformers
         let top = bounds.y
         let bottom = bounds.bottom
         let right = bounds.right
-        let height = 20
+        let height = 40
 
         let topX
         let topY
@@ -188,30 +225,30 @@ export default class LightBallTransformers
         {
             case 0:
                 topX = lightBallTransformer.body.position.x
-                topY = top + (1/2 * height)
+                topY = top
                 botX = lightBallTransformer.body.position.x
                 botY = bottom - (1/2 * height)
                 break
             case 90:
                 topX = right - (1/2 * height)
                 topY = lightBallTransformer.body.position.y
-                botX = left + (1/2 * height)
+                botX = left
                 botY = lightBallTransformer.body.position.y
                 break
             case 180:
                 topX = lightBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = lightBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
                 break
             case -180:
                 topX = lightBallTransformer.body.position.x
                 topY = bottom - (1/2 * height)
                 botX = lightBallTransformer.body.position.x
-                botY = top + (1/2 * height)
+                botY = top
                 break
             case -90:
-                topX = left + (1/2 * height)
+                topX = left
                 topY = lightBallTransformer.body.position.y
                 botX = right - (1/2 * height)
                 botY = lightBallTransformer.body.position.y

@@ -8,6 +8,7 @@ export default class Balls
     {
         this.scene = scene
         this.key = ballKey
+        this.lock = false
 
         this._group = this.scene.physics.add.group()
     }
@@ -28,7 +29,7 @@ export default class Balls
      */
     createStandardBall(x = 500, y = 350)
     {
-        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.2)
+        const ball = this.scene.add.sprite(x, y, this.key).setScale(0.165)
         this._group.add(ball)
 
         let radius = ball.body.sourceHeight / 2
