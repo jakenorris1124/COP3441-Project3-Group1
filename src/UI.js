@@ -39,6 +39,11 @@ export default class UI
         var sidebar = this.scene.add.rectangle(1800, 540, 400, 1080, 0x666666); //Draws the sidebar for the UI
         this.scene.add.text(1610, 10, this.level, {fill: '#ffffff'}); //Used to help identify the current level
 
+        this.scene.physics.add.existing(sidebar)
+        sidebar.body.immovable = true
+        sidebar.body.allowGravity = false
+        this.scene.physics.add.collider(this.ball, sidebar, null, null, null)
+
         this.start = this.scene.add.text(1750, 10, "Start", {fill: '#ffffff'});
         this.start.setInteractive();
         this.stop()
