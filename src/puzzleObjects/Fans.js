@@ -21,86 +21,36 @@ export default class Fans
         this._windGroup = this.scene.physics.add.staticGroup()
     }
 
+
+    preload(){
+        this.scene.load.atlas(this.key,"images/Fan.png","images/Fan.json");
+        this.createSprite();
+    }
+
+    create(){
+        this.Monk = this.scene.add.sprite(200, 200, this.key);
+
+    }
+
     // Creates sprite for the fan
     createSprite(){
-
         // Create 'On' animation
         this.scene.anims.create({
             key: 'On',
-            frames: [
-                {
-                    key: 'fan',
-                    frame: '0000.png'
-                },{
-                    key: 'fan',
-                    frame: '0001.png'
-                },{
-                    key: 'fan',
-                    frame: '0002.png'
-                },{
-                    key: 'fan',
-                    frame: '0003.png'
-                },{
-                    key: 'fan',
-                    frame: '0004.png'
-                },{
-                    key: 'fan',
-                    frame: '0005.png'
-                },{
-                    key: 'fan',
-                    frame: '0006.png'
-                },{
-                    key: 'fan',
-                    frame: '0007.png'
-                }],
-            skipMissedFrames: true,
-            defaultTextureKey: null,
-            startFrame: 0,
-
-            // time
-            delay: 0,
-            frameRate: null,
-            duration: null,
-            timeScale: 1,
-
-            // repeat
-            repeat: -1,              // set to (-1) to repeat forever
-            repeatDelay: 0,
-            yoyo: false,
-
-            // visible
-            showOnStart: false,
-            hideOnComplete: false
-        }) // end of create 'On' animation;
+            frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 7, zeroPad: 4, prefix: null, suffix: '.png'}),
+            frameRate: 2,
+            repeat: -1              // set to (-1) to repeat forever
+        }); // end of create 'On' animation
 
         // Create 'Off' animation
         this.scene.anims.create({
             key: 'Off',
-            frames: [
-                {
-                    key: 'fan',
-                    frame: '0008.png'
-                }],
-            skipMissedFrames: true,
-            defaultTextureKey: null,
-            startFrame: 0,
+            frames:this.scene.anims.generateFrameNames(this.key, {start: 8, end: 8, zeroPad: 4, prefix: null, suffix: '.png'}),
+            frameRate: 2,
+            repeat: -1              // set to (-1) to repeat forever
 
-            // time
-            delay: 0,
-            frameRate: null,
-            duration: null,
-            timeScale: 1,
-
-            // repeat
-            repeat: 0,              // set to (-1) to repeat forever
-            repeatDelay: 0,
-            yoyo: false,
-
-            // visible
-            showOnStart: false,
-            hideOnComplete: false
-        }) // end of create 'Off' animation;
-
+        }); // end of create 'Off' animation
+        
     }
 
     /**
@@ -158,10 +108,8 @@ export default class Fans
      */
     place(x = 0, y = 0)
     {
-        this.scene.load.atlas('fan','images/Fan.png','images/Fan.json')
-        const fan = this.scene.add.sprite(x, y, this.key)
-        this.createSprite()
-        fan.play('Off')
+        let fan = this.scene.add.sprite(x, y, this.key);
+        fan.play('On')
         this._group.add(fan)
         const wind = this.windGroup.create(x, y - fan.body.height - 150, this.windKey)
         wind.visible = false

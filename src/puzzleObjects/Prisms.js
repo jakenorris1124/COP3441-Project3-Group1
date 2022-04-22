@@ -14,57 +14,59 @@ export default class Prisms
     }
 
     // Creates sprite for the fan
-    createSprite(){
-        this.scene.load.atlas('prism','images/Prism.png','images/Prism.json');
+    /**
+     * @param {Phaser.GameObjects.Sprite} Sprite sprite being sent in to have animation added to it
+     */
+    createSprite(Sprite){
 
         // Create 'On' animation
-        this.scene.anims.create({
+        Sprite.anims.create({
             key: 'On',
             frames: [
                 {
-                    key: 'prism',
+                    key: this.key,
                     frame: '0000.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0001.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0002.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0004.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0005.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0006.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0007.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0008.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0009.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0010.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0011.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0012.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0013.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0014.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0015.png'
                 }],
             skipMissedFrames: true,
@@ -80,7 +82,6 @@ export default class Prisms
             // repeat
             repeat: -1,              // set to (-1) to repeat forever
             repeatDelay: 0,
-            yoyo: false,
 
             // visible
             showOnStart: false,
@@ -88,59 +89,59 @@ export default class Prisms
         }) // end of create 'On' animation;
 
         // Create 'Off' animation
-        this.scene.anims.create({
+        Sprite.anims.create({
             key: 'Off',
             frames: [
                 {
-                    key: 'prism',
+                    key: this.key,
                     frame: '0016.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0017.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0018.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0019.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0020.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0021.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0022.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0023.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0024.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0025.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0026.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0027.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0028.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0029.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0030.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0031.png'
                 },{
-                    key: 'prism',
+                    key: this.key,
                     frame: '0032.png'
                 }],
             skipMissedFrames: true,
@@ -172,8 +173,7 @@ export default class Prisms
      */
     place(x = 0, y = 0)
     {
-        this.createSprite()
-        const prism = this.scene.add.sprite(x, y, this.key)
+        let prism = this.scene.add.sprite(x, y, this.key)
         prism.play('Off')
         this._group.add(prism)
 
@@ -187,4 +187,6 @@ export default class Prisms
     {
         return this._group
     }
+
+    update(){}
 }
