@@ -18,7 +18,7 @@ export default class DirectionalGates
      * @param y
      * @returns {Phaser.GameObjects.Sprite}
      */
-    placeDirectionalGate(x = 0, y = 0)
+    place(x = 0, y = 0)
     {
         const directionalGate = this.scene.add.sprite(x, y, this.key)
         this._group.add(directionalGate)
