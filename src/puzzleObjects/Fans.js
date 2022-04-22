@@ -24,15 +24,15 @@ export default class Fans
 
     createSprite(){
         // Create 'On' animation
-        this.scene.anims.create({
+        this.fan.anims.create({
             key: 'On',
-            frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 7, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frames: this.fan.anims.generateFrameNames(this.key, {start: 0, end: 7, zeroPad: 4, prefix: "", suffix: ".png"}),
             frameRate: 30,
             repeat: -1              // set to (-1) to repeat forever
         }); // end of create 'On' animation
 
         // Create 'Off' animation
-        this.scene.anims.create({
+        this.fan.anims.create({
             key: 'Off',
             frames: [{ key: this.key, frame: "0008.png"}],
             frameRate: 2,

@@ -21,8 +21,6 @@ const LIGHT_BRIDGE_KEY = 'light bridge'
 const BUTTON_KEY = 'button'
 const PULLEY_KEY = 'lift'
 const BALL_KEY = 'ball'
-const HBALL_KEY = 'Hball'
-const LBALL_KEY = 'Lball'
 const ANCHOR_KEY = 'anchor'
 const GRAVITY_INVERTER_KEY = 'gravity inverter'
 const HEAVY_BALL_TRANSFORMER_KEY = 'heavy ball transformer'
@@ -44,11 +42,10 @@ export default class LevelOne extends Phaser.Scene
 
     preload()
     {
+        this.load.atlas(ANCHOR_KEY,"images/Anchor.png","images/Anchor.json");
         this.load.atlas(FAN_KEY,"images/Fan.png","images/Fan.json");
-        this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png')
-        this.load.atlas(BALL_KEY,"images/Reg Ball.png","images/Reg Ball.json");
-        this.load.atlas(HBALL_KEY,"images/Heavy Ball.png","images/Heavy Ball.json");
-        this.load.atlas(LBALL_KEY,"images/Light Ball.png","images/Light Ball.json");
+        this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
+        this.load.atlas(BALL_KEY,"images/Ball.png","images/Ball.json");
         this.load.atlas(BUTTON_KEY, "images/Button.png","images/Button.json")
         this.load.atlas(LIGHT_BRIDGE_KEY, 'images/Light Bridge.png', 'images/Light Bridge.json')
         this.load.atlas(GRAVITY_INVERTER_KEY, 'images/Grav Inv.png', 'images/Grav Inv.json')
