@@ -83,7 +83,7 @@ export default class LevelTwo extends Phaser.Scene
         this.physics.overlap(this.ballGroup, this.windGroup,
             this.fans.pushBall, this.fans.isActive, this)
 
-        if (this.levelBall.lock && this.levelBall.body.enable)
+        if (this.levelBall.getData('lock') && this.levelBall.body.enable)
         {
             this.anchorGroup.children.iterate((anchor) => {
                 anchor.x = this.levelBall.x

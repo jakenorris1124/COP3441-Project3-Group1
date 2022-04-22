@@ -47,7 +47,7 @@ export default class GravityInverters
      */
     toggle(ball, gravityInverter)
     {
-        if (this.scene.levelBall.lock)
+        if (ball.getData('lock'))
             return
 
         if(gravityInverter.state == OFF)

@@ -25,7 +25,7 @@ export default class Anchors
 
         anchor.setName('anchor')
 
-        this.scene.levelBall.lock = true
+        this.scene.levelBall.setData('lock', true)
 
         return anchor
     }

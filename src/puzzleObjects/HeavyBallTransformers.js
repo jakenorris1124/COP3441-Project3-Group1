@@ -82,7 +82,7 @@ export default class HeavyBallTransformers
      */
     toggle(ball, heavyBallTransformer)
     {
-        if (this.scene.levelBall.lock)
+        if (ball.getData('lock'))
             return
 
         if (heavyBallTransformer.state == ON)

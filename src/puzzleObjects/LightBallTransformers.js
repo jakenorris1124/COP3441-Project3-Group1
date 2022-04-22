@@ -83,7 +83,7 @@ export default class LightBallTransformers
      */
     toggle(ball, lightBallTransformer)
     {
-        if (this.scene.levelBall.lock)
+        if (ball.getData('lock'))
             return
 
         if (lightBallTransformer.state == ON)

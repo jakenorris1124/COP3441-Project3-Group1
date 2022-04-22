@@ -65,15 +65,13 @@ export default class Fans
      */
     toggle(ball, fan)
     {
-        const wind = fan.getData('wind')
-
-        if (wind.state == ON) {
+        if (fan.state == ON) {
             fan.play('Off')
-            wind.setState(OFF)
+            fan.setState(OFF)
         }
         else {
             fan.play('On')
-            wind.setState(ON)
+            fan.setState(ON)
         }
     }
 
@@ -84,10 +82,7 @@ export default class Fans
      */
     isActive(ball, wind)
     {
-        if (wind.state == ON)
-            return true
-        else
-            return false
+        return wind.getData('fan').state == ON
     }
 
     /**
@@ -109,9 +104,10 @@ export default class Fans
 
 
         wind.body.setSize(this.fan.body.width, 300)
-        wind.setState(OFF)
+        this.fan.setState(OFF)
 
         this.fan.setData('wind', wind)
+        wind.setData('fan', this.fan)
 
         return this.fan
     }
