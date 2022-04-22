@@ -75,11 +75,6 @@ export default class LightBridges
                 beamHeight = 20
                 break
             case 180:
-                emitterX = emitter.body.position.x
-                emitterY = emitter.body.position.y+55
-                beamWidth = 20
-                beamHeight = 35
-                break
             case -180:
                 emitterX = emitter.body.position.x
                 emitterY = emitter.body.position.y+55
@@ -116,9 +111,6 @@ export default class LightBridges
                 beam.body.setGravityX(0)
                 break
             case 180:
-                beam.body.setGravityY(-200)
-                beam.body.setGravityX(-10000)
-                break
             case -180:
                 beam.body.setGravityY(-200)
                 beam.body.setGravityX(-10000)
