@@ -1,6 +1,8 @@
 const ON = 1
 const OFF = 0
 
+
+
 export default class Fans
 {
     /**
@@ -43,8 +45,9 @@ export default class Fans
     {
         const wind = fan.getData('wind')
 
-        if (wind.state == ON)
+        if (wind.state == ON) {
             wind.setState(OFF)
+        }
         else
             wind.setState(ON)
     }
@@ -76,6 +79,7 @@ export default class Fans
         wind.visible = false
 
         fan.setName('fan')
+
 
         wind.body.setSize(fan.body.width, 300)
         wind.setState(OFF)
@@ -191,4 +195,5 @@ export default class Fans
         wind.body.x = wind.x - wind.body.width / 2
         wind.body.y = wind.y - wind.body.height / 2
     }
+
 }
