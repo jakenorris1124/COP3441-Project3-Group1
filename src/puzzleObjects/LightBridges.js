@@ -128,7 +128,7 @@ export default class LightBridges
         //Check for collision on beam
         this.scene.physics.add.collider(beam, [this.scene.anchorGroup, this.scene.ballGroup, this.scene.buttonGroup, this.scene.directionalGateGroup,
             this.scene.fanGroup, this.scene.gravityInverterGroup, this.scene.heavyBallTransformerGroup, this.scene.lightBallTransformerGroup, this.scene.prismGroup,
-            this.scene.pullyGroup, this.scene.sprinGroup, this.scene.HBTBoundaryGroup, this.scene.LBTBoundaryGroup], (beamCollide,objectCollide) => {
+            this.scene.pullyGroup, this.scene.sprinGroup, this.scene.HBTBoundaryGroup, this.scene.LBTBoundaryGroup, this.scene.platformGroup], (beamCollide,objectCollide) => {
                 //Calculate length then destroy beams
                 //Create bridge then add physical properties to it
                 switch (angle)
