@@ -42,17 +42,18 @@ export default class LevelTwo extends Phaser.Scene
 
     preload()
     {
+        this.load.atlas(ANCHOR_KEY,"images/Anchor.png","images/Anchor.json");
+        this.load.atlas(FAN_KEY,"images/Fan.png","images/Fan.json");
         this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
-        this.load.image(FAN_KEY, 'images/Fan Off.png');
-        this.load.image(BALL_KEY, 'images/ballPlaceholder.png');
-        this.load.image(BUTTON_KEY, 'images/But Up.png')
-        this.load.image(LIGHT_BRIDGE_KEY, 'images/Light Bridge Off.png')
-        this.load.image(GRAVITY_INVERTER_KEY, 'images/Grav Inv On.png')
-        this.load.image(SPRING_KEY, 'images/Spring.png')
-        this.load.image(DIRECTIONAL_GATE_KEY, 'images/Dir Gate On.png')
-        this.load.image(PULLEY_KEY, 'images/Lift Open.png')
-        this.load.image(LIGHT_BALL_TRANSFORMER_KEY, 'images/Light Trans Off.png')
-        this.load.image(HEAVY_BALL_TRANSFORMER_KEY, 'images/Heavy Trans Off.png')
+        this.load.atlas(BALL_KEY,"images/Ball.png","images/Ball.json");
+        this.load.atlas(BUTTON_KEY, "images/Button.png","images/Button.json")
+        this.load.atlas(LIGHT_BRIDGE_KEY, 'images/Light Bridge.png', 'images/Light Bridge.json')
+        this.load.atlas(GRAVITY_INVERTER_KEY, 'images/Grav Inv.png', 'images/Grav Inv.json')
+        this.load.atlas(SPRING_KEY, 'images/Spring.png','images/Spring.png')
+        this.load.atlas(DIRECTIONAL_GATE_KEY, 'images/Dir Gate.png','images/Dir Gate.json')
+        this.load.atlas(PULLEY_KEY, 'images/Lift.png', 'images/Lift.json')
+        this.load.atlas(LIGHT_BALL_TRANSFORMER_KEY, 'images/Light Trans.png','images/Light Trans.json')
+        this.load.atlas(HEAVY_BALL_TRANSFORMER_KEY, 'images/Heavy Trans.png','images/Heavy Trans.json')
     }
 
     create()
