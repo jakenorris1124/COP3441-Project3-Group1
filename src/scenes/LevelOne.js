@@ -70,7 +70,9 @@ export default class LevelOne extends Phaser.Scene
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        this.levelBall = this.balls.createStandardBall(100, 300)
+        this.ballStartX = 100
+        this.ballStartY = 300
+        this.levelBall = this.balls.createStandardBall(this.ballStartX, this.ballStartY)
         this.levelBall.body.enable = false;
 
         this.machines = [this.buttons, this.fans, this.gravityInverters, this.springs, this.pullies, this.lightBridges]; //Placeholder "machine" list for level 1 to test UI functionality
@@ -115,7 +117,7 @@ export default class LevelOne extends Phaser.Scene
 
     reset()
     {
-        this.levelBall.setPosition(500, 350)
+        this.levelBall.setPosition(this.ballStartX, this.ballStartY)
         this.levelBall.body.stop()
         this.levelBall.body.setGravityY(0)
         this.levelBall.body.setMass(50)
