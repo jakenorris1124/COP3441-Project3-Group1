@@ -64,6 +64,7 @@ export default class LevelTwo extends Phaser.Scene
         this.platformGroup.add(this.add.rectangle(200, 640, 400, 50, 0xff0000), true)
         this.platformGroup.add(this.add.rectangle(920, 640, 500, 50, 0xff0000), true)
         this.platformGroup.add(this.add.rectangle(1450, 640, 300, 50, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(730, 75, 50, 150, 0xff0000), true)
 
         this.initializeGroups()
         this.setDefaultCollisions()
@@ -71,15 +72,14 @@ export default class LevelTwo extends Phaser.Scene
         this.gravityInverters.place(1450, 800)
         this.placedMachines = [this.gravityInverters]
 
-        this.ballX = 100
+        this.ballX = 130
         this.ballY = 500
         this.levelBall = this.balls.createStandardBall(this.ballX, this.ballY)
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
-            this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.buttons, this.buttons, this.buttons, this.buttons, this.pullies, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
 
-        this.placedMachines.concat(this.machines)
+        this.placedMachines = this.placedMachines.concat(this.machines)
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
@@ -153,7 +153,8 @@ export default class LevelTwo extends Phaser.Scene
             if (this.placedMachines[i].togglable && !alreadyToggled.has(this.machines[i]))
             {
                 this.placedMachines[i].group.children.iterate((child) => {
-                    this.placedMachines[i].toggle(this.levelBall, child)
+                    if (child.state == ON)
+                        this.placedMachines[i].toggle(this.levelBall, child)
                 })
 
                 alreadyToggled.add(this.placedMachines[i])
