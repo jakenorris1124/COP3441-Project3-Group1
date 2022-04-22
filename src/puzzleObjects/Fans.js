@@ -10,7 +10,7 @@ export default class Fans
      * @param {string} fanKey
      * @param {string} windKey
      */
-    constructor(scene, fanKey = 'fan', windKey = 'wind')
+    constructor(scene, fanKey, windKey = 'wind')
     {
         this.scene = scene
         this.key = fanKey
@@ -22,18 +22,11 @@ export default class Fans
     }
 
 
-
-    create(){
-        this.Sprite = this.scene.add.sprite(-1,-1,this.key)
-        this.createSprite();
-
-    }
-
     createSprite(){
         // Create 'On' animation
         this.scene.anims.create({
-            key: "On",
-            frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 8, zeroPad: 4, prefix: null, suffix: '.png'}),
+            key: 'On',
+            frames: this.scene.anims.generateFrameNames(this.key, {start: 0, end: 7, zeroPad: 4, prefix: "", suffix: ".png"}),
             frameRate: 8,
             repeat: -1              // set to (-1) to repeat forever
         }); // end of create 'On' animation
@@ -41,7 +34,7 @@ export default class Fans
         // Create 'Off' animation
         this.scene.anims.create({
             key: 'Off',
-            frames:this.scene.anims.generateFrameNames(this.key, {start: 8, end: 8, zeroPad: 4, prefix: null, suffix: '.png'}),
+            frames: [{ key: this.key, frame: "0008.png"}],
             frameRate: 2,
             repeat: -1              // set to (-1) to repeat forever
 
@@ -105,21 +98,22 @@ export default class Fans
      */
     place(x = 0, y = 0)
     {
-        let fan = this.scene.add.sprite(x,y,this.key)
-        fan.play('On')
-        this._group.add(fan)
-        const wind = this.windGroup.create(x, y - fan.body.height - 150, this.windKey)
+        this.fan = this.scene.add.sprite(x,y,this.key)
+        this.createSprite();
+        this.fan.play('Off')
+        this._group.add(this.fan)
+        const wind = this.windGroup.create(x, y - this.fan.body.height - 150, this.windKey)
         wind.visible = false
 
-        fan.setName('fan')
+        this.fan.setName('fan')
 
 
-        wind.body.setSize(fan.body.width, 300)
+        wind.body.setSize(this.fan.body.width, 300)
         wind.setState(OFF)
 
-        fan.setData('wind', wind)
+        this.fan.setData('wind', wind)
 
-        return fan
+        return this.fan
     }
 
     // Pushes the ball, assumed only to happen when the ball is in a wind current.
