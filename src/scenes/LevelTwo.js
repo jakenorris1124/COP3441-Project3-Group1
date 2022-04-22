@@ -9,7 +9,6 @@ import DirectionalGates from "../puzzleObjects/DirectionalGates";
 import GravityInverters from "../puzzleObjects/GravityInverters";
 import HeavyBallTransformers from "../puzzleObjects/HeavyBallTransformers";
 import LightBallTransformers from "../puzzleObjects/LightBallTransformers";
-import Prisms from "../puzzleObjects/Prisms";
 import Springs from "../puzzleObjects/Springs";
 import UI from "../UI"
 import Goal from "../puzzleObjects/Goal"
@@ -25,7 +24,6 @@ const ANCHOR_KEY = 'anchor'
 const GRAVITY_INVERTER_KEY = 'gravity inverter'
 const HEAVY_BALL_TRANSFORMER_KEY = 'heavy ball transformer'
 const LIGHT_BALL_TRANSFORMER_KEY = 'light ball transformer'
-const PRISM_KEY = 'prism'
 const SPRING_KEY = 'spring'
 const DIRECTIONAL_GATE_KEY = 'directional gate'
 
@@ -167,7 +165,6 @@ export default class LevelTwo extends Phaser.Scene
         this.heavyBallTransformers = new HeavyBallTransformers(this, HEAVY_BALL_TRANSFORMER_KEY)
         this.lightBallTransformers = new LightBallTransformers(this, LIGHT_BALL_TRANSFORMER_KEY)
         this.lightBridges = new LightBridges(this, LIGHT_BRIDGE_KEY)
-        this.prisms = new Prisms(this, PRISM_KEY)
         this.pullies = new Pullies(this, PULLEY_KEY)
         this.springs = new Springs(this, SPRING_KEY)
 
@@ -181,7 +178,6 @@ export default class LevelTwo extends Phaser.Scene
         this.heavyBallTransformerGroup = this.heavyBallTransformers.group
         this.lightBallTransformerGroup = this.lightBallTransformers.group
         this.lightBridgeGroup = this.lightBridges.group
-        this.prismGroup = this.prisms.group
         this.pulleyGroup = this.pullies.group
         this.sprinGroup = this.springs.group
         this.HBTBoundaryGroup = this.heavyBallTransformers.boundaryGroup
@@ -192,7 +188,7 @@ export default class LevelTwo extends Phaser.Scene
     {
         this.physics.add.collider(
             this.ballGroup,
-            [this.ballGroup, this.lightBridgeGroup, this.prismGroup,
+            [this.ballGroup, this.lightBridgeGroup,
                 this.HBTBoundaryGroup, this.LBTBoundaryGroup, this.pulleyGroup],
             null, null, this
         )
