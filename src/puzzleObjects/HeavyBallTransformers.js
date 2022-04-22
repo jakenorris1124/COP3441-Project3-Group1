@@ -82,6 +82,9 @@ export default class HeavyBallTransformers
      */
     toggle(ball, heavyBallTransformer)
     {
+        if (this.scene.levelBall.lock)
+            return
+
         if (heavyBallTransformer.state == ON)
         {
             HeavyBallTransformers.resetMass(ball.body)

@@ -83,6 +83,9 @@ export default class LightBallTransformers
      */
     toggle(ball, lightBallTransformer)
     {
+        if (this.scene.levelBall.lock)
+            return
+
         if (lightBallTransformer.state == ON)
         {
             LightBallTransformers.resetMass(ball.body)

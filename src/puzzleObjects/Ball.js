@@ -8,6 +8,7 @@ export default class Balls
     {
         this.scene = scene
         this.key = ballKey
+        this.lock = false
 
         this._group = this.scene.physics.add.group()
     }

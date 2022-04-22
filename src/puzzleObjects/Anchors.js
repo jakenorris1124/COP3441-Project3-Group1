@@ -20,11 +20,12 @@ export default class Anchors
      */
     place(x = 0, y = 0)
     {
-        const anchor = this.scene.add.sprite(x, y, this.key)
+        const anchor = this.scene.add.sprite(this.scene.levelBall.x, this.scene.levelBall.y, this.key)
         this._group.add(anchor)
 
-        //We will add colliders to debris if time permits.
-       // this.scene.physics.add.collider(anchor, )
+        anchor.setName('anchor')
+
+        this.scene.levelBall.lock = true
 
         return anchor
     }

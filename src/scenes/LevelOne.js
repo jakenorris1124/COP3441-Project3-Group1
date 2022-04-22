@@ -68,7 +68,7 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.enable = false;
 
         this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
-        this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
@@ -82,6 +82,14 @@ export default class LevelOne extends Phaser.Scene
         this.levelBall.body.setAcceleration(0, 0)
         this.physics.overlap(this.ballGroup, this.windGroup,
             this.fans.pushBall, this.fans.isActive, this)
+
+        if (this.levelBall.lock && this.levelBall.body.enable)
+        {
+            this.anchorGroup.children.iterate((anchor) => {
+                anchor.x = this.levelBall.x
+                anchor.y = this.levelBall.y
+            })
+        }
     }
 
     /**
@@ -111,6 +119,11 @@ export default class LevelOne extends Phaser.Scene
         this.lightBridgeGroup.children.iterate((emitter) => {
             if (emitter.state == ON)
                 this.lightBridges.toggle(this.levelBall, emitter)
+        })
+
+        this.anchorGroup.children.iterate((anchor) => {
+            anchor.x = this.levelBall.x
+            anchor.y = this.levelBall.y
         })
 
         this.pulleyGroup.children.iterate((pulley) => {
