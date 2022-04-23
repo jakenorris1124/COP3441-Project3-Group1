@@ -74,7 +74,7 @@ export default class LevelThree extends Phaser.Scene
         this.levelBall = this.balls.createStandardBall(this.ballX, this.ballY)
         this.levelBall.body.enable = false;
 
-        let springOne = this.springs.place(1010, 1000)
+        let springOne = this.springs.place(1010, 1080)
 
         this.placedMachines = [this.springs]
 
@@ -83,7 +83,7 @@ export default class LevelThree extends Phaser.Scene
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
-        goal = new Goal(this, 1500, 1000, GOAL_KEY, 90)
+        goal = new Goal(this, 1500, 980, GOAL_KEY, )
         this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
     }
 
