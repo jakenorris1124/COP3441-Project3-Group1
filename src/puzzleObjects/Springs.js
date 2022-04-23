@@ -21,6 +21,14 @@ export default class Springs
             frameRate: 70,
             repeat: 0              // set to (-1) to repeat forever
         }); // end of create 'Bounce' animation
+
+        // Create 'Idle' animation
+        this.spring.anims.create({
+            key: 'Idle',
+            frames: [{ key: this.key, frame: '0000.png'}],
+            frameRate: 70,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Idle' animation
     }
 
     /**

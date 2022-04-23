@@ -35,26 +35,54 @@ export default class HeavyBallTransformers
         return this._boundaryGroup
     }
 
+    createSprite(){
+        // Create 'On' animation
+        this.heavyBallTransformer.anims.create({
+            key: 'On',
+            frames: this.heavyBallTransformer.anims.generateFrameNames(this.key, {start: 0, end: 11, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 30,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'On' animation
+
+        // Create 'Off' animation
+        this.heavyBallTransformer.anims.create({
+            key: 'Off',
+            frames: [{ key: this.key, frame: '0000.png'}],
+            frameRate: 30,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Off' animation
+
+        // Create 'Active' animation
+        this.heavyBallTransformer.anims.create({
+            key: 'Active',
+            frames: this.heavyBallTransformer.anims.generateFrameNames(this.key, {start: 12, end: 35, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 30,
+            repeat: -1              // set to (-1) to repeat forever
+        }); // end of create 'Active' animation
+    }
+
     /**
      * @param {number} x
      * @param {number} y
      */
     place(x = 0, y = 0)
     {
-        const heavyBallTransformer = this.scene.add.sprite(x, y, this.key)
-        this._group.add(heavyBallTransformer)
+        this.heavyBallTransformer = this.scene.add.sprite(x, y, this.key)
+        this.createSprite()
+        this.heavyBallTransformer.play('Off')
+        this._group.add(this.heavyBallTransformer)
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 
-        heavyBallTransformer.setData('topCollisionBox', topCollisionBox)
-        heavyBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
-        heavyBallTransformer.setName('heavyBallTransformer')
+        this.heavyBallTransformer.setData('topCollisionBox', topCollisionBox)
+        this.heavyBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
+        this.heavyBallTransformer.setName('heavyBallTransformer')
 
-        let bounds = heavyBallTransformer.getBounds()
+        let bounds = this.heavyBallTransformer.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
-        let width = heavyBallTransformer.body.width
+        let width = this.heavyBallTransformer.body.width
         let height = 20
 
         //Will need to adjust these collision boxes
@@ -68,12 +96,12 @@ export default class HeavyBallTransformers
         bottomCollisionBox.body.width = width
         bottomCollisionBox.body.height = height
 
-        heavyBallTransformer.body.height -= 2 * height
-        heavyBallTransformer.body.y += height
+        this.heavyBallTransformer.body.height -= 2 * height
+        this.heavyBallTransformer.body.y += height
 
-        heavyBallTransformer.setState(OFF)
+        this.heavyBallTransformer.setState(OFF)
 
-        return heavyBallTransformer
+        return this.heavyBallTransformer
     }
 
     /**
@@ -87,11 +115,14 @@ export default class HeavyBallTransformers
 
         if (heavyBallTransformer.state == ON)
         {
+            heavyBallTransformer.playReverse('On')
+            heavyBallTransformer.playAfterDelay('Off',5)
             HeavyBallTransformers.resetMass(ball.body)
             heavyBallTransformer.setState(OFF)
         }
         else
-        {
+        {   heavyBallTransformer.play('On')
+            heavyBallTransformer.playAfterDelay('Active', 5)
             HeavyBallTransformers.increaseMass(ball.body)
             heavyBallTransformer.setState(ON)
         }

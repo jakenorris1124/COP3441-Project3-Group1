@@ -36,26 +36,52 @@ export default class LightBallTransformers
         return this._boundaryGroup
     }
 
+    createSprite(){
+        // Create 'On' animation
+        this.lightBallTransformer.anims.create({
+            key: 'On',
+            frames: this.lightBallTransformer.anims.generateFrameNames(this.key, {start: 0, end: 11, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 30,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'On' animation
+
+        // Create 'Off' animation
+        this.lightBallTransformer.anims.create({
+            key: 'Off',
+            frames: [{ key: this.key, frame: '0000.png'}],
+            frameRate: 30,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Off' animation
+
+        // Create 'Active' animation
+        this.lightBallTransformer.anims.create({
+            key: 'Active',
+            frames: this.lightBallTransformer.anims.generateFrameNames(this.key, {start: 12, end: 35, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 30,
+            repeat: -1              // set to (-1) to repeat forever
+        }); // end of create 'Active' animation
+    }
+
     /**
      * @param {number} x
      * @param {number} y
      */
     place(x = 0, y = 0)
     {
-        const lightBallTransformer = this.scene.add.sprite(x, y, this.key)
+        this.lightBallTransformer = this.scene.add.sprite(x, y, this.key)
         this._group.add(lightBallTransformer)
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
 
-        lightBallTransformer.setData('topCollisionBox', topCollisionBox)
-        lightBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
-        lightBallTransformer.setName('lightBallTransformer')
+        this.lightBallTransformer.setData('topCollisionBox', topCollisionBox)
+        this.lightBallTransformer.setData('bottomCollisionBox', bottomCollisionBox)
+        this.lightBallTransformer.setName('lightBallTransformer')
 
-        let bounds = lightBallTransformer.getBounds()
+        let bounds =  this.lightBallTransformer.getBounds()
         let left = bounds.x
         let top = bounds.y
         let bottom = bounds.bottom
-        let width = lightBallTransformer.body.width
+        let width =  this.lightBallTransformer.body.width
         let height = 20
 
         //Will need to adjust these collision boxes
@@ -69,12 +95,12 @@ export default class LightBallTransformers
         bottomCollisionBox.body.width = width
         bottomCollisionBox.body.height = height
 
-        lightBallTransformer.body.height -= 2 * height
-        lightBallTransformer.body.y += height
+        this.lightBallTransformer.body.height -= 2 * height
+        this.lightBallTransformer.body.y += height
 
-        lightBallTransformer.setState(OFF)
+        this.lightBallTransformer.setState(OFF)
 
-        return lightBallTransformer
+        return  this.lightBallTransformer
     }
 
     /**
@@ -88,11 +114,15 @@ export default class LightBallTransformers
 
         if (lightBallTransformer.state == ON)
         {
+            lightBallTransformer.playReverse('On')
+            lightBallTransformer.playAfterDelay('Off',5)
             LightBallTransformers.resetMass(ball.body)
             lightBallTransformer.setState(OFF)
         }
         else
         {
+            lightBallTransformer.play('On')
+            lightBallTransformer.playAfterDelay('Active', 5)
             LightBallTransformers.decreaseMass(ball.body)
             lightBallTransformer.setState(ON)
         }
