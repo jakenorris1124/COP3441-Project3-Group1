@@ -74,11 +74,11 @@ export default class LevelThree extends Phaser.Scene
         this.levelBall = this.balls.createStandardBall(this.ballX, this.ballY)
         this.levelBall.body.enable = false;
 
-        let springOne = this.springs.place(1010, 1080)
 
         this.placedMachines = [this.springs]
 
-        this.machines = [this.fans, this.fans, this.buttons, this.buttons, this.directionalGates, this.heavyBallTransformers, this.lightBallTransformers]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.machines = [this.fans, this.fans, this.buttons, this.buttons, this.directionalGates, this.heavyBallTransformers, this.lightBallTransformers,
+                            this.springs, this.gravityInverters]; //Placeholder "machine" list for level 1 to test UI functionality
         this.placedMachines = this.placedMachines.concat(this.machines)
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
@@ -160,6 +160,9 @@ export default class LevelThree extends Phaser.Scene
             if (pulley.getData('timeEvent') != undefined)
                 this.time.removeEvent(pulley.getData('timeEvent'))
         })
+
+        this.levelBall.body.setGravityY(0)
+        this.levelBall.body.setMass(0)
     }
 
     winWrapper()
