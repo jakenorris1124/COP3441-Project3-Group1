@@ -139,6 +139,7 @@ export default class LightBridges
         let beam = this.scene.add.rectangle(emitterX, emitterY, beamWidth, beamHeight, 0xff0000)
         this.scene.physics.add.existing(beam)
 
+        this.lightBridge.play('Act')
 
         switch (angle)
         {
@@ -200,7 +201,7 @@ export default class LightBridges
 
         }, null, this)
 
-        this.lightBridge.play('Act')
+
         emitter.setState(ON)
     }
 
