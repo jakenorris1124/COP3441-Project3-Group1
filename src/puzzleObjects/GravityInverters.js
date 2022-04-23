@@ -90,13 +90,13 @@ export default class GravityInverters
 
         if(gravityInverter.state == OFF)
         {
-            this.gravityInverter.play('Act')
+            gravityInverter.play('Act')
             ball.body.setGravityY(-400 - ball.body.gravity.y)
             gravityInverter.setState(ON)
         }
         else
         {
-            this.gravityInverter.play('DeAct')
+            gravityInverter.play('DeAct')
             ball.body.setGravityY(0 - ball.body.gravity.y)
             gravityInverter.setState(OFF)
         }
