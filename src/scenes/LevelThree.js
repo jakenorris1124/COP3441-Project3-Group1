@@ -63,29 +63,27 @@ export default class LevelThree extends Phaser.Scene
         this.add.image(960, 540, LEVEL_KEY);
 
         this.platformGroup = this.physics.add.staticGroup()
-        this.platformGroup.add(this.add.rectangle(350, 800, 700, 50, 0xff0000), true)
-        this.platformGroup.add(this.add.rectangle(1350, 800, 700, 50, 0xff0000), true)
-        this.platformGroup.add(this.add.rectangle(350, 1055, 700, 50, 0xff0000), true)
-        this.platformGroup.add(this.add.rectangle(1300, 1055, 700, 50, 0xff0000), true)
-
-        this.platformGroup.add(this.add.rectangle(850, 100, 300, 50, 0xff0000), true)
-        this.platformGroup.add(this.add.rectangle(675, 450, 50, 750, 0xff0000), true)
-        this.platformGroup.add(this.add.rectangle(975, 450, 50, 750, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(900, 927.5, 50, 305, 0xff0000), true)
+        this.platformGroup.add(this.add.rectangle(1365, 800, 470, 50, 0xff0000), true)
 
         this.initializeGroups()
         this.setDefaultCollisions()
 
-        this.ballX = 500
-        this.ballY = 500
+        this.ballX = 300
+        this.ballY = 800
         this.levelBall = this.balls.createStandardBall(this.ballX, this.ballY)
         this.levelBall.body.enable = false;
 
-        this.machines = [this.fans, this.fans, this.lightBridges, this.buttons, this.pullies, this.gravityInverters, this.springs,
-            this.directionalGates, this.lightBallTransformers, this.heavyBallTransformers, this.anchors]; //Placeholder "machine" list for level 1 to test UI functionality
+        //let springOne = this.springs.place(1010, 1000)
+
+        this.placedMachines = [this.springs]
+
+        this.machines = [this.fans, this.fans, this.buttons, this.buttons, this.directionalGates, this.heavyBallTransformers, this.lightBallTransformers]; //Placeholder "machine" list for level 1 to test UI functionality
+        this.placedMachines = this.placedMachines.concat(this.machines)
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
-        goal = new Goal(this, 825, 175, GOAL_KEY, 90)
+        goal = new Goal(this, 1500, 1000, GOAL_KEY, 90)
         this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
     }
 
@@ -125,8 +123,7 @@ export default class LevelThree extends Phaser.Scene
     {
         this.levelBall.setPosition(this.ballX, this.ballY)
         this.levelBall.body.stop()
-        this.levelBall.body.setGravityY(0)
-        this.levelBall.body.setMass(50)
+        this.levelBall.body.preUpdate(false, 0)
         this.levelBall.body.enable = false
 
         this.lightBridgeGroup.children.iterate((emitter) => {
@@ -140,17 +137,17 @@ export default class LevelThree extends Phaser.Scene
         })
 
         let alreadyToggled = new Set()
-        for (let i in this.machines)
+
+        for (let i in this.placedMachines)
         {
-            if (!this.levelUI.machineStatus[i] && this.machines[i].togglable
-                && !alreadyToggled.has(this.machines[i]))
+            if (this.placedMachines[i].togglable && !alreadyToggled.has(this.machines[i]))
             {
-                this.machines[i].group.children.iterate((child) => {
+                this.placedMachines[i].group.children.iterate((child) => {
                     if (child.state == ON)
-                        this.machines[i].toggle(this.levelBall, child)
+                        this.placedMachines[i].toggle(this.levelBall, child)
                 })
 
-                alreadyToggled.add(this.machines[i])
+                alreadyToggled.add(this.placedMachines[i])
             }
         }
 
@@ -237,16 +234,15 @@ export default class LevelThree extends Phaser.Scene
     activateAllPieces(ball)
     {
         let alreadyToggled = new Set()
-        for (let i in this.machines)
+        for (let i in this.placedMachines)
         {
-            if (!this.levelUI.machineStatus[i] && this.machines[i].togglable
-                && !alreadyToggled.has(this.machines[i]))
+            if (this.placedMachines[i].togglable && !alreadyToggled.has(this.placedMachines[i]))
             {
-                this.machines[i].group.children.iterate((child) => {
-                    this.machines[i].toggle(ball, child)
+                this.placedMachines[i].group.children.iterate((child) => {
+                    this.placedMachines[i].toggle(ball, child)
                 })
 
-                alreadyToggled.add(this.machines[i])
+                alreadyToggled.add(this.placedMachines[i])
             }
         }
     }

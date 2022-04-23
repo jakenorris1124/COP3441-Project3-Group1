@@ -1,47 +1,38 @@
-Adapted from [ourcade/phaser3-parcel-template](https://github.com/ourcade/phaser3-parcel-template)
-## Prerequisites
+## Where to Play
+The game can be accessed here: https://jakenorris1124.github.io/COP3441-Project3-Group1/
+## How to Play
+In this puzzle game, you will place various different objects to guide the ball throughout the level towards the goal. You get more points the less you place down objects.
 
-Download and install ``nvm-setup.zip`` from the releases page from [Node Version Manager for Windows](https://github.com/coreybutler/nvm-windows).
+Once in a level, placing an object is easy. All you have to do is click on the name of the object you want then click in the area you want to place it. After placing, you can drag objects around to move them. Also, right clicking an object will rotate it. To remove an object, simply drag it back towards the sidebar.
 
-Install Node.js and `npm` with `nvm`:
+Once you have placed some objects, you can hit the `Start` button to start the simulation. To stop it, simply hit `Stop`. Stopping the simulation will set objects back to their default state and will place the ball back to the start.
 
-```bash
-nvm install latest
+## Anchor
+The anchor will make it so objects are not affected by changes in gravity.
 
-nvm use latest
-```
+## Button
+The button will toggle EVERY object that can be toggled. It can be pressed by having a ball hit it.
 
+## Directional Gate
+The directional gate will only allow the ball to pass through it in the direction of the arrows. So, when the ball approaches it from arched side, the ball will pass right through. However, when the ball comes from the straight side, it will act as a solid surface.
 
-Then install Parcel:
+## Fan
+The fans will blow the ball in the direction it is facing. To activate the fan, you can either have the ball hit the fan, or the ball press a button.
 
-```bash
-npm install -g parcel-bundler
-```
+## Gravity Inverter
+The gravity inverter will flip the world's gravity upside, causing the ball to go upwards. To activate the gravity inverter, you can either have the ball hit the finverter, or the ball press a button.
 
-You should probably restart your computer now. Fixed some errors for me!
+## Heavy Ball Transformer
+The heavy ball transformer will make the ball weigh more. To activate the transformer, you can either have the ball hit the transformer, or the ball press a button.
 
-## Getting Started
-If you are using WebStorm, you can clone this repo by going to ``File > New > Project from Version Control``
+## Light Ball Transformer
+The light ball transformer will make the ball weigh less. To activate the transformer, you can either have the ball hit the transformer, or the ball press a button.
 
-Once you have cloned the repo, run this command in the terminal of the IDE (or in Powershell as admin in the project directory)
-```bash
-npm install
-```
+## Light Bridges
+The light bridge will shoot out a beam of light that will go out until it hits something. If it doesn't hit anything, the beam will dissappear. The light beam is solid, allowing the ball to roll on it. To activate the light bridge you can have the ball press a button.
 
+## Lift
+The lift will rise vertically when activated. To activate the lift you can have the ball press a button.
 
-Once you have run ``npm install``, you can run the game by typing into the built in terminal
-```bash
-npm run start
-```
-
-## Building the Game for Delpoyment
-We likely don't need to do this until the very end, but if you find yourself in a situation where you want to, run
-```bash
-npm run build
-```
-
-Then, on the github page, switch to the ``gh-pages`` branch and drag and drop every file from the ``/dist`` folder. Then, after following the prompt, the game should be live shortly here: https://jakenorris1124.github.io/COP3441-Project3-Group1/
-
-
-## Committing
-I don't really know how often we should commit and push, but we should probably do it pretty frequently. I recommend trying to duplicate this repo or setting up your own to try to get a feel for how do it.
+## Spring
+The spring will bounce the ball if the ball lands on top of it.
