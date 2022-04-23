@@ -16,6 +16,42 @@ export default class LightBridges
         this._group = this.scene.physics.add.staticGroup()
     }
 
+    createSprite(){
+        // Create 'Off' animation
+        this.lightBridge.anims.create({
+            key: 'Off',
+            frames: [{key: this.key, frame: '0000.png'
+            }],
+            frameRate: 20,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Off' animation
+
+        // Create 'On' animation
+        this.lightBridge.anims.create({
+            key: 'On',
+            frames: [{key: this.key, frame: '0025.png'
+            }],
+            frameRate: 20,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'On' animation
+
+        // Create 'Act' animation
+        this.lightBridge.anims.create({
+            key: 'Act',
+            frames: this.lightBridge.anims.generateFrameNames(this.key, {start: 0, end: 25, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 100,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'Act' animation
+
+        // Create 'DeAct' animation
+        this.lightBridge.anims.create({
+            key: 'DeAct',
+            frames: this.lightBridge.anims.generateFrameNames(this.key, {start: 25, end: 50, zeroPad: 4, prefix: "", suffix: ".png"}),
+            frameRate: 100,
+            repeat: 0              // set to (-1) to repeat forever
+        }); // end of create 'DeAct' animation
+    }
+
     /**
      * The actual bridge part I'm not sure how to implement yet.
      * @param {number} x
@@ -24,14 +60,16 @@ export default class LightBridges
      */
     place(x = 0, y = 0)
     {
-        const lightBridge = this.scene.add.sprite(x, y, this.key)
-        this._group.add(lightBridge )
+        this.lightBridge = this.scene.add.sprite(x, y, this.key)
+        this.createSprite()
+        this.lightBridge.play('Off')
+        this._group.add(this.lightBridge )
 
-        lightBridge.setState(OFF)
-        lightBridge.setData('bridge', null)
-        lightBridge.setData('beam', null)
+        this.lightBridge.setState(OFF)
+        this.lightBridge.setData('bridge', null)
+        this.lightBridge.setData('beam', null)
 
-        return lightBridge
+        return this.lightBridge
     }
 
     toggle(ball, emitter)
@@ -39,6 +77,7 @@ export default class LightBridges
         //If the bridge is already active, destroy the bridge part of it
         if (emitter.state == ON)
         {
+            this.lightBridge.play('DeAct')
             if (emitter.getData('bridge') != null)
             {
                 emitter.getData('bridge').destroy()
@@ -54,6 +93,7 @@ export default class LightBridges
             emitter.setState(OFF)
             return;
         }
+
 
         var angle = emitter.angle
         let emitterX;
@@ -160,6 +200,7 @@ export default class LightBridges
 
         }, null, this)
 
+        this.lightBridge.play('Act')
         emitter.setState(ON)
     }
 
