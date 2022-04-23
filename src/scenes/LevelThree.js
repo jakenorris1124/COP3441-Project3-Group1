@@ -101,6 +101,14 @@ export default class LevelThree extends Phaser.Scene
                 anchor.y = this.levelBall.y
             })
         }
+
+        // Ball face direction
+        if(this.levelBall.body.velocity.x > 0) {
+            this.levelBall.setFlipX(true)
+        }
+        else if (this.levelBall.body.velocity.x < 0){
+            this.levelBall.resetFlip()
+        }
     }
 
     /**
