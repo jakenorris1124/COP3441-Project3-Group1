@@ -109,19 +109,6 @@ export default class LevelOne extends Phaser.Scene
             this.levelBall.resetFlip()
         }
 
-        // Ball Heavy, Reg, Light
-        if(this.levelBall.body.mass >= 100){
-            this.levelBall.play('Heavy')
-        }
-
-        else if(25 < this.levelBall.body.mass && this.levelBall.body.mass < 100){
-            this.levelBall.play('Reg')
-        }
-
-        else{
-            this.levelBall.play('Light')
-        }
-
 
     }
 

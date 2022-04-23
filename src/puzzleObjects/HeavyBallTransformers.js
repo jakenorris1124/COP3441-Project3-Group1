@@ -9,7 +9,7 @@ export default class HeavyBallTransformers
      * @param {Phaser.Scene} scene the scene that is creating "HeavyBallTransformers"
      * @param {string} heavyBallTransformerKey
      */
-    constructor(scene, heavyBallTransformerKey = 'heavy ball transformer')
+    constructor(scene, heavyBallTransformerKey )
     {
         this.scene = scene
         this.key = heavyBallTransformerKey
@@ -40,7 +40,7 @@ export default class HeavyBallTransformers
         this.heavyBallTransformer.anims.create({
             key: 'On',
             frames: this.heavyBallTransformer.anims.generateFrameNames(this.key, {start: 0, end: 11, zeroPad: 4, prefix: "", suffix: ".png"}),
-            frameRate: 30,
+            frameRate: 20,
             repeat: 0              // set to (-1) to repeat forever
         }); // end of create 'On' animation
 
@@ -115,14 +115,12 @@ export default class HeavyBallTransformers
 
         if (heavyBallTransformer.state == ON)
         {
-            heavyBallTransformer.playReverse('On')
-            heavyBallTransformer.playAfterDelay('Off',5)
+            heavyBallTransformer.playReverse('On').playAfterDelay('Off',1000)
             HeavyBallTransformers.resetMass(ball.body)
             heavyBallTransformer.setState(OFF)
         }
         else
-        {   heavyBallTransformer.play('On')
-            heavyBallTransformer.playAfterDelay('Active', 5)
+        {   heavyBallTransformer.play('On').playAfterDelay('Active', 1000)
             HeavyBallTransformers.increaseMass(ball.body)
             heavyBallTransformer.setState(ON)
         }
