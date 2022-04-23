@@ -85,7 +85,7 @@ export default class LevelTwo extends Phaser.Scene
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
-        goal = new Goal(this, 500, 800, GOAL_KEY, 90)
+        goal = new Goal(this, 1410, 530, GOAL_KEY, 90)
         this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
     }
 
