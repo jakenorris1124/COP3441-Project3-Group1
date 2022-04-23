@@ -26,6 +26,7 @@ const HEAVY_BALL_TRANSFORMER_KEY = 'heavy ball transformer'
 const LIGHT_BALL_TRANSFORMER_KEY = 'light ball transformer'
 const SPRING_KEY = 'spring'
 const DIRECTIONAL_GATE_KEY = 'directional gate'
+const GOAL_KEY = 'goal'
 
 const ON = 1
 const OFF = 0
@@ -44,6 +45,7 @@ export default class LevelTwo extends Phaser.Scene
     {
         this.load.atlas(ANCHOR_KEY,"images/Anchor.png","images/Anchor.json");
         this.load.atlas(FAN_KEY,"images/Fan.png","images/Fan.json");
+        this.load.atlas(GOAL_KEY,"images/Goal.png","images/Goal.json");
         this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
         this.load.atlas(BALL_KEY,"images/Ball.png","images/Ball.json");
         this.load.atlas(BUTTON_KEY, "images/Button.png","images/Button.json")
@@ -83,7 +85,7 @@ export default class LevelTwo extends Phaser.Scene
 
         this.levelUI = new UI(this, LEVEL_KEY, this.machines, this.levelBall);
 
-        goal = new Goal(this, 500, 800)
+        goal = new Goal(this, 500, 800, GOAL_KEY, 90)
         this.physics.add.collider(this.levelBall, goal.goal, this.winWrapper, null, this)
     }
 

@@ -47,6 +47,7 @@ export default class LevelThree extends Phaser.Scene
         this.load.atlas(FAN_KEY,"images/Fan.png","images/Fan.json");
         this.load.image(LEVEL_KEY, 'images/leveloneplaceholder.png');
         this.load.atlas(BALL_KEY,"images/Ball.png","images/Ball.json");
+        this.load.atlas(GOAL_KEY,"images/Goal.png","images/Goal.json");
         this.load.atlas(BUTTON_KEY, "images/Button.png","images/Button.json")
         this.load.atlas(LIGHT_BRIDGE_KEY, 'images/Light Bridge.png', 'images/Light Bridge.json')
         this.load.atlas(GRAVITY_INVERTER_KEY, 'images/Grav Inv.png', 'images/Grav Inv.json')
