@@ -18,7 +18,7 @@ export default class Springs
         this.spring.anims.create({
             key: 'Bounce',
             frames: this.spring.anims.generateFrameNames(this.key, {start: 0, end: 13, zeroPad: 4, prefix: "", suffix: ".png"}),
-            frameRate: 15,
+            frameRate: 70,
             repeat: 0              // set to (-1) to repeat forever
         }); // end of create 'Bounce' animation
     }
