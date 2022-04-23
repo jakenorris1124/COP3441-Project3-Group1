@@ -10,7 +10,7 @@ export default class LightBallTransformers
      * @param {Phaser.Scene} scene the scene that is creating "LightBallTransformers"
      * @param {string} lightBallTransformerKey
      */
-    constructor(scene, lightBallTransformerKey = 'light ball transformer')
+    constructor(scene, lightBallTransformerKey)
     {
         this.scene = scene
         this.key = lightBallTransformerKey
@@ -69,6 +69,8 @@ export default class LightBallTransformers
     place(x = 0, y = 0)
     {
         this.lightBallTransformer = this.scene.add.sprite(x, y, this.key)
+        this.createSprite()
+        this.lightBallTransformer.play('Off')
         this._group.add(this.lightBallTransformer)
         const topCollisionBox = this._boundaryGroup.create()
         const bottomCollisionBox = this._boundaryGroup.create()
@@ -114,15 +116,13 @@ export default class LightBallTransformers
 
         if (lightBallTransformer.state == ON)
         {
-            lightBallTransformer.playReverse('On')
-            lightBallTransformer.playAfterDelay('Off',5)
+            lightBallTransformer.playReverse('On').playAfterDelay('Off',1000)
             LightBallTransformers.resetMass(ball.body)
             lightBallTransformer.setState(OFF)
         }
         else
         {
-            lightBallTransformer.play('On')
-            lightBallTransformer.playAfterDelay('Active', 5)
+            lightBallTransformer.play('On').playAfterDelay('Active', 1000)
             LightBallTransformers.decreaseMass(ball.body)
             lightBallTransformer.setState(ON)
         }
